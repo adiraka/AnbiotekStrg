@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Anbiotek\Http\Controllers\Auth;
 
-use App\User;
+use Anbiotek\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use Anbiotek\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller

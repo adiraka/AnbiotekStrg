@@ -6,7 +6,10 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
-        "laravel/framework": "5.3.*"
+        "laravel/framework": "5.3.*",
+        "cartalyst/sentinel": "2.0.*",
+        "yajra/laravel-datatables-oracle": "^6.18",
+        "maatwebsite/excel": "2.1.x-dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -20,7 +23,7 @@
             "database"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "Anbiotek\\": "app/"
         }
     },
     "autoload-dev": {
