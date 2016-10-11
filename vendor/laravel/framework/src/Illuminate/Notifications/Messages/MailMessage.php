@@ -9,7 +9,10 @@ class MailMessage extends SimpleMessage
      *
      * @var string
      */
-    public $view = 'notifications::email';
+    public $view = [
+        'notifications::email',
+        'notifications::email-plain',
+    ];
 
     /**
      * The view data for the message.
@@ -26,6 +29,13 @@ class MailMessage extends SimpleMessage
     public $from = [];
 
     /**
+     * The recipient information for the message.
+     *
+     * @var array
+     */
+    public $to = [];
+
+    /**
      * The attachments for the message.
      *
      * @var array
@@ -38,6 +48,13 @@ class MailMessage extends SimpleMessage
      * @var array
      */
     public $rawAttachments = [];
+
+    /**
+     * Priority level of the message.
+     *
+     * @var int
+     */
+    public $priority = null;
 
     /**
      * Set the view for the mail message.
@@ -69,6 +86,19 @@ class MailMessage extends SimpleMessage
     }
 
     /**
+     * Set the recipient address for the mail message.
+     *
+     * @param  string|array  $address
+     * @return $this
+     */
+    public function to($address)
+    {
+        $this->to = $address;
+
+        return $this;
+    }
+
+    /**
      * Attach a file to the message.
      *
      * @param  string  $file
@@ -93,6 +123,21 @@ class MailMessage extends SimpleMessage
     public function attachData($data, $name, array $options = [])
     {
         $this->rawAttachments[] = compact('data', 'name', 'options');
+
+        return $this;
+    }
+
+    /**
+     * Set the priority of this message.
+     *
+     * The value is an integer where 1 is the highest priority and 5 is the lowest.
+     *
+     * @param  int  $level
+     * @return $this
+     */
+    public function priority($level)
+    {
+        $this->priority = $level;
 
         return $this;
     }

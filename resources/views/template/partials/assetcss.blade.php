@@ -6,4 +6,4 @@
 <link href="{{asset('css/animate.css')}}" rel="stylesheet" />
 <link href="{{asset('css/md-preloader.css')}}" rel="stylesheet" />
 <link href="{{asset('css/style.css')}}" rel="stylesheet">
-<link href="{{asset('css/theme-blue.css')}}" rel="stylesheet" />
+<link href="{{asset('css/theme-indigo.css')}}" rel="stylesheet" />

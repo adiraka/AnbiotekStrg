@@ -3,6 +3,7 @@
 namespace Anbiotek\Http\Middleware;
 
 use Closure;
+use Sentinel;
 
 class SentinelAdminUser
 {

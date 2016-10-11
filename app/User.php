@@ -3,19 +3,23 @@
 namespace Anbiotek;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+// use Illuminate\Foundation\Auth\User as Authenticatable;
+use Cartalyst\Sentinel\Users\EloquentUser as Authenticate;
 
-class User extends Authenticatable
+class User extends Authenticate
 {
-    use Notifiable;
+    // use Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+
+     protected $table = 'users';
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password', 'first_name', 'last_name', 'last_login'
     ];
 
     /**

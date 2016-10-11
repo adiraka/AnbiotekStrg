@@ -3,6 +3,7 @@
 namespace Anbiotek\Http\Middleware;
 
 use Closure;
+use Sentinel;
 
 class SentinelAdminRedir
 {
@@ -15,6 +16,13 @@ class SentinelAdminRedir
      */
     public function handle($request, Closure $next)
     {
+        if (Sentinel::check()) {
+            $user = Sentinel::getUser();
+            $role = Sentinel::findRoleBySlug('admin');
+            if ($user->inRole($role)) {
+                return redirect()->intended('admin');
+            }
+        }
         return $next($request);
     }
 }

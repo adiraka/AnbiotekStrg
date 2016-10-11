@@ -10,11 +10,23 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 
-Route::get('/', function () {
-    return view('home.index');
+Route::group(['middleware' => ['redirAdmin']], function(){
+    // Root Redirect
+    Route::get('/', function(){
+        return redirect()->route('login');
+    });
+    // Login
+    Route::get('/login', ['as' => 'login', 'uses' => 'LoginController@getLogin']);
+    Route::post('/login', ['as' => 'login', 'uses' => 'LoginController@postLogin']);
 });
 
-Route::get('/login', function () {
-    return view('login.index');
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(){
+    // Root Redirect
+    Route::get('/', function(){
+        return redirect()->route('admin');
+    });
+    // Admin Home
+    Route::get('/home', ['as' => 'admin', 'uses' => 'AdminController@getHome']);
 });

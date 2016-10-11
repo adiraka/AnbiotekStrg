@@ -3,6 +3,7 @@
 namespace Anbiotek\Http\Middleware;
 
 use Closure;
+use Sentinel;
 
 class SentinelRedirIfAuth
 {
@@ -12,6 +13,7 @@ class SentinelRedirIfAuth
     {
         $this->auth = $auth;
     }
+
     public function handle($request, Closure $next)
     {
         if (Sentinel::check()) {

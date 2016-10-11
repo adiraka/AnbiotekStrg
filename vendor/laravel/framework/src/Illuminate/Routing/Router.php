@@ -690,7 +690,7 @@ class Router implements RegistrarContract
             list($name, $parameters) = array_pad(explode(':', $name, 2), 2, null);
 
             return (isset($map[$name]) ? $map[$name] : $name).
-                   ($parameters !== null ? ':'.$parameters : '');
+                   (! is_null($parameters) ? ':'.$parameters : '');
         }
     }
 
@@ -1119,9 +1119,8 @@ class Router implements RegistrarContract
     }
 
     /**
-     * Alias for the "currentRouteName" method.
+     * Alias for the "currentRouteNamed" method.
      *
-     * @param  mixed  string
      * @return bool
      */
     public function is()
@@ -1165,7 +1164,6 @@ class Router implements RegistrarContract
     /**
      * Alias for the "currentRouteUses" method.
      *
-     * @param  mixed  string
      * @return bool
      */
     public function uses()

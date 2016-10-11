@@ -13,7 +13,7 @@
 
 </head>
 
-<body class="theme-blue">
+<body class="theme-indigo">
 
     @include('template.partials.pageloader')
 
