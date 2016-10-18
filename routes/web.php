@@ -29,4 +29,5 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     });
     // Admin Home
     Route::get('/home', ['as' => 'admin', 'uses' => 'AdminController@getHome']);
+
 });

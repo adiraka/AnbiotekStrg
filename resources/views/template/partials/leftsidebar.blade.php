@@ -11,6 +11,45 @@
                 </li>
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">label</i>
+                        <span>Kategori</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{url('/')}}">
+                                <span>Tambah Baru</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">label_outline</i>
+                        <span>Satuan</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{url('/')}}">
+                                <span>Tambah Baru</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">assignment</i>
+                        <span>Data Barang</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{url('/')}}">
+                                <span>Tambah Baru</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">assignment</i>
                         <span>Stock</span>
                     </a>
@@ -43,7 +82,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
             </ul>
         </div>
         <div class="legal">

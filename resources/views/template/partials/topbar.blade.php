@@ -14,7 +14,7 @@
                         <i class="material-icons">settings</i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">User Menu</li>
+                        <li class="header">{{Sentinel::getUser()->email}}</li>
                         {{-- <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
                         <li><a href="javascript:void(0);"><i class="material-icons">lock</i>Change Password</a></li>
                         <li role="seperator" class="divider"></li> --}}
