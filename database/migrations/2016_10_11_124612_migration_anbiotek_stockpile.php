@@ -30,6 +30,7 @@ class MigrationAnbiotekStockpile extends Migration
         Schema::create('kategori', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nmkategori');
+            $table->timestamps();
 
             $table->engine = 'InnoDB';
         });
@@ -37,6 +38,7 @@ class MigrationAnbiotekStockpile extends Migration
         Schema::create('satuan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nmsatuan');
+            $table->timestamps();
 
             $table->engine = 'InnoDB';
         });
@@ -51,6 +53,7 @@ class MigrationAnbiotekStockpile extends Migration
             $table->float('1disc', 8, 1);
             $table->integer('hrgjual2');
             $table->integer('hrg102');
+            $table->timestamps();
 
             $table->engine = 'InnoDB';
             $table->primary('barang_kode');
@@ -63,6 +66,7 @@ class MigrationAnbiotekStockpile extends Migration
             $table->date('tglmasuk');
             $table->integer('totbay');
             $table->string('ket')->nullable();
+            $table->timestamps();
 
             $table->engine = 'InnoDB';
             $table->unique('nobon');
@@ -77,6 +81,7 @@ class MigrationAnbiotekStockpile extends Migration
             $table->integer('stokakhir');
             $table->integer('harga');
             $table->integer('subtot');
+            $table->timestamps();
 
             $table->engine = 'InnoDB';
         });
@@ -88,6 +93,7 @@ class MigrationAnbiotekStockpile extends Migration
             $table->date('tglkeluar');
             $table->integer('totbay');
             $table->string('ket')->nullable();
+            $table->timestamps();
 
             $table->engine = 'InnoDB';
             $table->unique('nobon');
@@ -102,6 +108,7 @@ class MigrationAnbiotekStockpile extends Migration
             $table->integer('stokakhir');
             $table->integer('harga');
             $table->integer('subtot');
+            $table->timestamps();
 
             $table->engine = 'InnoDB';
         });

@@ -16,8 +16,13 @@
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href="{{url('/')}}">
-                                <span>Tambah Baru</span>
+                            <a href="{{route('tambahKategori')}}">
+                                <span>Tambah Kategori</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('lihatKategori')}}">
+                                <span>Lihat Kategori</span>
                             </a>
                         </li>
                     </ul>

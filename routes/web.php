@@ -30,4 +30,8 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     // Admin Home
     Route::get('/home', ['as' => 'admin', 'uses' => 'AdminController@getHome']);
 
+    // Admin Kategori
+    Route::get('/kategori', ['as' => 'tambahKategori', 'uses' => 'KategoriController@getKategori']);
+    Route::post('/kategori', ['as' => 'tambahKategori', 'uses' => 'KategoriController@addKategori']);
+    Route::get('/kategori/lihat', ['as' => 'lihatKategori', 'uses' => 'KategoriController@viewKategori']);
 });

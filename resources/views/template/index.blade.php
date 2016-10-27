@@ -11,6 +11,8 @@
 
     @include('template.partials.assetcss')
 
+    @stack('styles')
+
 </head>
 
 <body class="theme-indigo">
