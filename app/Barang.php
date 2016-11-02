@@ -11,4 +11,14 @@ class Barang extends Model
     protected $fillable = [
         'kode', 'nmbarang', 'kategori_id', 'merk', 'satuan_id', 'stock', 'ket'
     ];
+
+    public function kategori()
+    {
+        return $this->belongsTo('Anbiotek\Kategori', 'kategori_id', 'id');
+    }
+
+    public function satuan()
+    {
+        return $this->belongsTo('Anbiotek\Satuan', 'satuan_id', 'id');
+    }
 }

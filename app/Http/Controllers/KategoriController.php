@@ -36,12 +36,52 @@ class KategoriController extends Controller
             return Datatables::of(Kategori::query())
                 ->addColumn('action', function($kategori){
                     return '
-                        <a href="'.route('lihatKategori').'" class="btn btn-success btn-xs"><i class="material-icons">mode_edit</i></a>&nbsp;
-                        <a href="'.route('lihatKategori').'" class="btn btn-danger btn-xs"><i class="material-icons">delete</i></a>
+                        <a href="'.route('ubahKategori', ['id' => $kategori->id]).'" class="btn btn-success btn-xs"><i class="material-icons">mode_edit</i></a>&nbsp;
+                        <a href="'.route('hapusKategori', ['id' => $kategori->id]).'" class="btn btn-danger btn-xs"><i class="material-icons">delete</i></a>
                     ';
                 })
                 ->make(true);
         }
         return view('kategori.view');
+    }
+
+    public function detailKategori($id)
+    {
+        $kategori = Kategori::find($id);
+        return view('kategori.get')->with('kategori', $kategori);
+    }
+
+    public function editKategori(Request $request)
+    {
+        $this->validate($request, [
+            'idkategori' => 'required',
+            'nmkategori' => 'required|unique:kategori',
+        ]);
+
+        $kategori = Kategori::find($request->idkategori);
+        $kategori->nmkategori = $request->nmkategori;
+        $kategori->save();
+
+        Session::flash('success','Kategori berhasil dirubah.');
+        return redirect()->route('lihatKategori');
+    }
+
+    public function reportKategori($id)
+    {
+        $kategori = Kategori::find($id);
+        return view('kategori.del')->with('kategori', $kategori);
+    }
+
+    public function deleteKategori(Request $request)
+    {
+        $this->validate($request, [
+            'idkategori' => 'required',
+        ]);
+
+        $kategori = Kategori::find($request->idkategori);
+        $kategori->delete();
+
+        Session::flash('success', 'Kategori berhasil dihapus.');
+        return redirect()->route('lihatKategori');
     }
 }

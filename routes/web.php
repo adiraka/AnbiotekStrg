@@ -34,4 +34,26 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     Route::get('/kategori', ['as' => 'tambahKategori', 'uses' => 'KategoriController@getKategori']);
     Route::post('/kategori', ['as' => 'tambahKategori', 'uses' => 'KategoriController@addKategori']);
     Route::get('/kategori/lihat', ['as' => 'lihatKategori', 'uses' => 'KategoriController@viewKategori']);
+    Route::get('/kategori/ubah/{id}', ['as' => 'ubahKategori', 'uses' => 'KategoriController@detailKategori']);
+    Route::put('/kategori/ubah/{id}', ['as' => 'ubahKategori', 'uses' => 'KategoriController@editKategori']);
+    Route::get('/kategori/hapus/{id}', ['as' => 'hapusKategori', 'uses' => 'KategoriController@reportKategori']);
+    Route::delete('/kategori/hapus/{id}', ['as' => 'hapusKategori', 'uses' => 'KategoriController@deleteKategori']);
+
+    // Admin Satuan
+    Route::get('/satuan', ['as' => 'tambahSatuan', 'uses' => 'SatuanController@getSatuan']);
+    Route::post('/satuan', ['as' => 'tambahSatuan', 'uses' => 'SatuanController@addSatuan']);
+    Route::get('/satuan/lihat', ['as' => 'lihatSatuan', 'uses' => 'SatuanController@viewSatuan']);
+    Route::get('/satuan/ubah/{id}', ['as' => 'ubahSatuan', 'uses' => 'SatuanController@detailSatuan']);
+    Route::put('/satuan/ubah/{id}', ['as' => 'ubahSatuan', 'uses' => 'SatuanController@editSatuan']);
+    Route::get('/satuan/hapus/{id}', ['as' => 'hapusSatuan', 'uses' => 'SatuanController@reportSatuan']);
+    Route::delete('/satuan/hapus/{id}', ['as' => 'hapusSatuan', 'uses' => 'SatuanController@deleteSatuan']);
+
+    // Admin Barang
+    Route::get('/barang', ['as' => 'tambahBarang', 'uses' => 'BarangController@getBarang']);
+    Route::post('/barang', ['as' => 'tambahBarang', 'uses' => 'BarangController@addBarang']);
+    Route::get('/barang/lihat', ['as' => 'lihatBarang', 'uses' => 'BarangController@viewBarang']);
+    Route::get('/barang/ubah/{id}', ['as' => 'ubahBarang', 'uses' => 'BarangController@detailBarang']);
+    Route::put('/barang/ubah/{id}', ['as' => 'ubahBarang', 'uses' => 'BarangController@editBarang']);
+    Route::get('/barang/hapus/{id}', ['as' => 'hapusBarang', 'uses' => 'BarangController@reportSatuan']);
+    Route::delete('/barang/hapus/{id}', ['as' => 'hapusBarang', 'uses' => 'BarangController@deleteBarang']);
 });

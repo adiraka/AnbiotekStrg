@@ -34,8 +34,13 @@
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href="{{url('/')}}">
-                                <span>Tambah Baru</span>
+                            <a href="{{route('tambahSatuan')}}">
+                                <span>Tambah Satuan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('lihatSatuan') }}">
+                                <span>Lihat Satuan</span>
                             </a>
                         </li>
                     </ul>
@@ -43,12 +48,17 @@
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">assignment</i>
-                        <span>Data Barang</span>
+                        <span>Data Stock Barang</span>
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href="{{url('/')}}">
+                            <a href="{{ route('tambahBarang') }}">
                                 <span>Tambah Baru</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('lihatBarang') }}">
+                                <span>Lihat Data Stock Barang</span>
                             </a>
                         </li>
                     </ul>
