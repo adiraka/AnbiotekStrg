@@ -63,6 +63,24 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">assignment</i>
+                        <span>Data Barang Masuk</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{ route('tambahMasuk') }}">
+                                <span>Tambah Baru</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('lihatBarang') }}">
+                                <span>Lihat Data Barang Masuk</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 {{-- <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">assignment</i>

@@ -63,6 +63,7 @@ class MigrationAnbiotekStockpile extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('nobon');
+            $table->string('supplier');
             $table->date('tglmasuk');
             $table->integer('totbay');
             $table->string('ket')->nullable();
@@ -90,6 +91,7 @@ class MigrationAnbiotekStockpile extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('nobon');
+            $table->string('pemesan');
             $table->date('tglkeluar');
             $table->integer('totbay');
             $table->string('ket')->nullable();

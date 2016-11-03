@@ -5,6 +5,7 @@ namespace Anbiotek\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Datatables;
+use DB;
 use Session;
 use Anbiotek\Barang;
 use Anbiotek\Satuan;
@@ -53,19 +54,19 @@ class BarangController extends Controller
     {
         if ($request->ajax()) {
             return Datatables::of(Barang::query())
-                ->addColumn('action', function($barang){
-                    return '
-                        <a href="'.route('ubahBarang', ['id' => $barang->kode]).'" class="btn btn-success btn-xs"><i class="material-icons">mode_edit</i></a>&nbsp;
-                        <a href="'.route('hapusBarang', ['id' => $barang->kode]).'" class="btn btn-danger btn-xs"><i class="material-icons">delete</i></a>
-                    ';
-                })
-                ->editColumn('kategori_id', function($barang){
-                    return $barang->kategori->nmkategori;
-                })
-                ->editColumn('satuan_id', function($barang){
-                    return $barang->satuan->nmsatuan;
-                })
-                ->make(true);
+            ->addColumn('action', function($barang){
+                return '
+                <a href="'.route('ubahBarang', ['id' => $barang->kode]).'" class="btn btn-success btn-xs"><i class="material-icons">mode_edit</i></a>&nbsp;
+                <a href="'.route('hapusBarang', ['id' => $barang->kode]).'" class="btn btn-danger btn-xs"><i class="material-icons">delete</i></a>
+                ';
+            })
+            ->editColumn('kategori_id', function($barang){
+                return $barang->kategori->nmkategori;
+            })
+            ->editColumn('satuan_id', function($barang){
+                return $barang->satuan->nmsatuan;
+            })
+            ->make(true);
         }
         return view('barang.view');
     }
@@ -92,6 +93,69 @@ class BarangController extends Controller
             'stock' =>'required|integer',
             'satuan_id' => 'required',
         ]);
-        dd('masuk');
+
+        Barang::where('kode', $request->kode)
+        ->update([
+            'nmbarang' => $request->nmbarang,
+            'kategori_id' => $request->kategori_id,
+            'merk' => $request->merk,
+            'stock' => $request->stock,
+            'satuan_id' => $request->satuan_id,
+            'ket' => $request->ket,
+        ]);
+
+        Session::flash('success','Barang berhasil dirubah.');
+        return redirect()->route('lihatBarang');
+    }
+
+    public function reportBarang($id)
+    {
+        $barang = Barang::where('kode', '=', $id)->get()->first();
+        return view('barang.del')->with('barang', $barang);
+    }
+
+    public function deleteBarang(Request $request)
+    {
+        $this->validate($request, [
+            'kode' => 'required',
+        ]);
+
+        Barang::where('kode', $request->kode)->delete();
+
+        Session::flash('success', 'Barang berhasil dihapus.');
+        return redirect()->route('lihatBarang');
+    }
+
+    public function searchBarang(Request $request)
+    {
+        if ($request->ajax()) {
+            $barangs = Barang::where('kode', 'LIKE', '%'.$request->term.'%')
+                                ->orwhere('nmbarang', 'LIKE', '%'.$request->term.'%')
+                                ->get();
+            $count = $barangs->count();
+            $barang[] = array(
+                'id' => '0',
+                'text' => 'Barang tidak ditemukan',
+            );
+            if ($count > 0) {
+                foreach ($barangs as $key => $value) {
+                    $barang[$key]['id'] = $value->kode;
+                    $barang[$key]['text'] = $value->kode.' - '.$value->nmbarang;
+                }
+            }
+            return response()->json($barang);
+        }
+        return redirect()->route('login');
+    }
+
+    public function getStokBarang(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $stok = DB::table('barang')->select('stock')
+                        ->where('kode', '=', $id)
+                        ->get()->first();
+            return response()->json($stok);
+        }
+        return redirect()->route('login');
     }
 }

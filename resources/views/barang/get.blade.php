@@ -11,7 +11,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <h2>Tambah Barang</h2>
+                            <h2>Ubah Barang</h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -60,7 +60,7 @@
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <select class="form-control show-tick" name="kategori_id" required>
+                                                <select class="form-control show-tick" data-live-search="true" name="kategori_id" required>
                                                     <option value="{{ $barang->kategori->id }}" selected>{{ $barang->kategori->nmkategori }}</option>
                                                     @foreach ($kategori as $item)
                                                         <option value="{{ $item->id }}">{{ $item->nmkategori }}</option>
@@ -101,7 +101,7 @@
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <select class="form-control show-tick" name="satuan_id" required>
+                                                <select class="form-control show-tick" data-live-search="true" name="satuan_id" required>
                                                     <option value="{{ $barang->satuan->id }}">{{ $barang->satuan->nmsatuan }}</option>
                                                     @foreach ($satuan as $item)
                                                         <option value="{{ $item->id }}">{{ $item->nmsatuan }}</option>

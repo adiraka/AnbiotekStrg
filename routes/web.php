@@ -54,6 +54,12 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     Route::get('/barang/lihat', ['as' => 'lihatBarang', 'uses' => 'BarangController@viewBarang']);
     Route::get('/barang/ubah/{id}', ['as' => 'ubahBarang', 'uses' => 'BarangController@detailBarang']);
     Route::put('/barang/ubah/{id}', ['as' => 'ubahBarang', 'uses' => 'BarangController@editBarang']);
-    Route::get('/barang/hapus/{id}', ['as' => 'hapusBarang', 'uses' => 'BarangController@reportSatuan']);
+    Route::get('/barang/hapus/{id}', ['as' => 'hapusBarang', 'uses' => 'BarangController@reportBarang']);
     Route::delete('/barang/hapus/{id}', ['as' => 'hapusBarang', 'uses' => 'BarangController@deleteBarang']);
+    Route::post('/barang/cari', ['as' => 'cariBarang', 'uses' => 'BarangController@searchBarang']);
+    Route::get('/barang/stok/{id}', ['as' => 'stokBarang', 'uses' => 'BarangController@getStokBarang']);
+
+    // Admin Barang Masuk
+    Route::get('/masuk', ['as' => 'tambahMasuk', 'uses' => 'MasukController@getMasuk']);
+    Route::post('/masuk', ['as' => 'tambahMasuk', 'uses' => 'MasukController@addMasuk']);
 });
