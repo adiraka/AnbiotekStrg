@@ -68,4 +68,18 @@ $(function () {
             { data: 'action', name: 'action', searchable: false },
         ]
     });
+    $('.table-masuk').dataTable({
+        procesing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: '/admin/masuk/lihat',
+        columns: [
+            { data: 'nobon', name: 'nobon' },
+            { data: 'supplier', name: 'supplier' },
+            { data: 'tglmasuk', name: 'tglmasuk' },
+            { data: 'totbay', name: 'totbay' },
+            { data: 'ket', name: 'ket' },
+            { data: 'action', name: 'action', searchable: false },
+        ]
+    });
 });

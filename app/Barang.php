@@ -21,4 +21,9 @@ class Barang extends Model
     {
         return $this->belongsTo('Anbiotek\Satuan', 'satuan_id', 'id');
     }
+
+    public function detailMasuk()
+    {
+        return $this->hasMany('Anbiotek\DetMasuk', 'barang_kode', 'kode');
+    }
 }

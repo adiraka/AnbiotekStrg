@@ -83,22 +83,49 @@
                                     </div>
                                 </div>
                                 <div class="row clearfix">
-                                    <div class="col-lg-10 col-lg-offset-1">
-                                        <table class="table table-bordered table-detail-barang" width="100%">
-                                            <thead>
-                                                <th>#</th>
-                                                <th>Kode</th>
-                                                <th>Nama</th>
-                                                <th>Harga</th>
-                                                <th>Qty Awal</th>
-                                                <th>Qty Masuk</th>
-                                                <th>Qty Akhir</th>
-                                                <th>Subtotal</th>
-                                            </thead>
-                                            <tbody>
+                                    <div class="col-lg-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-detail-barang" width="100%">
+                                                <thead>
+                                                    <th>Kode</th>
+                                                    <th>Nama</th>
+                                                    <th>Merk</th>
+                                                    <th>Qty Awal</th>
+                                                    <th>Qty Masuk</th>
+                                                    <th>Qty Akhir</th>
+                                                    <th>Harga</th>
+                                                    <th>Subtotal</th>
+                                                    <th>Hapus</th>
+                                                </thead>
+                                                <tbody>
 
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="grandtotal">Total Bayar</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="grandtotal" id="grandtotal" class="form-control" value="0" required readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="ket">Keterangan</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="ket" id="grandtotal" class="form-control" value="">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row clearfix">
@@ -124,6 +151,18 @@
 
     <link href="{{asset('css/bootstrap-material-datetimepicker.css')}}" rel="stylesheet" />
     <link href="{{asset('css/select2.css')}}" rel="stylesheet" />
+    <style>
+        .xxx {
+            /*max-width: 70px;*/
+            width: 100%;
+            border: none;
+            padding: 5px;
+            margin: 0px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+    </style>
 
 @endpush
 

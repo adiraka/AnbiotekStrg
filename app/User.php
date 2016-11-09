@@ -30,4 +30,9 @@ class User extends Authenticate
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function masuk()
+    {
+        return $this->hasMany('Anbiotek\Masuk','user_id', 'id');
+    }
 }

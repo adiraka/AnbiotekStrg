@@ -75,7 +75,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('lihatBarang') }}">
+                            <a href="{{ route('lihatMasuk') }}">
                                 <span>Lihat Data Barang Masuk</span>
                             </a>
                         </li>

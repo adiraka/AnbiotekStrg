@@ -1,13 +1,5 @@
 $(function () {
-    $('#form_validation').validate({
-        rules: {
-            'checkbox': {
-                required: true
-            },
-            'gender': {
-                required: true
-            }
-        },
+    $('#formDetail').validate({
         highlight: function (input) {
             $(input).parents('.form-line').addClass('error');
         },
@@ -20,15 +12,7 @@ $(function () {
     });
 
     //Advanced Form Validation
-    $('#form_advanced_validation').validate({
-        rules: {
-            'date': {
-                customdate: true
-            },
-            'creditcard': {
-                creditcard: true
-            }
-        },
+    $('#form_validation').validate({
         highlight: function (input) {
             $(input).parents('.form-line').addClass('error');
         },

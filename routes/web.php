@@ -62,4 +62,5 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     // Admin Barang Masuk
     Route::get('/masuk', ['as' => 'tambahMasuk', 'uses' => 'MasukController@getMasuk']);
     Route::post('/masuk', ['as' => 'tambahMasuk', 'uses' => 'MasukController@addMasuk']);
+    Route::get('/masuk/lihat', ['as' => 'lihatMasuk', 'uses' => 'MasukController@viewMasuk']);
 });

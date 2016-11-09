@@ -17,7 +17,7 @@ class MigrationAnbiotekStockpile extends Migration
             $table->string('kode');
             $table->string('nmbarang');
             $table->integer('kategori_id')->unsigned();
-            $table->string('merk');
+            $table->string('merk')->nullable();
             $table->integer('satuan_id')->unsigned();
             $table->integer('stock');
             $table->string('ket')->nullable();

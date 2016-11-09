@@ -1,7 +1,7 @@
 <div class="modal fade" id="detailBarangModal" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form class="form-horizontal" action="" method="post">
+            <form class="form-horizontal" id="formDetail" action="" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title" id="defaultModalLabel">TAMBAH DETAIL BARANG</h4>
                 </div>
@@ -22,12 +22,36 @@
                     </div>
                     <div class="row clearfix">
                         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                            <label for="nmbarang">Nama</label>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="nmbarang" id="nmbarang" class="form-control" value="" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                            <label for="merk">Merk</label>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="merk" id="merk" class="form-control" value="" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                             <label for="stokawal">Stok Gudang</label>
                         </div>
                         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" name="stokawal" id="stokawal" class="form-control" value="" required readonly>
+                                    <input type="text" name="stokawal" id="stokawal" class="form-control" value="" readonly>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +75,7 @@
                         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" name="stokakhir" id="stokakhir" class="form-control" value="" required readonly>
+                                    <input type="text" name="stokakhir" id="stokakhir" class="form-control" value="" readonly>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +99,7 @@
                         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" name="subtotal" id="subtotal" class="form-control" value="" required>
+                                    <input type="text" name="subtotal" id="subtotal" class="form-control" value="" readonly>
                                 </div>
                             </div>
                         </div>

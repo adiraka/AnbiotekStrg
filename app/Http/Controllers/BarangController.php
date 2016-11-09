@@ -31,7 +31,6 @@ class BarangController extends Controller
             'kode' => 'required|unique:barang',
             'nmbarang' => 'required',
             'kategori_id' => 'required',
-            'merk' => 'required',
             'stock' =>'required|integer',
             'satuan_id' => 'required',
         ]);
@@ -151,7 +150,7 @@ class BarangController extends Controller
     public function getStokBarang(Request $request, $id)
     {
         if ($request->ajax()) {
-            $stok = DB::table('barang')->select('stock')
+            $stok = DB::table('barang')->select('nmbarang','merk','stock')
                         ->where('kode', '=', $id)
                         ->get()->first();
             return response()->json($stok);
