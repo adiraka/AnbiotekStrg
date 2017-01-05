@@ -9,7 +9,7 @@ class Masuk extends Model
     protected $table = 'masuk';
 
     protected $fillable = [
-        'id', 'user_id', 'nobon', 'tglmasuk', 'totbay', 'ket'
+        'id', 'user_id', 'nobon', 'supplier', 'tglmasuk', 'totbay', 'ket'
     ];
 
     public function user()

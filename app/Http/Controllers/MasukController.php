@@ -60,12 +60,53 @@ class MasukController extends Controller
             return Datatables::of(Masuk::query())
             ->addColumn('action', function($masuk){
                 return '
-                <a href="'.route('ubahBarang', ['id' => $masuk->id]).'" class="btn btn-success btn-xs"><i class="material-icons">visibility</i></a>&nbsp;
-                <a href="'.route('hapusBarang', ['id' => $masuk->id]).'" class="btn btn-danger btn-xs"><i class="material-icons">delete</i></a>
+                <a href="'.route('lihatMasukDetail', ['id' => $masuk->id]).'" class="btn btn-success btn-xs"><i class="material-icons">visibility</i></a>&nbsp;
+                <a href="'.route('hapusMasuk', ['id' => $masuk->id]).'" class="btn btn-danger btn-xs"><i class="material-icons">delete</i></a>
                 ';
             })
             ->make(true);
         }
         return view('masuk.view');
+    }
+
+    public function detailMasuk($id)
+    {
+        $masuk = Masuk::find($id);
+        $detailMasuk = DetMasuk::where('masuk_id', '=', $id)->get();
+
+        return view('masuk.detail')->with([
+            'masuk' => $masuk,
+            'detailMasuk' => $detailMasuk,
+        ]);
+    }
+
+    public function reportMasuk($id)
+    {
+        $masuk = Masuk::find($id);
+        return view('masuk.del')->with('masuk', $masuk);
+    }
+
+    public function deleteMasuk(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+        ]);
+
+        $masuk = Masuk::find($request->id);
+
+        DB::transaction(function() use($masuk) {
+            foreach ($masuk->detail()->get() as $detail) {
+                $barang = DB::table('barang')->where('kode', $detail['barang_kode']);
+                $stok = $barang->first()->stock;
+                $barang->update([
+                    'stock' => $stok - $detail['stokmasuk'],
+                ]);
+                $detail->delete();
+            }
+            $masuk->delete();
+        });
+
+        Session::flash('success', 'Barang masuk telah berhasil di hapus.');
+        return redirect()->route('lihatMasuk');
     }
 }

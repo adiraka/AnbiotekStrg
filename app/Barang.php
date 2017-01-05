@@ -26,4 +26,9 @@ class Barang extends Model
     {
         return $this->hasMany('Anbiotek\DetMasuk', 'barang_kode', 'kode');
     }
+
+    public function detailKeluar()
+    {
+        return $this->hasMany('Anbiotek\DetKeluar', 'barang_kode', 'kode');
+    }
 }

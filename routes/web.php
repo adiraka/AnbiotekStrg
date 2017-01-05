@@ -63,4 +63,12 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     Route::get('/masuk', ['as' => 'tambahMasuk', 'uses' => 'MasukController@getMasuk']);
     Route::post('/masuk', ['as' => 'tambahMasuk', 'uses' => 'MasukController@addMasuk']);
     Route::get('/masuk/lihat', ['as' => 'lihatMasuk', 'uses' => 'MasukController@viewMasuk']);
+    Route::get('/masuk/lihat/{id}', ['as' => 'lihatMasukDetail', 'uses' => 'MasukController@detailMasuk']);
+    Route::get('/masuk/hapus/{id}', ['as' => 'hapusMasuk', 'uses' => 'MasukController@reportMasuk']);
+    route::delete('/masuk/hapus/{id}', ['as' => 'hapusMasuk', 'uses' => 'MasukController@deleteMasuk']);
+
+    // Admin Barang Keluar
+    Route::get('/keluar', ['as' => 'tambahKeluar', 'uses' => 'KeluarController@getKeluar']);
+    Route::post('/keluar', ['as' => 'tambahKeluar', 'uses' => 'KeluarController@addKeluar']);
+    Route::get('/keluar/lihat', ['as' => 'lihatKeluar', 'uses' => 'KeluarController@viewKeluar']);
 });

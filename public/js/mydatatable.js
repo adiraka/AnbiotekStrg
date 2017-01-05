@@ -82,4 +82,18 @@ $(function () {
             { data: 'action', name: 'action', searchable: false },
         ]
     });
+    $('.table-keluar').dataTable({
+        procesing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: '/admin/keluar/lihat',
+        columns: [
+            { data: 'nobon', name: 'nobon' },
+            { data: 'pemesan', name: 'pemesan' },
+            { data: 'tglkeluar', name: 'tglkeluar' },
+            { data: 'totbay', name: 'totbay' },
+            { data: 'ket', name: 'ket' },
+            { data: 'action', name: 'action', searchable: false },
+        ]
+    });
 });
