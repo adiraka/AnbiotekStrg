@@ -5,47 +5,64 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>Kategori</h2>
+                <h2>Kategori Produk</h2>
             </div>
             <div class="row clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-md-12">
+                    @include('template.partials.alert')
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="card">
                         <div class="header">
                             <h2>Tambah Kategori</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Lihat Kategori</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </div>
                         <div class="body">
-                            @include('template.partials.alert')
                             @include('template.partials.formalert')
                             <form class="form-horizontal" action="" id="form_validation" method="post">
                                 <input type="hidden" name="_token" value="{{ Session::token() }}">
                                 <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="nmkategori">Nama Kategori</label>
+                                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-5 form-control-label">
+                                        <label for="nmkategori">Kategori</label>
                                     </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="col-lg-8 col-md-8 col-sm-9 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" name="nmkategori" class="form-control" value="" required>
+                                                <input type="text" name="nmkategori" class="form-control" placeholder="Nama Kategori" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row clearfix">
-                                    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                                        <button type="submit" class="btn btn-lg btn-primary m-t-15 waves-effect">SIMPAN</button>
+                                    <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-3 col-xs-offset-5">
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Simpan</button>
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Data Kategori</h2>
+                        </div>
+                        <div class="body">
+                            <table class="table table-bordered table-striped table-hover table-kategori dataTable display responsive no-wrap" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID Kategori</th>
+                                        <th>Nama Kategori</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -56,8 +73,9 @@
 @endsection
 
 @push('styles')
-
-
+    
+    <link href="{{asset('css/dataTables.bootstrap.css')}}" rel="stylesheet" />
+    <link href="{{asset('css/responsive.bootstrap.min.css')}}" rel="stylesheet" />
 
 @endpush
 
@@ -65,5 +83,15 @@
 
     <script src="{{asset('js/jquery.validate.js')}}"></script>
     <script src="{{asset('js/form-validation.js')}}"></script>
+    <script src="{{asset('js/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('js/dataTables.bootstrap.js')}}"></script>
+    <script src="{{asset('js/datatables/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('js/datatables/responsive.bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/datatables/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('js/datatables/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('js/datatables/jszip.min.js')}}"></script>
+    <script src="{{asset('js/datatables/pdfmake.min.js')}}"></script>
+    <script src="{{asset('js/datatables/vfs_fonts.js')}}"></script>
+    <script src="{{asset('js/mydatatable.js')}}"></script>
 
 @endpush

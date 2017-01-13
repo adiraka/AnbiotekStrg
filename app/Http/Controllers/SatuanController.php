@@ -36,8 +36,7 @@ class SatuanController extends Controller
             return Datatables::of(Satuan::query())
                 ->addColumn('action', function($satuan){
                     return '
-                        <a href="'.route('ubahSatuan', ['id' => $satuan->id]).'" class="btn btn-success btn-xs"><i class="material-icons">mode_edit</i></a>&nbsp;
-                        <a href="'.route('hapusSatuan', ['id' => $satuan->id]).'" class="btn btn-danger btn-xs"><i class="material-icons">delete</i></a>
+                        <a href="'.route('ubahSatuan', ['id' => $satuan->id]).'" class="btn btn-primary btn-sm btn-block">Ubah</a>
                     ';
                 })
                 ->make(true);
@@ -63,7 +62,7 @@ class SatuanController extends Controller
         $satuan->save();
 
         Session::flash('success','Satuan berhasil dirubah.');
-        return redirect()->route('lihatSatuan');
+        return redirect()->route('tambahSatuan');
     }
 
     public function reportSatuan($id)

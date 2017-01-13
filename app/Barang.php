@@ -9,7 +9,7 @@ class Barang extends Model
     protected $table = 'barang';
 
     protected $fillable = [
-        'kode', 'nmbarang', 'kategori_id', 'merk', 'satuan_id', 'stock', 'ket'
+        'kode', 'nmbarang', 'kategori_id', 'merk_id', 'satuan_id', 'stock','expire', 'ket'
     ];
 
     public function kategori()
@@ -20,6 +20,11 @@ class Barang extends Model
     public function satuan()
     {
         return $this->belongsTo('Anbiotek\Satuan', 'satuan_id', 'id');
+    }
+
+    public function merk()
+    {
+        return $this->belongsTo('Anbiotek\Merk', 'merk_id', 'id');
     }
 
     public function detailMasuk()

@@ -85,9 +85,9 @@ $(function () {
                 '<td><input type="text" name="kode[]" class="xxx" value="'+kode+'" width="2%" readonly></td>' +
                 '<td><input type="text" class="xxx" value="'+nama+'" readonly></td>' +
                 '<td><input type="text" class="xxx" value="'+merk+'" readonly></td>' +
-                '<td><input type="text" name="awal[]" class="xxx" value="'+awal+'" readonly></td>' +
+                '<input type="hidden" name="awal[]" class="xxx" value="'+awal+'" readonly>' +
                 '<td><input type="text" name="masuk[]" class="xxx" value="'+masuk+'" readonly></td>' +
-                '<td><input type="text" name="akhir[]" class="xxx" value="'+akhir+'" readonly></td>' +
+                '<input type="hidden" name="akhir[]" class="xxx" value="'+akhir+'" readonly>' +
                 '<td><input type="text" name="harga[]"class="xxx" value="'+harga+'" readonly></td>' +
                 '<td><input type="text" name="subtotal[]" class="xxx subtotal" value="'+subtotal+'" readonly></td>' +
                 '<td><button type="button" class="btn btn-xs btn-danger hapus"><i class="material-icons">clear</i></button></td>' +

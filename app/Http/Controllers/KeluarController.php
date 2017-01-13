@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Anbiotek\Http\Requests;
 use Anbiotek\Keluar;
 use Anbiotek\DetKeluar;
+use Session;
 use DB;
 use Datatables;
 

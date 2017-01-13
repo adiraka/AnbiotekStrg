@@ -5031,7 +5031,7 @@ section.content {
     -moz-border-radius: 0;
     -ms-border-radius: 0;
     border-radius: 0;
-    padding-left: 0; }
+    padding-left: 12px; }
   .form-group .help-info {
     float: right;
     font-size: 12px;

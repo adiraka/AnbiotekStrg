@@ -1,15 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of the routes that are handled
-| by your application. Just tell Laravel the URIs it should respond
-| to using a Closure or controller method. Build something great!
-|
-*/
 Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 
 Route::group(['middleware' => ['redirAdmin']], function(){
@@ -23,10 +13,12 @@ Route::group(['middleware' => ['redirAdmin']], function(){
 });
 
 Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(){
+
     // Root Redirect
     Route::get('/', function(){
         return redirect()->route('admin');
     });
+
     // Admin Home
     Route::get('/home', ['as' => 'admin', 'uses' => 'AdminController@getHome']);
 
@@ -48,6 +40,13 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     Route::get('/satuan/hapus/{id}', ['as' => 'hapusSatuan', 'uses' => 'SatuanController@reportSatuan']);
     Route::delete('/satuan/hapus/{id}', ['as' => 'hapusSatuan', 'uses' => 'SatuanController@deleteSatuan']);
 
+    // Admin Merk
+    Route::get('/merk', ['as' => 'tambahMerk', 'uses' => 'MerkController@getMerk']);
+    Route::post('/merk', ['as' => 'tambahMerk', 'uses' => 'MerkController@addMerk']);
+    Route::get('/merk/lihat', ['as' => 'lihatMerk', 'uses' => 'MerkController@viewMerk']);
+    Route::get('/merk/ubah/{id}', ['as' => 'ubahMerk', 'uses' => 'MerkController@detailMerk']);
+    Route::put('/merk/ubah/{id}', ['as' => 'ubahMerk', 'uses' => 'MerkController@ubahMerk']);
+
     // Admin Barang
     Route::get('/barang', ['as' => 'tambahBarang', 'uses' => 'BarangController@getBarang']);
     Route::post('/barang', ['as' => 'tambahBarang', 'uses' => 'BarangController@addBarang']);
@@ -66,6 +65,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     Route::get('/masuk/lihat/{id}', ['as' => 'lihatMasukDetail', 'uses' => 'MasukController@detailMasuk']);
     Route::get('/masuk/hapus/{id}', ['as' => 'hapusMasuk', 'uses' => 'MasukController@reportMasuk']);
     route::delete('/masuk/hapus/{id}', ['as' => 'hapusMasuk', 'uses' => 'MasukController@deleteMasuk']);
+    Route::get('/masuk/ubahstatus/{id}:{status}', ['as' => 'ubahStatus', 'uses' => 'MasukController@ubahStatus']);
 
     // Admin Barang Keluar
     Route::get('/keluar', ['as' => 'tambahKeluar', 'uses' => 'KeluarController@getKeluar']);

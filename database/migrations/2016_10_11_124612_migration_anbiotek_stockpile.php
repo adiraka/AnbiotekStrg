@@ -17,9 +17,10 @@ class MigrationAnbiotekStockpile extends Migration
             $table->string('kode');
             $table->string('nmbarang');
             $table->integer('kategori_id')->unsigned();
-            $table->string('merk')->nullable();
+            $table->integer('merk_id')->unsigned();
             $table->integer('satuan_id')->unsigned();
             $table->integer('stock');
+            $table->date('expire');
             $table->string('ket')->nullable();
             $table->timestamps();
 
@@ -41,36 +42,49 @@ class MigrationAnbiotekStockpile extends Migration
             $table->timestamps();
 
             $table->engine = 'InnoDB';
-        });
+        }); 
 
-        Schema::create('harga', function (Blueprint $table) {
-            $table->string('barang_kode');
-            $table->integer('hrgbeli');
-            $table->integer('nettoppn');
-            $table->float('kenaikan', 8, 1);
-            $table->integer('hrgjual1');
-            $table->integer('hrg101');
-            $table->float('1disc', 8, 1);
-            $table->integer('hrgjual2');
-            $table->integer('hrg102');
+        Schema::create('merk', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nmmerk');
             $table->timestamps();
 
             $table->engine = 'InnoDB';
-            $table->primary('barang_kode');
-        });
+        }); 
+
+        Schema::create('distributor', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nmdistributor');
+            $table->string('telepon')->nullable();
+            $table->string('alamat')->nullable();
+            $table->timestamps();
+
+            $table->engine = 'InnoDB';
+        }); 
+
+        Schema::create('pelanggan', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nmpelanggan');
+            $table->string('telepon')->nullable();
+            $table->string('alamat')->nullable();
+            $table->timestamps();
+
+            $table->engine = 'InnoDB';
+        }); 
 
         Schema::create('masuk', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('nobon');
+            $table->integer('distributor_id')->unsigned();
+            $table->string('nobon')->unique();
             $table->string('supplier');
             $table->date('tglmasuk');
             $table->integer('totbay');
+            $table->boolean('status')->default(0);
             $table->string('ket')->nullable();
             $table->timestamps();
 
             $table->engine = 'InnoDB';
-            $table->unique('nobon');
         });
 
         Schema::create('det_masuk', function (Blueprint $table) {
@@ -90,15 +104,16 @@ class MigrationAnbiotekStockpile extends Migration
         Schema::create('keluar', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('nobon');
+            $table->integer('pelanggan_id')->unsigned();
+            $table->string('nobon')->unique();
             $table->string('pemesan');
             $table->date('tglkeluar');
             $table->integer('totbay');
+            $table->boolean('status')->default(0);
             $table->string('ket')->nullable();
             $table->timestamps();
 
             $table->engine = 'InnoDB';
-            $table->unique('nobon');
         });
 
         Schema::create('det_keluar', function (Blueprint $table) {
@@ -114,6 +129,16 @@ class MigrationAnbiotekStockpile extends Migration
 
             $table->engine = 'InnoDB';
         });
+
+        Schema::create('pelunasan', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('transaksi_id')->unsigned();
+            $table->enum('status', ['Lunas', 'Belum Lunas']);
+            $table->date('tgllunas')->default(null)->nullable();
+            $table->timestamps();
+
+            $table->engine = 'InnoDB';
+        });
     }
 
     /**
@@ -123,13 +148,16 @@ class MigrationAnbiotekStockpile extends Migration
      */
     public function down()
     {
-        Schema::drop('barang');
-        Schema::drop('kategori');
-        Schema::drop('satuan');
-        Schema::drop('harga');
-        Schema::drop('masuk');
-        Schema::drop('det_masuk');
-        Schema::drop('keluar');
-        Schema::drop('det_keluar');
+        Schema::dropIfExists('barang');
+        Schema::dropIfExists('kategori');
+        Schema::dropIfExists('satuan');
+        Schema::dropIfExists('merk');
+        Schema::dropIfExists('distributor');
+        Schema::dropIfExists('pelanggan');
+        Schema::dropIfExists('masuk');
+        Schema::dropIfExists('det_masuk');
+        Schema::dropIfExists('keluar');
+        Schema::dropIfExists('det_keluar');
+        Schema::dropIfExists('pelunasan');
     }
 }

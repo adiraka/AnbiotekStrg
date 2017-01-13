@@ -5,13 +5,13 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>Barang Masuk</h2>
+                <h2>Stok Masuk</h2>
             </div>
             <div class="row clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <h2>Detail Barang Masuk</h2>
+                            <h2>Detail Transaksi</h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -30,17 +30,23 @@
                                     <p>Nomor Bon </p>
                                     <p>Nama Supplier </p>
                                     <p>Tanggal </p>
+                                    <p>Status</p>
                                     <p>Keterangan</p>
                                 </div>
                                 <div class="col-md-6 col-xs-6 col-xs-6">
                                     <p>: {{ $masuk->nobon }}</p>
                                     <p>: {{ $masuk->supplier }}</p>
                                     <p>: {{ $masuk->tglmasuk }}</p>
+                                    @if ($masuk->status == 1)
+                                        <p>: Lunas</p>
+                                    @else
+                                        <p>: Belum Lunas</p>
+                                    @endif
                                     <p>: {{ $masuk->ket }}</p>
                                 </div>
                             </div>
                             <p>Detail Transaksi :</p>
-                            <table class="table table-bordered table-striped table-hover" width="100%">
+                            <table class="table table-bordered" width="100%">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -70,8 +76,8 @@
                                 </tbody>
                             </table>
 
-                            <a href="javascript:window.print()" class="btn btn-success">Print</a>
-                            <a href="{{ route('lihatMasuk') }}" class="btn btn-primary">Kembali</a>
+                            <a href="javascript:window.print()" class="btn btn-primary">Print</a>
+                            <a href="{{ route('lihatMasuk') }}" class="btn btn-default">Kembali</a>
                         </div>
                     </div>
                 </div>

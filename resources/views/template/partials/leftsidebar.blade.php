@@ -2,35 +2,35 @@
     <aside id="leftsidebar" class="sidebar">
         <div class="menu">
             <ul class="list">
-                <li class="header">Main Menu</li>
+                <li class="header">Menu Utama</li>
                 <li>
                     <a href="{{url('/')}}">
                         <i class="material-icons">dashboard</i>
-                        <span>Dashboard</span>
+                        <span>Beranda</span>
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">label</i>
+                    <a href="{{route('tambahKategori')}}">
+                        <i class="material-icons">folder_special</i>
                         <span>Kategori</span>
                     </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a href="{{route('tambahKategori')}}">
-                                <span>Tambah Kategori</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('lihatKategori')}}">
-                                <span>Lihat Kategori</span>
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li>
+                    <a href="{{route('tambahSatuan')}}">
+                        <i class="material-icons">open_in_new</i>
+                        <span>Satuan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('tambahMerk') }}">
+                        <i class="material-icons">local_offer</i>
+                        <span>Merk</span>
+                    </a>
                 </li>
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">label_outline</i>
-                        <span>Satuan</span>
+                        <i class="material-icons">undo</i>
+                        <span>Pemasok</span>
                     </a>
                     <ul class="ml-menu">
                         <li>
@@ -40,33 +40,51 @@
                         </li>
                         <li>
                             <a href="{{ route('lihatSatuan') }}">
-                                <span>Lihat Satuan</span>
+                                <span>Data Satuan</span>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">assignment</i>
-                        <span>Data Stock Barang</span>
+                        <i class="material-icons">redo</i>
+                        <span>Pelanggan</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{route('tambahSatuan')}}">
+                                <span>Tambah Satuan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('lihatSatuan') }}">
+                                <span>Data Satuan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">shopping_cart</i>
+                        <span>Produk</span>
                     </a>
                     <ul class="ml-menu">
                         <li>
                             <a href="{{ route('tambahBarang') }}">
-                                <span>Tambah Baru</span>
+                                <span>Tambah Produk</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('lihatBarang') }}">
-                                <span>Lihat Data Stock Barang</span>
+                                <span>Data Produk</span>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">assignment</i>
-                        <span>Data Barang Masuk</span>
+                        <i class="material-icons">first_page</i>
+                        <span>Stok Masuk</span>
                     </a>
                     <ul class="ml-menu">
                         <li>
@@ -76,15 +94,15 @@
                         </li>
                         <li>
                             <a href="{{ route('lihatMasuk') }}">
-                                <span>Lihat Data Barang Masuk</span>
+                                <span>Data Stok Masuk</span>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">assignment</i>
-                        <span>Data Barang Keluar</span>
+                        <i class="material-icons">last_page</i>
+                        <span>Stok Keluar</span>
                     </a>
                     <ul class="ml-menu">
                         <li>
@@ -94,6 +112,24 @@
                         </li>
                         <li>
                             <a href="{{ route('lihatKeluar') }}">
+                                <span>Lihat Data Barang Keluar</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">assignment</i>
+                        <span>Laporan</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="#">
+                                <span>Laporan Stok Barang</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
                                 <span>Lihat Data Barang Keluar</span>
                             </a>
                         </li>
@@ -138,7 +174,7 @@
         </div>
         <div class="legal">
             <div class="copyright">
-                &copy; 2016 <a href="javascript:void(0);">AMI Stockpile All Right Reserved</a>.
+                2017 &copy; <a href="javascript:void(0);">ANBIOTEK</a> All Right Reserved.
             </div>
             <div class="version">
                 <b>Version: </b> 1.0.0

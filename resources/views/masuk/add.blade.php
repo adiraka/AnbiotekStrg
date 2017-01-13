@@ -5,23 +5,13 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>Barang Masuk</h2>
+                <h2>Stok Masuk</h2>
             </div>
             <div class="row clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <h2>Tambah Barang Masuk</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Lihat Barang Masuk</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <h2>Tambah Stok Masuk</h2>
                         </div>
                         <div class="body">
                             @include('template.partials.alert')
@@ -31,12 +21,7 @@
                                 <input type="hidden" name="user_id" value="{{ Sentinel::getUser()->id }}">
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="">DATA FAKTUR</label>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="nobon">Nomor Bon</label>
+                                        <label for="nobon">Nomor Faktur</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
@@ -48,7 +33,7 @@
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="supplier">Nama Supplier</label>
+                                        <label for="supplier">Supplier</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
@@ -60,7 +45,7 @@
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="tglmasuk">Tanggal Masuk</label>
+                                        <label for="tglmasuk">Tanggal</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
@@ -72,12 +57,12 @@
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="">DETAIL BARANG</label>
+                                        <label for="">Detail Produk</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="">
-                                                <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#detailBarangModal">TAMBAH DETAIL BARANG</button>
+                                                <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#detailBarangModal">Tambah Detail Produk</button>
                                             </div>
                                         </div>
                                     </div>
@@ -87,12 +72,10 @@
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-detail-barang" width="100%">
                                                 <thead>
-                                                    <th>Kode</th>
+                                                    <th>Katalog</th>
                                                     <th>Nama</th>
-                                                    <th>Merk</th>
-                                                    <th>Qty Awal</th>
-                                                    <th>Qty Masuk</th>
-                                                    <th>Qty Akhir</th>
+                                                    <th>Merek</th>
+                                                    <th>Qty</th>
                                                     <th>Harga</th>
                                                     <th>Subtotal</th>
                                                     <th>Hapus</th>
@@ -118,6 +101,22 @@
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="grandtotal">Pembayaran</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <select class="form-control" name="status" required>
+                                                    <option value="">-- Pilih Status Pembayaran --</option>
+                                                    <option value="1">Lunas</option>
+                                                    <option value="0">Belum Lunas</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                         <label for="ket">Keterangan</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
@@ -130,7 +129,7 @@
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                                        <button type="submit" class="btn btn-lg btn-primary m-t-15 waves-effect">SIMPAN</button>
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Simpan Transaksi</button>
                                     </div>
                                 </div>
                             </form>

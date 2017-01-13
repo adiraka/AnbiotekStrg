@@ -21,6 +21,15 @@ class MasukController extends Controller
 
     public function addMasuk(Request $request)
     {
+        $this->validate($request, [
+            'user_id' => 'required',
+            'nobon' => 'required',
+            'supplier' => 'required',
+            'tglmasuk' => 'required',
+            'grandtotal' => 'required',
+            'status' => 'required'
+        ]);
+
         $detailBarang = [];
         $panjang = count($request->kode);
         for($x=0;$x<$panjang;$x++){
@@ -39,6 +48,7 @@ class MasukController extends Controller
             $masuk->supplier = $request->supplier;
             $masuk->tglmasuk = $request->tglmasuk;
             $masuk->totbay = $request->grandtotal;
+            $masuk->status = $request->status;
             $masuk->ket = $request->ket;
             $masuk->save();
 
@@ -60,9 +70,18 @@ class MasukController extends Controller
             return Datatables::of(Masuk::query())
             ->addColumn('action', function($masuk){
                 return '
-                <a href="'.route('lihatMasukDetail', ['id' => $masuk->id]).'" class="btn btn-success btn-xs"><i class="material-icons">visibility</i></a>&nbsp;
-                <a href="'.route('hapusMasuk', ['id' => $masuk->id]).'" class="btn btn-danger btn-xs"><i class="material-icons">delete</i></a>
+                <a href="'.route('lihatMasukDetail', ['id' => $masuk->id]).'" class="btn btn-primary btn-xs">Detail</a>&nbsp;
+                <a href="'.route('hapusMasuk', ['id' => $masuk->id]).'" class="btn btn-danger btn-xs">Hapus</a>
                 ';
+            })
+            ->editColumn('totbay', function($masuk){
+                return 'Rp '.number_format($masuk->totbay, 2);
+            })
+            ->editColumn('status', function($masuk){
+                if ($masuk->status == 1) {
+                    return '<a href="'.route('ubahStatus', ['id' => $masuk->id, 'status' => $masuk->status]).'" class="btn btn-success btn-xs">Lunas</a>';
+                } 
+                return '<a href="'.route('ubahStatus', ['id' => $masuk->id, 'status' => $masuk->status]).'" class="btn btn-warning btn-xs">Belum Lunas</a>';
             })
             ->make(true);
         }
@@ -108,5 +127,18 @@ class MasukController extends Controller
 
         Session::flash('success', 'Barang masuk telah berhasil di hapus.');
         return redirect()->route('lihatMasuk');
+    }
+
+    public function ubahStatus($id, $status)
+    {
+        $masuk = Masuk::find($id);
+        if ($status == 0) {
+            $masuk->status = 1;
+        } else {
+            $masuk->status = 0;
+        }
+        $masuk->save();
+
+        return redirect()->back();
     }
 }

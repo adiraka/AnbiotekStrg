@@ -5,23 +5,13 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>Kategori</h2>
+                <h2>Kategori Produk</h2>
             </div>
             <div class="row clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="card">
                         <div class="header">
                             <h2>Ubah Kategori</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Lihat Kategori</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </div>
                         <div class="body">
                             @include('template.partials.alert')
@@ -31,10 +21,10 @@
                                 <input type="hidden" name="idkategori" value="{{ $kategori->id }}">
                                 <input type="hidden" name="_method" value="PUT">
                                 <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-5 form-control-label">
                                         <label for="nmkategori">Nama Kategori</label>
                                     </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="col-lg-8 col-md-8 col-sm-9 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <input type="text" name="nmkategori" class="form-control" value="{{ $kategori->nmkategori }}" required>
@@ -43,9 +33,9 @@
                                     </div>
                                 </div>
                                 <div class="row clearfix">
-                                    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                                        <button type="submit" class="btn btn-lg btn-primary m-t-15 waves-effect">UBAH</button>&nbsp;
-                                        <a href="{{ route('lihatKategori') }}" class="btn btn-default m-t-15 waves-effect">BATAL</a>
+                                    <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-3 col-xs-offset-5">
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Ubah</button>&nbsp;
+                                        <a href="{{ route('tambahKategori') }}" class="btn btn-default m-t-15 waves-effect">Batal</a>
                                     </div>
                                 </div>
                             </form>

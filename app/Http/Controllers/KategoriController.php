@@ -36,8 +36,7 @@ class KategoriController extends Controller
             return Datatables::of(Kategori::query())
                 ->addColumn('action', function($kategori){
                     return '
-                        <a href="'.route('ubahKategori', ['id' => $kategori->id]).'" class="btn btn-success btn-xs"><i class="material-icons">mode_edit</i></a>&nbsp;
-                        <a href="'.route('hapusKategori', ['id' => $kategori->id]).'" class="btn btn-danger btn-xs"><i class="material-icons">delete</i></a>
+                        <a href="'.route('ubahKategori', ['id' => $kategori->id]).'" class="btn btn-primary btn-sm btn-block">Ubah</a>
                     ';
                 })
                 ->make(true);
@@ -63,7 +62,7 @@ class KategoriController extends Controller
         $kategori->save();
 
         Session::flash('success','Kategori berhasil dirubah.');
-        return redirect()->route('lihatKategori');
+        return redirect()->route('tambahKategori');
     }
 
     public function reportKategori($id)

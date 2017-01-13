@@ -5,33 +5,24 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>Barang Masuk</h2>
+                <h2>Stok Masuk</h2>
             </div>
             <div class="row clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <h2>Tabel Data Barang Masuk</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="{{route('tambahBarang')}}">Tambah Barang</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <h2>Data Stok Masuk</h2>
                         </div>
                         <div class="body">
                             @include('template.partials.alert')
                             <table class="table table-bordered table-striped table-hover table-masuk dataTable display responsive no-wrap" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>No Bon</th>
+                                        <th>No Faktur</th>
                                         <th>Supplier</th>
-                                        <th>Tgl Masuk</th>
+                                        <th>Tanggal</th>
                                         <th>Total Bayar</th>
+                                        <th>Status</th>
                                         <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>

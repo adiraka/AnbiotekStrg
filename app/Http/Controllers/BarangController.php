@@ -8,6 +8,8 @@ use Datatables;
 use DB;
 use Session;
 use Anbiotek\Barang;
+use Anbiotek\Masuk;
+use Anbiotek\Keluar;
 use Anbiotek\Satuan;
 use Anbiotek\Kategori;
 use Anbiotek\Http\Requests;
@@ -18,8 +20,6 @@ class BarangController extends Controller
     {
         $satuan = Satuan::all();
         $kategori = Kategori::all();
-        // $tes = Barang::where('kode', '=', '31800-014')->get()->first()->kategori->nmkategori;
-        // dd($tes);
         return view('barang.add')->with([
             'satuan' => $satuan,
             'kategori' => $kategori,
@@ -55,8 +55,7 @@ class BarangController extends Controller
             return Datatables::of(Barang::query())
             ->addColumn('action', function($barang){
                 return '
-                <a href="'.route('ubahBarang', ['id' => $barang->kode]).'" class="btn btn-success btn-xs"><i class="material-icons">mode_edit</i></a>&nbsp;
-                <a href="'.route('hapusBarang', ['id' => $barang->kode]).'" class="btn btn-danger btn-xs"><i class="material-icons">delete</i></a>
+                <a href="'.route('ubahBarang', ['id' => $barang->kode]).'" class="btn btn-primary btn-sm btn-block">Ubah</a>
                 ';
             })
             ->editColumn('kategori_id', function($barang){
@@ -119,9 +118,29 @@ class BarangController extends Controller
             'kode' => 'required',
         ]);
 
-        Barang::where('kode', $request->kode)->delete();
+        DB::transaction(function() use ($request) {
 
-        Session::flash('success', 'Barang berhasil dihapus.');
+            $barang = Barang::where('kode', $request->kode)->first();
+
+            foreach ($barang->detailMasuk as $detail) {
+                $masuk = Masuk::find($detail->masuk->id);
+                $masuk->detail()->delete();
+                $masuk->delete();
+            }
+
+            foreach ($barang->detailKeluar as $detail) {
+                $keluar = Keluar::find($detail->keluar->id);
+                $keluar->detail()->delete();
+                $keluar->delete();
+            }
+
+            Barang::where('kode', $request->kode)->delete();
+
+            Session::flash('success', 'Barang berhasil dihapus.');
+            
+        });
+
+        Session::flash('alert', 'Telah terjadi kesalahan.');
         return redirect()->route('lihatBarang');
     }
 

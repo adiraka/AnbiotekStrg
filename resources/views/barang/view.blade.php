@@ -5,34 +5,24 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>Barang</h2>
+                <h2>Produk</h2>
             </div>
             <div class="row clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <h2>Tabel Data Stock Barang</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="{{route('tambahBarang')}}">Tambah Barang</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <h2>Data Produk</h2>
                         </div>
                         <div class="body">
                             @include('template.partials.alert')
                             <table class="table table-bordered table-striped table-hover table-barang dataTable display responsive no-wrap" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>Kode</th>
-                                        <th>Nama</th>
                                         <th>Kategori</th>
-                                        <th>Merk</th>
-                                        <th>Stock</th>
+                                        <th>Katalog</th>
+                                        <th>Nama</th>
+                                        <th>Merek</th>
+                                        <th>Stok</th>
                                         <th>Satuan</th>
                                         <th>Keterangan</th>
                                         <th>Aksi</th>

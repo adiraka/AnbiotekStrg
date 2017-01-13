@@ -5,7 +5,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>Satuan Produk</h2>
+                <h2>Merk Produk</h2>
             </div>
             <div class="row clearfix">
                 <div class="col-md-12">
@@ -16,7 +16,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="card">
                         <div class="header">
-                            <h2>Tambah Satuan</h2>
+                            <h2>Tambah Merk</h2>
                         </div>
                         <div class="body">
                             @include('template.partials.formalert')
@@ -24,12 +24,12 @@
                                 <input type="hidden" name="_token" value="{{ Session::token() }}">
                                 <div class="row clearfix">
                                     <div class="col-lg-4 col-md-4 col-sm-3 col-xs-5 form-control-label">
-                                        <label for="nmsatuan">Nama Satuan</label>
+                                        <label for="nmsatuan">Nama Merk</label>
                                     </div>
                                     <div class="col-lg-8 col-md-8 col-sm-9 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" name="nmsatuan" class="form-control" value="" required>
+                                                <input type="text" name="nmmerk" class="form-control" value="" required>
                                             </div>
                                         </div>
                                     </div>
@@ -48,10 +48,10 @@
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                     <div class="card">
                         <div class="header">
-                            <h2>Tabel Data Satuan</h2>
+                            <h2>Tabel Data Merk</h2>
                         </div>
                         <div class="body">
-                            <table class="table table-bordered table-striped table-hover table-satuan dataTable display responsive no-wrap" width="100%">
+                            <table class="table table-bordered table-striped table-hover table-merk dataTable display responsive no-wrap" width="100%">
                                 <thead>
                                     <tr>
                                         <th>ID Satuan</th>
