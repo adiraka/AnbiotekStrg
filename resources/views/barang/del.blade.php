@@ -36,7 +36,7 @@
                                 <div class="row clearfix">
                                     <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
                                         <button type="submit" class="btn btn-danger m-t-15 waves-effect">Saya Yakin, Hapus Produk Ini!</button>&nbsp;
-                                        <a href="{{ route('lihatKategori') }}" class="btn btn-default m-t-15 waves-effect">Batal</a>
+                                        <a href="{{ route('lihatBarang') }}" class="btn btn-default m-t-15 waves-effect">Batal</a>
                                     </div>
                                 </div>
                             </form>

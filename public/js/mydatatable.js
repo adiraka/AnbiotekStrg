@@ -32,6 +32,32 @@ $(function () {
             { data: 'action', name: 'action', searchable: false },
         ]
     });
+    $('.table-distributor').dataTable({
+        procesing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: '/admin/distributor/lihat',
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'nmdistributor', name: 'nmdistributor' },
+            { data: 'telepon', name: 'telepon' },
+            { data: 'alamat', name: 'alamat' },
+            { data: 'action', name: 'action', searchable: false },
+        ]
+    });
+    $('.table-pelanggan').dataTable({
+        procesing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: '/admin/pelanggan/lihat',
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'nmpelanggan', name: 'nmpelanggan' },
+            { data: 'telepon', name: 'telepon' },
+            { data: 'alamat', name: 'alamat' },
+            { data: 'action', name: 'action', searchable: false },
+        ]
+    });
     $('.table-barang').dataTable({
         // dom: 'Bfrtip',
         // buttons: [
@@ -64,12 +90,13 @@ $(function () {
         responsive: true,
         ajax: '/admin/barang/lihat',
         columns: [
-            { data: 'kategori_id', name: 'kategori_id' },
             { data: 'kode', name: 'kode' },
+            { data: 'kategori_id', name: 'kategori_id' },
             { data: 'nmbarang', name: 'nmbarang' },
-            { data: 'merk', name: 'merk' },
+            { data: 'merk_id', name: 'merk_id' },
             { data: 'stock', name: 'stock' },
             { data: 'satuan_id', name: 'satuan_id' },
+            { data: 'expire', name: 'expire' },
             { data: 'ket', name: 'ket' },
             { data: 'action', name: 'action', searchable: false },
         ]
@@ -81,11 +108,11 @@ $(function () {
         ajax: '/admin/masuk/lihat',
         columns: [
             { data: 'nobon', name: 'nobon' },
-            { data: 'supplier', name: 'supplier' },
+            { data: 'distributor_id', name: 'distributor_id' },
             { data: 'tglmasuk', name: 'tglmasuk' },
-            { data: 'totbay', name: 'totbay' },
             { data: 'status', name: 'status' },
-            { data: 'ket', name: 'ket' },
+            { data: 'tgllunas', name: 'tgllunas' },
+            { data: 'totbay', name: 'totbay' },
             { data: 'action', name: 'action', searchable: false },
         ]
     });
@@ -96,10 +123,11 @@ $(function () {
         ajax: '/admin/keluar/lihat',
         columns: [
             { data: 'nobon', name: 'nobon' },
-            { data: 'pemesan', name: 'pemesan' },
+            { data: 'pelanggan_id', name: 'pelanggan_id' },
             { data: 'tglkeluar', name: 'tglkeluar' },
+            { data: 'status', name: 'status' },
+            { data: 'tgllunas', name: 'tgllunas' },
             { data: 'totbay', name: 'totbay' },
-            { data: 'ket', name: 'ket' },
             { data: 'action', name: 'action', searchable: false },
         ]
     });

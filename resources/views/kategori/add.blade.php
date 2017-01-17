@@ -48,7 +48,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                     <div class="card">
                         <div class="header">
-                            <h2>Data Kategori</h2>
+                            <h2>Tabel Data Kategori</h2>
                         </div>
                         <div class="body">
                             <table class="table table-bordered table-striped table-hover table-kategori dataTable display responsive no-wrap" width="100%">

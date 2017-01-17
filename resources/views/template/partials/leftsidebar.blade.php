@@ -28,40 +28,16 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
+                    <a href="{{ route('tambahDistributor') }}">
                         <i class="material-icons">undo</i>
-                        <span>Pemasok</span>
+                        <span>Distributor</span>
                     </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a href="{{route('tambahSatuan')}}">
-                                <span>Tambah Satuan</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('lihatSatuan') }}">
-                                <span>Data Satuan</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
+                    <a href="{{ route('tambahPelanggan') }}">
                         <i class="material-icons">redo</i>
                         <span>Pelanggan</span>
                     </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a href="{{route('tambahSatuan')}}">
-                                <span>Tambah Satuan</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('lihatSatuan') }}">
-                                <span>Data Satuan</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
@@ -112,7 +88,7 @@
                         </li>
                         <li>
                             <a href="{{ route('lihatKeluar') }}">
-                                <span>Lihat Data Barang Keluar</span>
+                                <span>Data Stok Keluar</span>
                             </a>
                         </li>
                     </ul>

@@ -8,12 +8,12 @@
     box-sizing: border-box;
     cursor: pointer;
     display: block;
-    height: 28px;
+    height: 30px;
     user-select: none;
     -webkit-user-select: none; }
     .select2-container .select2-selection--single .select2-selection__rendered {
       display: block;
-      padding-left: 8px;
+      padding-left: 12px;
       padding-right: 20px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -127,8 +127,7 @@
 
 .select2-container--default .select2-selection--single {
   background-color: #fff;
-  border: 1px solid #aaa;
-  border-radius: 4px; }
+  border-bottom: 1px solid #ddd; }
   .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #444;
     line-height: 28px; }

@@ -33,18 +33,6 @@
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="nmbarang">Nama Produk</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="text" name="nmbarang" class="form-control" value="{{ $barang->nmbarang }}" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                                         <label for="kategori_id">Kategori Produk</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
@@ -62,12 +50,29 @@
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="merk">Merk Produk</label>
+                                        <label for="nmbarang">Nama Produk</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" name="merk" class="form-control" value="{{ $barang->merk }}" required>
+                                                <input type="text" name="nmbarang" class="form-control" value="{{ $barang->nmbarang }}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="kategori_id">Merk Produk</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <select class="form-control show-tick" data-live-search="true" name="merk_id" required>
+                                                    <option value="{{ $barang->merk->id }}">{{ $barang->merk->nmmerk }}</option>
+                                                    @foreach ($merk as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->nmmerk }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -103,6 +108,18 @@
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="expire">Tgl Kadaluarsa</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="expire" class="form-control datepicker" value="{{ $barang->expire }}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                                         <label for="ket">Keterangan</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
@@ -132,6 +149,7 @@
 @push('styles')
 
     <link href="{{asset('css/bootstrap-select.css')}}" rel="stylesheet" />
+    <link href="{{asset('css/bootstrap-material-datetimepicker.css')}}" rel="stylesheet" />
 
 @endpush
 
@@ -140,5 +158,17 @@
     <script src="{{asset('js/bootstrap-select.js')}}"></script>
     <script src="{{asset('js/jquery.validate.js')}}"></script>
     <script src="{{asset('js/form-validation.js')}}"></script>
+    <script src="{{asset('js/moment.js')}}"></script>
+    <script src="{{asset('js/bootstrap-material-datetimepicker.js')}}"></script>
+    <script>
+        $(function () {
+            $('.datepicker').bootstrapMaterialDatePicker({
+                format: 'YYYY/MM/DD',
+                clearButton: true,
+                time: false,
+                switchOnClick: true
+            });
+        })
+    </script>
 
 @endpush

@@ -11,6 +11,7 @@ use Anbiotek\Barang;
 use Anbiotek\Masuk;
 use Anbiotek\Keluar;
 use Anbiotek\Satuan;
+use Anbiotek\Merk;
 use Anbiotek\Kategori;
 use Anbiotek\Http\Requests;
 
@@ -20,9 +21,11 @@ class BarangController extends Controller
     {
         $satuan = Satuan::all();
         $kategori = Kategori::all();
+        $merk = Merk::all();
         return view('barang.add')->with([
             'satuan' => $satuan,
             'kategori' => $kategori,
+            'merk' => $merk,
         ]);
     }
     public function addBarang(Request $request)
@@ -31,17 +34,20 @@ class BarangController extends Controller
             'kode' => 'required|unique:barang',
             'nmbarang' => 'required',
             'kategori_id' => 'required',
+            'merk_id' => 'required',
             'stock' =>'required|integer',
             'satuan_id' => 'required',
+            'expire' => 'required   |date',
         ]);
 
         $barang = new Barang;
         $barang->kode = $request->kode;
         $barang->nmbarang = $request->nmbarang;
         $barang->kategori_id = $request->kategori_id;
-        $barang->merk = $request->merk;
+        $barang->merk_id = $request->merk_id;
         $barang->stock = $request->stock;
         $barang->satuan_id = $request->satuan_id;
+        $barang->expire = $request->expire;
         $barang->ket = $request->ket;
         $barang->save();
 
@@ -64,6 +70,9 @@ class BarangController extends Controller
             ->editColumn('satuan_id', function($barang){
                 return $barang->satuan->nmsatuan;
             })
+            ->editColumn('merk_id', function($barang){
+                return $barang->merk->nmmerk;
+            })
             ->make(true);
         }
         return view('barang.view');
@@ -73,10 +82,12 @@ class BarangController extends Controller
     {
         $satuan = Satuan::all();
         $kategori = Kategori::all();
+        $merk = Merk::all();
         $barang = Barang::where('kode', '=', $id)->get()->first();
         return view('barang.get')->with([
             'satuan' => $satuan,
             'kategori' => $kategori,
+            'merk' => $merk,
             'barang' => $barang,
         ]);
     }
@@ -87,8 +98,9 @@ class BarangController extends Controller
             'kode' => 'required',
             'nmbarang' => 'required',
             'kategori_id' => 'required',
-            'merk' => 'required',
+            'merk_id' => 'required',
             'stock' =>'required|integer',
+            'expire' => 'required|date',
             'satuan_id' => 'required',
         ]);
 
@@ -96,9 +108,10 @@ class BarangController extends Controller
         ->update([
             'nmbarang' => $request->nmbarang,
             'kategori_id' => $request->kategori_id,
-            'merk' => $request->merk,
+            'merk_id' => $request->merk_id,
             'stock' => $request->stock,
             'satuan_id' => $request->satuan_id,
+            'expire' => $request->expire,
             'ket' => $request->ket,
         ]);
 
@@ -163,16 +176,19 @@ class BarangController extends Controller
             }
             return response()->json($barang);
         }
-        return redirect()->route('login');
+        return redirect()->back();
     }
 
     public function getStokBarang(Request $request, $id)
     {
         if ($request->ajax()) {
-            $stok = DB::table('barang')->select('nmbarang','merk','stock')
-                        ->where('kode', '=', $id)
-                        ->get()->first();
-            return response()->json($stok);
+            $stok = Barang::where('kode', $id)->first();
+            $stoklama = [
+                'nmbarang' => $stok->nmbarang,
+                'merk' => $stok->merk->nmmerk,
+                'stock' => $stok->stock
+            ];
+            return response()->json($stoklama);
         }
         return redirect()->route('login');
     }

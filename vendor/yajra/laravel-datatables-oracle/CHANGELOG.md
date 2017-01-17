@@ -8,6 +8,56 @@
 
 ##Change Log
 
+### v6.22.7 - 2017-01-04
+- Add datatables alias to fix singleton. PR #903, credits to @ElfSundae
+- Use static class name instead FQCN. PR #902, credits to @ElfSundae
+- Update license to 2017.
+
+### v6.22.6 - 2017-01-04
+- Fix print header issue when two row are same value. 
+- PR #913, credits to @dineshrabara.
+
+### v6.22.5 - 2016-12-07
+- Fix double wrapping of column name.
+
+### v6.22.4 - Skipped (Sorry!)
+
+### v6.22.3 - 2016-12-07
+- Fix adding of table prefix before casting the column. PR #876
+- Fix #871, #873
+- Custom soft delete column support. PR #878, credits to @Huracan88
+- Fix #875
+
+### v6.22.2 - 2016-12-01
+- Patch for ambiguous field error for relations issues.
+- PR #849, credits to @ethaizone.
+
+### v6.22.1 - 2016-12-01
+- Patch request class and use input array access to get the values. #868
+- Fix Error 500 Illegal string offset issues: #857, #657, #395.
+
+### v6.22.0 - 2016-11-19
+- Add support for searching of nested relationships.
+- PR #841 & #844. Credits to @ethaizone
+- Fix #696, #789, #771, #509, #441.
+
+### v6.21.2 - 2016-11-16
+- Fix html builder instance, close #830. PR #833, credits to @ElfSundae.
+- Class name resolution updated. PR #812, credits to @shibby.
+
+### v6.21.1 - 2016-10-25
+- Do not convert column to raw statement. Thanks to Nick Howell for pointing the issue.
+
+### v6.21.0 - 2016-10-22
+- Support to morphToMany. PR #804, credits to @pcastrotigre
+- Update fractal to ~0.14. Credits to @tyloo
+- Refactor HasOneOrMany as suggested in #733
+- Fix CS.
+
+### v6.20.0 - 2016-10-13
+- Support of using soft deletes trait in models.
+- PR #786, credits to @DDiimmkkaass.
+
 ### v6.19.0 - 2016-09-24
 - Support regex column searches when using CollectionEngine.
 - PR #765, credits to @cadenzajon.

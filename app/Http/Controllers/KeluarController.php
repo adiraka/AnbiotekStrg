@@ -20,6 +20,15 @@ class KeluarController extends Controller
 
     public function addKeluar(Request $request)
     {
+        $this->validate($request, [
+            'user_id' => 'required',
+            'nobon' => 'required',
+            'pelanggan_id' => 'required',
+            'tglkeluar' => 'required|date',
+            'grandtotal' => 'required',
+            'status' => 'required',
+        ]);
+
         $detailBarang = [];
         $panjang = count($request->kode);
         for ($i=0; $i < $panjang ; $i++) {
@@ -34,9 +43,11 @@ class KeluarController extends Controller
             $keluar = New Keluar;
             $keluar->user_id = $request->user_id;
             $keluar->nobon = $request->nobon;
-            $keluar->pemesan = $request->pemesan;
+            $keluar->pelanggan_id = $request->pelanggan_id;
             $keluar->tglkeluar = $request->tglkeluar;
             $keluar->totbay = $request->grandtotal;
+            $keluar->status = $request->status;
+            $keluar->tgllunas = $request->tgllunas;
             $keluar->ket = $request->ket;
             $keluar->save();
 
@@ -48,7 +59,7 @@ class KeluarController extends Controller
             }
         });
 
-        Session::flash('success', 'Barang keluar telah berhasil di tambahkan.');
+        Session::flash('success', 'Stok Keluar berhasil di tambahkan.');
         return redirect()->back();
     }
 
@@ -56,14 +67,61 @@ class KeluarController extends Controller
     {
         if ($request->ajax()) {
             return Datatables::of(Keluar::query())
-            ->addColumn('action', function($masuk){
+            ->addColumn('action', function($keluar){
                 return '
-                <a href="'.route('lihatMasukDetail', ['id' => $masuk->id]).'" class="btn btn-success btn-xs"><i class="material-icons">visibility</i></a>&nbsp;
-                <a href="'.route('hapusMasuk', ['id' => $masuk->id]).'" class="btn btn-danger btn-xs"><i class="material-icons">delete</i></a>
+                <a href="'.route('pelunasanKeluar', ['id' => $keluar->id]).'" class="btn btn-success btn-xs">PLS</a>&nbsp;|
+                <a href="'.route('lihatKeluarDetail', ['id' => $keluar->id]).'" class="btn btn-primary btn-xs">DTL</a>&nbsp;|
+                <a href="'.route('hapusMasuk', ['id' => $keluar->id]).'" class="btn btn-danger btn-xs">HPS</a>
                 ';
+            })
+            ->editColumn('totbay', function($keluar){
+                return 'IDR '.number_format($keluar->totbay, 2);
+            })
+            ->editColumn('pelanggan_id', function($keluar){
+                return $keluar->pelanggan->nmpelanggan;
             })
             ->make(true);
         }
         return view('keluar.view');
+    }
+
+    public function detailKeluar($id)
+    {
+        $keluar = Keluar::find($id);
+        $detailKeluar = DetKeluar::where('keluar_id', '=', $id)->get();
+
+        return view('keluar.detail')->with([
+            'keluar' => $keluar,
+            'detailKeluar' => $detailKeluar,
+        ]);
+    }
+
+    public function pelunasanKeluar($id)
+    {
+        $keluar = Keluar::find($id);
+        return view('keluar.lunas')->with('keluar', $keluar);
+    }
+
+    public function ubahPelunasan(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'nobon' => 'required',
+            'status' => 'required',
+        ]); 
+
+        $tgllunas = NULL;
+
+        if ($request->tgllunas != NULL) {
+            $tgllunas = $request->tgllunas;
+        }
+
+        $keluar = Keluar::find($request->id);
+        $keluar->status = $request->status;
+        $keluar->tgllunas = $tgllunas;
+        $keluar->save();
+
+        Session::flash('success', 'Pelunasan Stok Keluar berhasil diubah.');
+        return redirect()->route('lihatKeluar');
     }
 }

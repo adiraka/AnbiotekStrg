@@ -37,7 +37,6 @@ $(function () {
 
     $('.kode-barang').select2({
         placeholder: 'Cari Kode/Nama Barang',
-        allowClear: true,
         width: "100%",
         minimumInputLength: 1,
         ajax: {
@@ -65,6 +64,41 @@ $(function () {
             $('#merk').val(data.merk);
             $('#stokawal').val(data.stock);
         });
+    });
+
+    $('.pelanggan_id').select2({
+        placeholder: 'Cari Pelanggan',
+        width: "100%",
+        ajax: {
+            url: '/admin/pelanggan/cari',
+            dataType: 'json',
+            type: 'POST',
+            beforeSend: function (xhr) {
+                return xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="_token"]').attr('content'));
+            },
+            delay: 250,
+            data: function(params) {
+                return {
+                    term: params.term
+                };
+            },
+            processResults: function (data, page) {
+                return { results: data };
+            },
+        },
+    });
+
+    $('.status').select2({
+        width: "100%",
+    });
+
+    $('#status').on("change", function() {
+        if ($('#status').val() == 'Lunas') {
+            $('#tgllunas').removeAttr('readonly');
+        } else if ($('#status').val() == 'Belum Lunas') {
+            $('#tgllunas').val(null);
+            $('#tgllunas').attr('readonly', 'readonly'); 
+        }
     });
 
     $('#detailBarangModal').on('show.bs.modal', function (e) {

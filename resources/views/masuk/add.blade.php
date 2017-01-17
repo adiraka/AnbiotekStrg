@@ -26,19 +26,20 @@
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" name="nobon" class="form-control" value="" required>
+                                                <input type="text" name="nobon" class="form-control" placeholder="Nomor Faktur" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="supplier">Supplier</label>
+                                        <label for="supplier">Distributor</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="text" name="supplier" class="form-control" value="" required>
+                                            <div class="">
+                                                <select class="form-control distributor_id" name="distributor_id" required>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -50,7 +51,7 @@
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" name="tglmasuk" class="form-control datepicker" value="" required>
+                                                <input type="text" name="tglmasuk" class="form-control datepicker" placeholder="Tanggal Faktur" required>
                                             </div>
                                         </div>
                                     </div>
@@ -105,12 +106,24 @@
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
-                                            <div class="form-line">
-                                                <select class="form-control" name="status" required>
-                                                    <option value="">-- Pilih Status Pembayaran --</option>
-                                                    <option value="1">Lunas</option>
-                                                    <option value="0">Belum Lunas</option>
+                                            <div class="">
+                                                <select class="form-control status  " id="status" name="status" required>
+                                                    <option value="" selected disabled>Pilih Status Pembayaran</option>
+                                                    <option value="Lunas">Lunas</option>
+                                                    <option value="Belum Lunas">Belum Lunas</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="tgllunas">Tgl Lunas</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="tgllunas" name="tgllunass" class="form-control datepicker" placeholder="Tanggal Pelunasan" readonly="readonly">
                                             </div>
                                         </div>
                                     </div>
@@ -122,7 +135,7 @@
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" name="ket" id="grandtotal" class="form-control" value="">
+                                                <input type="text" name="ket" id="grandtotal" class="form-control" placeholder="Keterangan Transaksi">
                                             </div>
                                         </div>
                                     </div>

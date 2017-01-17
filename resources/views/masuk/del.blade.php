@@ -5,23 +5,13 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>Barang</h2>
+                <h2>Stok Masuk</h2>
             </div>
             <div class="row clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <h2>Hapus Barang</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Lihat Barang</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <h2>Hapus Stok Masuk</h2>
                         </div>
                         <div class="body">
                             @include('template.partials.alert')
@@ -36,16 +26,17 @@
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
-                                            <div class="form-line">
+                                            <div class="">
                                                 <h5>Apakah anda yakin ingin menghapus data dengan nomor bon " {{ $masuk->nobon }} " berikut?</h5>
+                                                <p><strong>Untuk kelancaran sistem, detail produk yang ada di dalam transaksi ini akan ikut terhapus!</strong></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                                        <button type="submit" class="btn btn-lg btn-danger m-t-15 waves-effect">HAPUS</button>&nbsp;
-                                        <a href="{{ route('lihatKategori') }}" class="btn btn-default m-t-15 waves-effect">BATAL</a>
+                                        <button type="submit" class="btn btn-danger m-t-15 waves-effect">Saya Yakin, Hapus Transaksi Ini!</button>&nbsp;
+                                        <a href="{{ route('lihatMasuk') }}" class="btn btn-default m-t-15 waves-effect">Batal</a>
                                     </div>
                                 </div>
                             </form>

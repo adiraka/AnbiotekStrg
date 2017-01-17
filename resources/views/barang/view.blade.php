@@ -11,19 +11,20 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <h2>Data Produk</h2>
+                            <h2>Tabel Data Produk</h2>
                         </div>
                         <div class="body">
                             @include('template.partials.alert')
                             <table class="table table-bordered table-striped table-hover table-barang dataTable display responsive no-wrap" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>Kategori</th>
                                         <th>Katalog</th>
+                                        <th>Kategori</th>
                                         <th>Nama</th>
                                         <th>Merek</th>
                                         <th>Stok</th>
                                         <th>Satuan</th>
+                                        <th>Expire</th>
                                         <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>

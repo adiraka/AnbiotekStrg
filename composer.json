@@ -9,7 +9,8 @@
         "laravel/framework": "5.3.*",
         "cartalyst/sentinel": "2.0.*",
         "yajra/laravel-datatables-oracle": "^6.18",
-        "maatwebsite/excel": "2.1.x-dev"
+        "maatwebsite/excel": "2.1.x-dev",
+        "barryvdh/laravel-dompdf": "^0.7.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

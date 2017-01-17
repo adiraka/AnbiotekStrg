@@ -19,11 +19,11 @@
                                 <thead>
                                     <tr>
                                         <th>No Faktur</th>
-                                        <th>Supplier</th>
-                                        <th>Tanggal</th>
-                                        <th>Total Bayar</th>
+                                        <th>Distributor</th>
+                                        <th>Tgl Faktur</th>
                                         <th>Status</th>
-                                        <th>Keterangan</th>
+                                        <th>Tgl Lunas</th>
+                                        <th>Total Bayar</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>

@@ -75,12 +75,12 @@ class MigrationAnbiotekStockpile extends Migration
         Schema::create('masuk', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('distributor_id')->unsigned();
             $table->string('nobon')->unique();
-            $table->string('supplier');
+            $table->string('distributor_id');
             $table->date('tglmasuk');
             $table->integer('totbay');
-            $table->boolean('status')->default(0);
+            $table->enum('status', ['Lunas', 'Belum Lunas']);
+            $table->date('tgllunas')->default(null)->nullable();
             $table->string('ket')->nullable();
             $table->timestamps();
 
@@ -106,10 +106,10 @@ class MigrationAnbiotekStockpile extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('pelanggan_id')->unsigned();
             $table->string('nobon')->unique();
-            $table->string('pemesan');
             $table->date('tglkeluar');
             $table->integer('totbay');
-            $table->boolean('status')->default(0);
+            $table->enum('status', ['Lunas', 'Belum Lunas']);
+            $table->date('tgllunas')->default(null)->nullable();
             $table->string('ket')->nullable();
             $table->timestamps();
 
@@ -125,16 +125,6 @@ class MigrationAnbiotekStockpile extends Migration
             $table->integer('stokakhir');
             $table->integer('harga');
             $table->integer('subtot');
-            $table->timestamps();
-
-            $table->engine = 'InnoDB';
-        });
-
-        Schema::create('pelunasan', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('transaksi_id')->unsigned();
-            $table->enum('status', ['Lunas', 'Belum Lunas']);
-            $table->date('tgllunas')->default(null)->nullable();
             $table->timestamps();
 
             $table->engine = 'InnoDB';
@@ -158,6 +148,5 @@ class MigrationAnbiotekStockpile extends Migration
         Schema::dropIfExists('det_masuk');
         Schema::dropIfExists('keluar');
         Schema::dropIfExists('det_keluar');
-        Schema::dropIfExists('pelunasan');
     }
 }

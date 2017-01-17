@@ -10,6 +10,7 @@ use Session;
 use Anbiotek\Barang;
 use Anbiotek\Masuk;
 use Anbiotek\DetMasuk;
+use Anbiotek\Pelunasan;
 use Anbiotek\Http\Requests;
 
 class MasukController extends Controller
@@ -24,7 +25,7 @@ class MasukController extends Controller
         $this->validate($request, [
             'user_id' => 'required',
             'nobon' => 'required',
-            'supplier' => 'required',
+            'distributor_id' => 'required',
             'tglmasuk' => 'required',
             'grandtotal' => 'required',
             'status' => 'required'
@@ -45,10 +46,11 @@ class MasukController extends Controller
             $masuk = New Masuk;
             $masuk->user_id = $request->user_id;
             $masuk->nobon = $request->nobon;
-            $masuk->supplier = $request->supplier;
+            $masuk->distributor_id = $request->distributor_id;
             $masuk->tglmasuk = $request->tglmasuk;
             $masuk->totbay = $request->grandtotal;
             $masuk->status = $request->status;
+            $masuk->tgllunas = $request->tgllunas;
             $masuk->ket = $request->ket;
             $masuk->save();
 
@@ -60,7 +62,7 @@ class MasukController extends Controller
             }
         });
 
-        Session::flash('success', 'Barang masuk telah berhasil di tambahkan.');
+        Session::flash('success', 'Stok Masuk berhasil di tambahkan.');
         return redirect()->back();
     }
 
@@ -70,18 +72,16 @@ class MasukController extends Controller
             return Datatables::of(Masuk::query())
             ->addColumn('action', function($masuk){
                 return '
-                <a href="'.route('lihatMasukDetail', ['id' => $masuk->id]).'" class="btn btn-primary btn-xs">Detail</a>&nbsp;
-                <a href="'.route('hapusMasuk', ['id' => $masuk->id]).'" class="btn btn-danger btn-xs">Hapus</a>
+                <a href="'.route('pelunasanMasuk', ['id' => $masuk->id]).'" class="btn btn-success btn-xs">PLS</a>&nbsp;|
+                <a href="'.route('lihatMasukDetail', ['id' => $masuk->id]).'" class="btn btn-primary btn-xs">DTL</a>&nbsp;|
+                <a href="'.route('hapusMasuk', ['id' => $masuk->id]).'" class="btn btn-danger btn-xs">HPS</a>
                 ';
             })
             ->editColumn('totbay', function($masuk){
-                return 'Rp '.number_format($masuk->totbay, 2);
+                return 'IDR '.number_format($masuk->totbay, 2);
             })
-            ->editColumn('status', function($masuk){
-                if ($masuk->status == 1) {
-                    return '<a href="'.route('ubahStatus', ['id' => $masuk->id, 'status' => $masuk->status]).'" class="btn btn-success btn-xs">Lunas</a>';
-                } 
-                return '<a href="'.route('ubahStatus', ['id' => $masuk->id, 'status' => $masuk->status]).'" class="btn btn-warning btn-xs">Belum Lunas</a>';
+            ->editColumn('distributor_id', function($masuk){
+                return $masuk->distributor->nmdistributor;
             })
             ->make(true);
         }
@@ -129,16 +129,32 @@ class MasukController extends Controller
         return redirect()->route('lihatMasuk');
     }
 
-    public function ubahStatus($id, $status)
+    public function pelunasanMasuk($id)
     {
         $masuk = Masuk::find($id);
-        if ($status == 0) {
-            $masuk->status = 1;
-        } else {
-            $masuk->status = 0;
+        return view('masuk.lunas')->with('masuk', $masuk);
+    }
+
+    public function ubahPelunasan(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'nobon' => 'required',
+            'status' => 'required',
+        ]); 
+
+        $tgllunas = NULL;
+
+        if ($request->tgllunas != NULL) {
+            $tgllunas = $request->tgllunas;
         }
+
+        $masuk = Masuk::find($request->id);
+        $masuk->status = $request->status;
+        $masuk->tgllunas = $tgllunas;
         $masuk->save();
 
-        return redirect()->back();
+        Session::flash('success', 'Pelunasan Stok Masuk berhasil diubah.');
+        return redirect()->route('lihatMasuk');
     }
 }

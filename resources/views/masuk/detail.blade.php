@@ -12,46 +12,51 @@
                     <div class="card">
                         <div class="header">
                             <h2>Detail Transaksi</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="{{route('tambahBarang')}}">Tambah Barang</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </div>
                         <div class="body" id="section-to-print">
                             @include('template.partials.alert')
                             <div class="row">
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <p>Nomor Bon </p>
-                                    <p>Nama Supplier </p>
-                                    <p>Tanggal </p>
-                                    <p>Status</p>
-                                    <p>Keterangan</p>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-6 col-xs-6">
+                                            <p>Nomor Faktur </p>
+                                            <p>Nama/Instansi </p>
+                                            <p>Telepon</p>
+                                            <p>Alamat</p>
+                                        </div>
+                                        <div class="col-md-8 col-xs-6 col-xs-6">
+                                            <p>: {{ $masuk->nobon }}</p>
+                                            <p>: {{ $masuk->distributor->nmdistributor }}</p>
+                                            <p>: {{ $masuk->distributor->telepon }}</p>
+                                            <p>: {{ $masuk->distributor->alamat }}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 col-xs-6 col-xs-6">
-                                    <p>: {{ $masuk->nobon }}</p>
-                                    <p>: {{ $masuk->supplier }}</p>
-                                    <p>: {{ $masuk->tglmasuk }}</p>
-                                    @if ($masuk->status == 1)
-                                        <p>: Lunas</p>
-                                    @else
-                                        <p>: Belum Lunas</p>
-                                    @endif
-                                    <p>: {{ $masuk->ket }}</p>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-6 col-xs-6">
+                                            <p>Tgl. Faktur </p>
+                                            <p>Nama Admin </p>
+                                            <p>Stat. Pembayaran</p>
+                                            <p>Tgl. Pelunasan</p>
+                                        </div>
+                                        <div class="col-md-8 col-xs-6 col-xs-6">
+                                            <p>: {{ $masuk->tglmasuk }}</p>
+                                            <p>: {{ $masuk->user->first_name.' '.$masuk->user->last_name }}</p>
+                                            <p>: {{ $masuk->status }}</p>
+                                            <p>: {{ $masuk->tgllunas }}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            
                             <p>Detail Transaksi :</p>
                             <table class="table table-bordered" width="100%">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Kode Barang</th>
-                                        <th>Nama Barang</th>
+                                        <th>No Katalog</th>
+                                        <th>Nama Produk</th>
                                         <th>Qty</th>
                                         <th>Harga</th>
                                         <th>Subtotal</th>
@@ -75,7 +80,7 @@
                                         </tr>
                                 </tbody>
                             </table>
-
+                            <p>NB : {{ $masuk->ket }}</p><hr>
                             <a href="javascript:window.print()" class="btn btn-primary">Print</a>
                             <a href="{{ route('lihatMasuk') }}" class="btn btn-default">Kembali</a>
                         </div>

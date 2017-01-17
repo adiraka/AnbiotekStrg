@@ -4,8 +4,8 @@ namespace Yajra\Datatables\Engines;
 
 use Closure;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Str;
 use Yajra\Datatables\Helper;
@@ -101,6 +101,11 @@ class QueryBuilderEngine extends BaseEngine
             $myQuery->select($this->connection->raw("'1' as {$row_count}"));
         }
 
+        // check for select soft deleted records
+        if (! $this->withTrashed && $this->modelUseSoftDeletes()) {
+            $myQuery->whereNull($myQuery->getModel()->getQualifiedDeletedAtColumn());
+        }
+
         return $this->connection->table($this->connection->raw('(' . $myQuery->toSql() . ') count_row_table'))
                                 ->setBindings($myQuery->getBindings())->count();
     }
@@ -114,6 +119,20 @@ class QueryBuilderEngine extends BaseEngine
     protected function wrap($column)
     {
         return $this->connection->getQueryGrammar()->wrap($column);
+    }
+
+    /**
+     * Check if model use SoftDeletes trait
+     *
+     * @return boolean
+     */
+    private function modelUseSoftDeletes()
+    {
+        if ($this->query_type == 'eloquent') {
+            return in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($this->query->getModel()));
+        }
+
+        return false;
     }
 
     /**
@@ -253,13 +272,96 @@ class QueryBuilderEngine extends BaseEngine
     protected function compileRelationSearch($query, $relation, $column, $keyword)
     {
         $myQuery = clone $this->query;
-        $myQuery->orWhereHas($relation, function ($builder) use ($column, $keyword, $query) {
-            $builder->select($this->connection->raw('count(1)'));
-            $this->compileQuerySearch($builder, $column, $keyword, '');
-            $builder = "({$builder->toSql()}) >= 1";
 
-            $query->orWhereRaw($builder, [$this->prepareKeyword($keyword)]);
-        });
+        /**
+         * For compile nested relation, we need store all nested relation as array
+         * and reverse order to apply where query.
+         * With this method we can create nested sub query with properly relation.
+         */
+
+        /**
+         * Store all relation data that require in next step
+         */
+        $relationChunk = [];
+
+        /**
+         * Store last eloquent query builder for get next relation.
+         */
+        $lastQuery = $query;
+
+        $relations    = explode('.', $relation);
+        $lastRelation = end($relations);
+        foreach ($relations as $relation) {
+            $relationType = $myQuery->getModel()->{$relation}();
+            $myQuery->orWhereHas($relation, function ($builder) use (
+                $column,
+                $keyword,
+                $query,
+                $relationType,
+                $relation,
+                $lastRelation,
+                &$relationChunk,
+                &$lastQuery
+            ) {
+                $builder->select($this->connection->raw('count(1)'));
+
+                // We will perform search on last relation only.
+                if ($relation == $lastRelation) {
+                    $this->compileQuerySearch($builder, $column, $keyword, '');
+                }
+
+                // Put require object to next step!!
+                $relationChunk[$relation] = [
+                    'builder'      => $builder,
+                    'relationType' => $relationType,
+                    'query'        => $lastQuery,
+                ];
+
+                // This is trick make sub query.
+                $lastQuery = $builder;
+            });
+
+            // This is trick to make nested relation by pass previous relation to be next query eloquent builder
+            $myQuery = $relationType;
+        }
+
+        /**
+         * Reverse them all
+         */
+        $relationChunk = array_reverse($relationChunk, true);
+
+        /**
+         * Create valuable for use in check last relation
+         */
+        end($relationChunk);
+        $lastRelation = key($relationChunk);
+        reset($relationChunk);
+
+        /**
+         * Walking ...
+         */
+        foreach ($relationChunk as $relation => $chunk) {
+            // Prepare variables
+            $builder      = $chunk['builder'];
+            $relationType = $chunk['relationType'];
+            $query        = $chunk['query'];
+            $builder      = "({$builder->toSql()}) >= 1";
+
+            // Check if it last relation we will use orWhereRaw
+            if ($lastRelation == $relation) {
+                $relationMethod = "orWhereRaw";
+            } else {
+                // For case parent relation of nested relation.
+                // We must use and for properly query and get correct result
+                $relationMethod = "whereRaw";
+            }
+
+            if ($relationType instanceof MorphToMany) {
+                $query->{$relationMethod}($builder, [$relationType->getMorphClass(), $this->prepareKeyword($keyword)]);
+            } else {
+                $query->{$relationMethod}($builder, [$this->prepareKeyword($keyword)]);
+            }
+        }
     }
 
     /**
@@ -272,7 +374,7 @@ class QueryBuilderEngine extends BaseEngine
      */
     protected function compileQuerySearch($query, $column, $keyword, $relation = 'or')
     {
-        $column = strstr($column, '(') ? $this->connection->raw($column) : $column;
+        $column = $this->addTablePrefix($query, $column);
         $column = $this->castColumn($column);
         $sql    = $column . ' LIKE ?';
 
@@ -284,14 +386,39 @@ class QueryBuilderEngine extends BaseEngine
     }
 
     /**
+     * Patch for fix about ambiguous field.
+     * Ambiguous field error will appear when query use join table and search with keyword.
+     *
+     * @param mixed $query
+     * @param string $column
+     * @return string
+     */
+    protected function addTablePrefix($query, $column)
+    {
+        // Check if field does not have a table prefix
+        if (strpos($column, '.') === false) {
+            // Alternative method to check instanceof \Illuminate\Database\Eloquent\Builder
+            if (method_exists($query, 'getQuery')) {
+                $q = $query->getQuery();
+            } else {
+                $q = $query;
+            }
+
+            // Get table from query and add it.
+            $column = $q->from . '.' . $column;
+        }
+
+        return $this->wrap($column);
+    }
+
+    /**
      * Wrap a column and cast in pgsql.
      *
      * @param  string $column
      * @return string
      */
-    public function castColumn($column)
+    protected function castColumn($column)
     {
-        $column = $this->wrap($column);
         if ($this->database === 'pgsql') {
             $column = 'CAST(' . $column . ' as TEXT)';
         } elseif ($this->database === 'firebird') {
@@ -331,7 +458,7 @@ class QueryBuilderEngine extends BaseEngine
      */
     public function columnSearch()
     {
-        $columns = $this->request->get('columns', []);
+        $columns = (array) $this->request->input('columns');
 
         foreach ($columns as $index => $column) {
             if (! $this->request->isColumnSearchable($index)) {
@@ -429,7 +556,7 @@ class QueryBuilderEngine extends BaseEngine
             }
         } else {
             $table = $model->getRelated()->getTable();
-            if ($model instanceof HasOne || $model instanceof HasMany) {
+            if ($model instanceof HasOneOrMany) {
                 $foreign = $model->getForeignKey();
                 $other   = $model->getQualifiedParentKeyName();
             } else {
@@ -512,6 +639,7 @@ class QueryBuilderEngine extends BaseEngine
                     $orderable['direction']
                 );
             } else {
+                $valid = 1;
                 if (count(explode('.', $column)) > 1) {
                     $eagerLoads     = $this->getEagerLoads();
                     $parts          = explode('.', $column);
@@ -519,11 +647,18 @@ class QueryBuilderEngine extends BaseEngine
                     $relation       = implode('.', $parts);
 
                     if (in_array($relation, $eagerLoads)) {
-                        $column = $this->joinEagerLoadedColumn($relation, $relationColumn);
+                        $relationship = $this->query->getRelation($relation);
+                        if (! ($relationship instanceof MorphToMany)) {
+                            $column = $this->joinEagerLoadedColumn($relation, $relationColumn);
+                        } else {
+                            $valid = 0;
+                        }
                     }
                 }
 
-                $this->getQueryBuilder()->orderBy($column, $orderable['direction']);
+                if ($valid == 1) {
+                    $this->getQueryBuilder()->orderBy($column, $orderable['direction']);
+                }
             }
         }
     }
@@ -535,8 +670,8 @@ class QueryBuilderEngine extends BaseEngine
      */
     public function paging()
     {
-        $this->query->skip($this->request['start'])
-                    ->take((int) $this->request['length'] > 0 ? $this->request['length'] : 10);
+        $this->query->skip($this->request->input('start'))
+                    ->take((int) $this->request->input('length') > 0 ? $this->request->input('length') : 10);
     }
 
     /**

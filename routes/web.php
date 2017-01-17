@@ -47,6 +47,22 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     Route::get('/merk/ubah/{id}', ['as' => 'ubahMerk', 'uses' => 'MerkController@detailMerk']);
     Route::put('/merk/ubah/{id}', ['as' => 'ubahMerk', 'uses' => 'MerkController@ubahMerk']);
 
+    // Admin Distributor
+    Route::get('/distributor', ['as' => 'tambahDistributor', 'uses' => 'DistributorController@getDistributor']);
+    Route::post('/distributor', ['as' => 'tambahDistributor', 'uses' => 'DistributorController@addDistributor']);
+    Route::get('/distributor/lihat', ['as' => 'lihatDistributor', 'uses' => 'DistributorController@viewDistributor']);
+    Route::get('/distributor/ubah/{id}', ['as' => 'ubahDistributor', 'uses' => 'DistributorController@detailDistributor']);
+    Route::put('/distributor/ubah/{id}', ['as' => 'ubahDistributor', 'uses' => 'DistributorController@ubahDistributor']);
+    Route::post('distributor/cari', ['as' => 'cariDistributor', 'uses' => 'DistributorController@searchDistributor']);
+
+    // Admin Pelanggan
+    Route::get('/pelanggan', ['as' => 'tambahPelanggan', 'uses' => 'PelangganController@getPelanggan']);
+    Route::post('/pelanggan', ['as' => 'tambahPelanggan', 'uses' => 'PelangganController@addPelanggan']);
+    Route::get('/pelanggan/lihat', ['as' => 'lihatPelanggan', 'uses' => 'PelangganController@viewPelanggan']);
+    Route::get('pelanggan/ubah/{id}', ['as' => 'ubahPelanggan', 'uses' => 'PelangganController@detailPelanggan']);
+    Route::put('pelanggan/ubah/{id}', ['as' => 'ubahPelanggan', 'uses' => 'PelangganController@ubahPelanggan']);
+    route::post('pelanggan/cari', ['as' => 'cariPelanggan', 'uses' => 'PelangganController@searchPelanggan']);
+
     // Admin Barang
     Route::get('/barang', ['as' => 'tambahBarang', 'uses' => 'BarangController@getBarang']);
     Route::post('/barang', ['as' => 'tambahBarang', 'uses' => 'BarangController@addBarang']);
@@ -65,10 +81,14 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     Route::get('/masuk/lihat/{id}', ['as' => 'lihatMasukDetail', 'uses' => 'MasukController@detailMasuk']);
     Route::get('/masuk/hapus/{id}', ['as' => 'hapusMasuk', 'uses' => 'MasukController@reportMasuk']);
     route::delete('/masuk/hapus/{id}', ['as' => 'hapusMasuk', 'uses' => 'MasukController@deleteMasuk']);
-    Route::get('/masuk/ubahstatus/{id}:{status}', ['as' => 'ubahStatus', 'uses' => 'MasukController@ubahStatus']);
+    Route::get('/masuk/pelunasan/{id}', ['as' => 'pelunasanMasuk', 'uses' => 'MasukController@pelunasanMasuk']);
+    Route::put('/masuk/pelunasan/{id}', ['as' => 'pelunasanMasuk', 'uses' => 'MasukController@ubahPelunasan']);
 
     // Admin Barang Keluar
     Route::get('/keluar', ['as' => 'tambahKeluar', 'uses' => 'KeluarController@getKeluar']);
     Route::post('/keluar', ['as' => 'tambahKeluar', 'uses' => 'KeluarController@addKeluar']);
     Route::get('/keluar/lihat', ['as' => 'lihatKeluar', 'uses' => 'KeluarController@viewKeluar']);
+    Route::get('keluar/lihat/{id}', ['as' => 'lihatKeluarDetail', 'uses' => 'KeluarController@detailKeluar']);
+    route::get('/keluar/pelunasan/{id}', ['as' => 'pelunasanKeluar', 'uses' => 'KeluarController@pelunasanKeluar']);
+    route::put('/keluar/pelunasan/{id}', ['as' => 'pelunasanKeluar', 'uses' => 'KeluarController@ubahPelunasan']);
 });

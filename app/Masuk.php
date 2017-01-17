@@ -2,6 +2,7 @@
 
 namespace Anbiotek;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Masuk extends Model
@@ -9,8 +10,21 @@ class Masuk extends Model
     protected $table = 'masuk';
 
     protected $fillable = [
-        'id', 'user_id', 'distributor_id', 'nobon', 'supplier', 'tglmasuk', 'totbay', 'status', 'ket'
+        'id', 'user_id', 'distributor_id', 'nobon', 'supplier', 'tglmasuk', 'totbay', 'status','tgllunas', 'ket'
     ];
+
+    // public function getTglMasukAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('d F Y');
+    // }
+
+    // public function getTglLunasAttribute($value)
+    // {
+    //     if ($value == NULL) {
+    //         return '-';
+    //     }
+    //     return Carbon::parse($value)->format('d F Y');
+    // }
 
     public function user()
     {
@@ -25,10 +39,5 @@ class Masuk extends Model
     public function detail()
     {
         return $this->hasMany('Anbiotek\DetMasuk', 'masuk_id', 'id');
-    }
-
-    public function pelunasan()
-    {
-        return $this->hasOne('Anbiotek\Pelunasan', 'transaksi_id', 'id');
     }
 }

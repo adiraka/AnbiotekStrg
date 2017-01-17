@@ -5,34 +5,25 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>Barang Keluar</h2>
+                <h2>Stok Keluar</h2>
             </div>
             <div class="row clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <h2>Tabel Data Barang Keluar</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="{{route('tambahKeluar')}}">Tambah Barang Keluar</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <h2>Data Stok Keluar</h2>
                         </div>
                         <div class="body">
                             @include('template.partials.alert')
                             <table class="table table-bordered table-striped table-hover table-keluar dataTable display responsive no-wrap" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>No Bon</th>
-                                        <th>Pemesan</th>
-                                        <th>Tgl</th>
+                                        <th>No faktur</th>
+                                        <th>Pelanggan</th>
+                                        <th>Tgl Faktur</th>
+                                        <th>Status</th>
+                                        <th>Tgl Lunas</th>
                                         <th>Total Bayar</th>
-                                        <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
