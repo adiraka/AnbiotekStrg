@@ -129,6 +129,28 @@ class MigrationAnbiotekStockpile extends Migration
 
             $table->engine = 'InnoDB';
         });
+
+        Schema::create('blog', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->string('judul')->unique();
+            $table->string('slug')->unique();
+            $table->text('teks');
+            $table->timestamps();
+
+            $table->engine = 'InnoDB';
+        });
+
+        Schema::create('kontak', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nama');
+            $table->string('email');
+            $table->string('judul');
+            $table->text('pesan');
+            $table->timestamps();
+
+            $table->engine = 'InnoDB';
+        });
     }
 
     /**
@@ -148,5 +170,7 @@ class MigrationAnbiotekStockpile extends Migration
         Schema::dropIfExists('det_masuk');
         Schema::dropIfExists('keluar');
         Schema::dropIfExists('det_keluar');
+        Schema::dropIfExists('blog');
+        Schema::dropIfExists('kontak');
     }
 }

@@ -4,40 +4,74 @@
             <ul class="list">
                 <li class="header">Menu Utama</li>
                 <li>
-                    <a href="{{url('/')}}">
+                    <a href="{{ route('admin') }}">
                         <i class="material-icons">dashboard</i>
                         <span>Beranda</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('tambahKategori')}}">
+                    <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">folder_special</i>
-                        <span>Kategori</span>
+                        <span>Front</span>
                     </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{ route('tambahBlog') }}">
+                                <span>Tambah Blog</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('lihatBlog') }}">
+                                <span>Data Blog</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('lihatKontak') }}">
+                                <span>Data Kontak</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="{{route('tambahSatuan')}}">
-                        <i class="material-icons">open_in_new</i>
-                        <span>Satuan</span>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">folder_special</i>
+                        <span>Extra</span>
                     </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{ route('tambahKategori') }}">
+                                <span>Kategori</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('tambahSatuan') }}">
+                                <span>Satuan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('tambahMerk') }}">
+                                <span>Merk</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="{{ route('tambahMerk') }}">
-                        <i class="material-icons">local_offer</i>
-                        <span>Merk</span>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">people</i>
+                        <span>User</span>
                     </a>
-                </li>
-                <li>
-                    <a href="{{ route('tambahDistributor') }}">
-                        <i class="material-icons">undo</i>
-                        <span>Distributor</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('tambahPelanggan') }}">
-                        <i class="material-icons">redo</i>
-                        <span>Pelanggan</span>
-                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{ route('tambahDistributor') }}">
+                                <span>Distributor</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('tambahPelanggan') }}">
+                                <span>Pelanggan</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
@@ -100,8 +134,8 @@
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href="#">
-                                <span>Laporan Stok Barang</span>
+                            <a href="{{ route('laporanBarang') }}">
+                                <span>Laporan Stok Produk</span>
                             </a>
                         </li>
                         <li>

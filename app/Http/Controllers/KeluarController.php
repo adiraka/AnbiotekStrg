@@ -71,7 +71,7 @@ class KeluarController extends Controller
                 return '
                 <a href="'.route('pelunasanKeluar', ['id' => $keluar->id]).'" class="btn btn-success btn-xs">PLS</a>&nbsp;|
                 <a href="'.route('lihatKeluarDetail', ['id' => $keluar->id]).'" class="btn btn-primary btn-xs">DTL</a>&nbsp;|
-                <a href="'.route('hapusMasuk', ['id' => $keluar->id]).'" class="btn btn-danger btn-xs">HPS</a>
+                <a href="#" class="btn btn-danger btn-xs">HPS</a>
                 ';
             })
             ->editColumn('totbay', function($keluar){

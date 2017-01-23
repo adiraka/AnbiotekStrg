@@ -83,15 +83,10 @@
 
     <script src="{{asset('js/jquery.validate.js')}}"></script>
     <script src="{{asset('js/form-validation.js')}}"></script>
-    <script src="{{asset('js/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('js/datatables.min.js')}}"></script>
     <script src="{{asset('js/dataTables.bootstrap.js')}}"></script>
     <script src="{{asset('js/datatables/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('js/datatables/responsive.bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/datatables/dataTables.buttons.min.js')}}"></script>
-    <script src="{{asset('js/datatables/buttons.html5.min.js')}}"></script>
-    <script src="{{asset('js/datatables/jszip.min.js')}}"></script>
-    <script src="{{asset('js/datatables/pdfmake.min.js')}}"></script>
-    <script src="{{asset('js/datatables/vfs_fonts.js')}}"></script>
     <script src="{{asset('js/mydatatable.js')}}"></script>
 
 @endpush

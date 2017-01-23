@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'My Application',
+    'name' => 'Anbiotek App',
 
     /*
     |--------------------------------------------------------------------------
@@ -182,6 +182,7 @@ return [
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -235,6 +236,7 @@ return [
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'Excel'      => Maatwebsite\Excel\Facades\Excel::class,
+        'PDF'        => Barryvdh\DomPDF\Facade::class,
 
     ],
 

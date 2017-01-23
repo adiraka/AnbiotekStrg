@@ -25,11 +25,11 @@ CREATE TABLE `activations` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `activations` */
 
-insert  into `activations`(`id`,`user_id`,`code`,`completed`,`completed_at`,`created_at`,`updated_at`) values (1,1,'78qObc6hMRIOqoZTgc1scsDeRFCPwepF',1,'2017-01-11 11:07:58','2017-01-11 11:07:58','2017-01-11 11:07:58');
+insert  into `activations`(`id`,`user_id`,`code`,`completed`,`completed_at`,`created_at`,`updated_at`) values (1,1,'HLDMPp1gUd461UpPuwzeXxSpyA9AvkDv',1,'2017-01-23 09:21:08','2017-01-23 09:21:08','2017-01-23 09:21:08'),(2,2,'smPyIIAs4KTH1SIJK2AavsDTSlWTj0dA',1,'2017-01-23 09:21:09','2017-01-23 09:21:09','2017-01-23 09:21:09');
 
 /*Table structure for table `barang` */
 
@@ -50,6 +50,25 @@ CREATE TABLE `barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `barang` */
+
+/*Table structure for table `blog` */
+
+DROP TABLE IF EXISTS `blog`;
+
+CREATE TABLE `blog` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `judul` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `teks` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `blog_judul_unique` (`judul`),
+  UNIQUE KEY `blog_slug_unique` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `blog` */
 
 /*Table structure for table `det_keluar` */
 
@@ -107,27 +126,6 @@ CREATE TABLE `distributor` (
 
 /*Data for the table `distributor` */
 
-/*Table structure for table `harga` */
-
-DROP TABLE IF EXISTS `harga`;
-
-CREATE TABLE `harga` (
-  `barang_kode` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `hrgbeli` int(11) NOT NULL,
-  `nettoppn` int(11) NOT NULL,
-  `kenaikan` double(8,1) NOT NULL,
-  `hrgjual1` int(11) NOT NULL,
-  `hrg101` int(11) NOT NULL,
-  `1disc` double(8,1) NOT NULL,
-  `hrgjual2` int(11) NOT NULL,
-  `hrg102` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`barang_kode`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `harga` */
-
 /*Table structure for table `kategori` */
 
 DROP TABLE IF EXISTS `kategori`;
@@ -138,11 +136,9 @@ CREATE TABLE `kategori` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `kategori` */
-
-insert  into `kategori`(`id`,`nmkategori`,`created_at`,`updated_at`) values (1,'Biotek','2017-01-11 11:24:25','2017-01-11 11:24:25'),(2,'Plasticware','2017-01-11 11:24:40','2017-01-11 11:24:40');
 
 /*Table structure for table `keluar` */
 
@@ -153,10 +149,10 @@ CREATE TABLE `keluar` (
   `user_id` int(10) unsigned NOT NULL,
   `pelanggan_id` int(10) unsigned NOT NULL,
   `nobon` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `pemesan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `tglkeluar` date NOT NULL,
   `totbay` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `status` enum('Lunas','Belum Lunas') COLLATE utf8_unicode_ci NOT NULL,
+  `tgllunas` date DEFAULT NULL,
   `ket` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -166,6 +162,23 @@ CREATE TABLE `keluar` (
 
 /*Data for the table `keluar` */
 
+/*Table structure for table `kontak` */
+
+DROP TABLE IF EXISTS `kontak`;
+
+CREATE TABLE `kontak` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `judul` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `pesan` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `kontak` */
+
 /*Table structure for table `masuk` */
 
 DROP TABLE IF EXISTS `masuk`;
@@ -173,12 +186,12 @@ DROP TABLE IF EXISTS `masuk`;
 CREATE TABLE `masuk` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
-  `distributor_id` int(10) unsigned NOT NULL,
   `nobon` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `supplier` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `distributor_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `tglmasuk` date NOT NULL,
   `totbay` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `status` enum('Lunas','Belum Lunas') COLLATE utf8_unicode_ci NOT NULL,
+  `tgllunas` date DEFAULT NULL,
   `ket` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -211,11 +224,11 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `migrations` */
 
-insert  into `migrations`(`id`,`migration`,`batch`) values (7,'2014_07_02_230147_migration_cartalyst_sentinel',1),(8,'2016_10_11_124612_migration_anbiotek_stockpile',1);
+insert  into `migrations`(`id`,`migration`,`batch`) values (19,'2014_07_02_230147_migration_cartalyst_sentinel',1),(20,'2016_10_11_124612_migration_anbiotek_stockpile',1);
 
 /*Table structure for table `pelanggan` */
 
@@ -233,22 +246,6 @@ CREATE TABLE `pelanggan` (
 
 /*Data for the table `pelanggan` */
 
-/*Table structure for table `pelunasan` */
-
-DROP TABLE IF EXISTS `pelunasan`;
-
-CREATE TABLE `pelunasan` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `transaksi_id` int(10) unsigned NOT NULL,
-  `status` enum('Lunas','Belum Lunas') COLLATE utf8_unicode_ci NOT NULL,
-  `tgllunas` date DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `pelunasan` */
-
 /*Table structure for table `persistences` */
 
 DROP TABLE IF EXISTS `persistences`;
@@ -261,11 +258,9 @@ CREATE TABLE `persistences` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `persistences_code_unique` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `persistences` */
-
-insert  into `persistences`(`id`,`user_id`,`code`,`created_at`,`updated_at`) values (1,1,'FmMyIuEcUZME6wnB4gzTWdhnoOYPj35F','2017-01-11 11:15:37','2017-01-11 11:15:37'),(2,1,'AdMoVnvXg3WdqgERw3WbeOjs5zMitFvC','2017-01-12 16:18:17','2017-01-12 16:18:17');
 
 /*Table structure for table `reminders` */
 
@@ -298,7 +293,7 @@ CREATE TABLE `role_users` (
 
 /*Data for the table `role_users` */
 
-insert  into `role_users`(`user_id`,`role_id`,`created_at`,`updated_at`) values (1,1,'2017-01-11 11:07:59','2017-01-11 11:07:59');
+insert  into `role_users`(`user_id`,`role_id`,`created_at`,`updated_at`) values (1,1,'2017-01-23 09:21:09','2017-01-23 09:21:09'),(2,1,'2017-01-23 09:21:09','2017-01-23 09:21:09');
 
 /*Table structure for table `roles` */
 
@@ -317,7 +312,7 @@ CREATE TABLE `roles` (
 
 /*Data for the table `roles` */
 
-insert  into `roles`(`id`,`slug`,`name`,`permissions`,`created_at`,`updated_at`) values (1,'admin','Admin',NULL,'2017-01-11 11:07:58','2017-01-11 11:07:58');
+insert  into `roles`(`id`,`slug`,`name`,`permissions`,`created_at`,`updated_at`) values (1,'admin','Admin',NULL,'2017-01-23 09:21:09','2017-01-23 09:21:09');
 
 /*Table structure for table `satuan` */
 
@@ -366,11 +361,11 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`email`,`password`,`permissions`,`last_login`,`first_name`,`last_name`,`created_at`,`updated_at`) values (1,'admin@admin','$2y$10$Q6ZwcBd6npCQLiR/t0A44uYoDKmdQhGjP28az6ftwoJxkP3qKsbSa',NULL,'2017-01-12 16:18:17','Duratun','Nasihin','2017-01-11 11:07:58','2017-01-12 16:18:17');
+insert  into `users`(`id`,`email`,`password`,`permissions`,`last_login`,`first_name`,`last_name`,`created_at`,`updated_at`) values (1,'admin@anbiotek.co.id','$2y$10$bE/1m.1sazNgxaN8kaalg.LsDG3BkX9h.IiVNVtpmx/3IB9QKZrNe',NULL,NULL,'Anbiotek','Administrator','2017-01-23 09:21:08','2017-01-23 09:21:08'),(2,'deritandespi@gmail.com','$2y$10$NVslQNvmQN3Uoy2Z6WTRXeqCxDpefKsR4kii0aQHKKrvpBKn12cP6',NULL,'2017-01-23 09:21:51','Duratun','Nasihin','2017-01-23 09:21:09','2017-01-23 09:21:51');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

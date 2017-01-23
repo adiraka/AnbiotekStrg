@@ -40,4 +40,9 @@ class User extends Authenticate
     {
         return $this->hasMany('Anbiotek\Keluar','user_id', 'id');
     }
+
+    public function blog()
+    {
+        return $this->hasMany('Anbiotek\Blog', 'user_id', 'id');
+    }
 }

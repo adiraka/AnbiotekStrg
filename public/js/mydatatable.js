@@ -59,32 +59,6 @@ $(function () {
         ]
     });
     $('.table-barang').dataTable({
-        // dom: 'Bfrtip',
-        // buttons: [
-        //     {
-        //         extend: 'pdfHtml5',
-        //         filename: 'Laporan Stock Barang',
-        //         title: 'Laporan Stock Barang PT. Andalas Bioteknologi Saiyo',
-        //         header: true,
-        //         pageSize: 'A4',
-        //         message: 'Berikut adalah laporan stock barang terbaru PT. Andalas Bioteknologi Saiyo :',
-        //         exportOptions: {
-        //             modifier: {
-        //                 pageMargins: [150, 150, 150, 150],
-        //                 alignment: 'center'
-        //             },
-        //             columns: [0,1,2,3,4,5,6],
-        //             columnGap: 1,
-        //         },
-        //     },
-        //     {
-        //         extend: 'excel',
-        //         filename: 'Laporan Data Stock Barang',
-        //         exportOptions: {
-        //             columns: [0,1,2,3,4,5,6],
-        //         },
-        //     },
-        // ],
         procesing: true,
         serverSide: true,
         responsive: true,
@@ -130,5 +104,31 @@ $(function () {
             { data: 'totbay', name: 'totbay' },
             { data: 'action', name: 'action', searchable: false },
         ]
+    });
+    $('.table-kontak').dataTable({
+        procesing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: '/admin/kontak/lihat',
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'nama', name: 'nama' },
+            { data: 'email', name: 'email' },
+            { data: 'judul', name: 'judul' },
+            { data: 'pesan', name: 'pesan' },
+        ]
+    });
+    $('.table-blog').dataTable({
+        // procesing: true,
+        // serverSide: true,
+        // responsive: true,
+        // ajax: '/admin/kontak/lihat',
+        // columns: [
+        //     { data: 'id', name: 'id' },
+        //     { data: 'nama', name: 'nama' },
+        //     { data: 'email', name: 'email' },
+        //     { data: 'judul', name: 'judul' },
+        //     { data: 'pesan', name: 'pesan' },
+        // ]
     });
 });

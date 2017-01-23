@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Login | Ami Stockpile</title>
+    <title>Login | Anbiotek Storage</title>
 
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
@@ -21,13 +21,13 @@
 <body class="login-page">
     <div class="login-box">
         <div class="logo">
-            <a href="javascript:void(0);">AMI<b>Stockpile</b></a>
+            <a href="javascript:void(0);">[anbiotek]<b>Storage</b></a>
             <small>PT. Andalas Bioteknologi Saiyo</small>
         </div>
         <div class="card">
             <div class="body">
                 <form id="sign_in" method="POST">
-                    <div class="msg">Sign in to start your session</div>
+                    <div class="msg">Silahkan login terlebih dahulu.</div>
                     <input type="hidden" name="_token" value="{{ Session::token() }}">
                     <div class="input-group">
                         <span class="input-group-addon">
