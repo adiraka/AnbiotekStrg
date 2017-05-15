@@ -54,4 +54,12 @@ class BlogController extends Controller
     		'blog' => $blog,
     	]);
     }
+
+    public function getBlogDetail($id) {
+    	$blogDetail = Blog::find($id);
+
+    	return view('front.blog.detail')->with([
+    		'blogDetail' => $blogDetail,
+    	]);
+    }
 }

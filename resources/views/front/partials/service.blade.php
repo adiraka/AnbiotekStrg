@@ -16,7 +16,11 @@
 						</div>
 						<div class="more-features-box-text-description">
 							<h3>Bioteknologi</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum architecto neque corporis, aspernatur at saepe alias eum, voluptatibus minus delectus quibusdam officiis sunt eveniet vero voluptate optio nihil! Culpa, eaque.</p>
+							<p>
+								Menyediakan bahan-bahan dan alat-alat terkait dengan biologi molekuler, imunologi, 
+								kultur sel, diagnostik kedokteran, dan untuk kepentingan pelayanan di bidang kesehatan 
+								dan penelitian.
+							</p>
 						</div>
 					</div>
 					<div class="more-features-box-text">
@@ -25,7 +29,9 @@
 						</div>
 						<div class="more-features-box-text-description">
 							<h3>Hospital Air Cleaning</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea consequuntur modi impedit, quidem ipsum tempora aut atque sit. Est nisi animi soluta eius laudantium consectetur et nobis obcaecati repudiandae non!</p>
+							<p>
+								Cooming Soon...
+							</p>
 						</div>
 					</div>
 					<div class="more-features-box-text">
@@ -34,7 +40,9 @@
 						</div>
 						<div class="more-features-box-text-description">
 							<h3>Production</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste reiciendis vitae iure quod dolor, eaque nisi, tenetur voluptatum, odio sunt nobis molestias pariatur ex repudiandae, doloremque iusto expedita? Beatae, et.</p>
+							<p>
+								Cooming Soon...
+							</p>
 						</div>
 					</div>
 				</div>

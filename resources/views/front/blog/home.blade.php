@@ -19,9 +19,9 @@
 									<i class="fa fa-angle-right" aria-hidden="true"></i>
 								</div>
 								<div class="more-features-box-text-description">
-									<h3 class="blog-title">{{ $value->judul }} <small>{{ $value->created_at }}</small></h3>
+									<h3 class="blog-title"><a href="{{ route('getBlogDetail', [$value->id]) }}">{{ $value->judul }}</a> <small>{{ $value->created_at }}</small></h3>
 									<p class="blog-desc">{!! str_limit($value->teks, 400) !!}</p>
-									<a href="#" class="btn btn-sm btn-primary pull-right">Selengkapnya...</a>
+									<a href="{{ route('getBlogDetail', [$value->id]) }}" class="btn btn-sm btn-primary pull-right">Selengkapnya...</a>
 								</div>
 							</div>
 						</div>

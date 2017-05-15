@@ -8,6 +8,7 @@ Route::get('/tentang', ['as' => 'frontTentang', 'uses' => 'FrontController@getTe
 Route::group(['prefix' => 'blog'], function() {
 
     Route::get('/', ['as' => 'getBlog', 'uses' => 'BlogController@getBlogHome']);
+    Route::get('/berita/{id}', ['as' => 'getBlogDetail', 'uses' => 'BlogController@getBlogDetail']);
 
 });
 

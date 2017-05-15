@@ -1,72 +1,62 @@
-<!DOCTYPE html>
-<html>
+@extends('template.index')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Anbiotek Storage</title>
+@section('content')
 
-    <link href="favicon.ico" rel="shortcut icon" />
-
-    <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('css/laporan.css')}}" rel="stylesheet">
-
-</head>
-
-<body>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-2 col-xs-2 col-md-2">
-                <img src="{{ asset('images/anbiotek.png') }}" alt="PT. Anbiotek" height="100px">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>Kategori Produk</h2>
             </div>
-            <div class="col-sm-10 col-xs-10 col-md-10">
-                <p class="text-large">PT. Andalas Bioteknologi Saiyo</p>
-                <p>Komp. Cendana Mata Air Thp. VIII Blok A/4 Koto Baru Nan XX, Padang 25171 <br>Telepon: +62751 64652, Email: bioteknologiandalas@yahoo.co.id</p>
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    @include('template.partials.alert')
+                </div>
             </div>
-        </div>
-        <br><br><br><br><br><br><hr>
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <p class="text-center"><b>LAPORAN STOK PRODUK</b></p>
-                <p class="text-center">{{ date('d/m/Y') }}</p>
-                <br>
-                <table class="table table-bordered table-stripped">
-                    <thead>
-                        <tr class="bg-blue">
-                            <th>NO KATALOG</th>
-                            <th>PRODUK</th>
-                            <th>MERK</th>
-                            <th>QTY</th>
-                            <th>SATUAN</th>
-                            <th>EXPIRE</th>
-                            <th>KET</th>
-                        </tr>
-                    </thead>
-                    <tbody>  
-                        @foreach ($reportbarang as $value)
-                            <tr>
-                                <td colspan="7"><b>Kategori : {{ $value['nmkategori'] }}</b></td>
-                            </tr>
-                            @foreach ($value['produk'] as $element)
-                                <tr>
-                                    <td>{{ $element->kode }}</td>
-                                    <td>{{ $element->nmbarang }}</td>
-                                    <td>{{ $element->merk->nmmerk }}</td>
-                                    <td class="text-center"><strong>{{ $element->stock }}</strong></td>
-                                    <td>{{ $element->satuan->nmsatuan }}</td>
-                                    <td>{{ Carbon\Carbon::parse($element->expire)->format('d/m/Y') }}</td>
-                                    <td>{{ $element->ket }}</td>
-                                </tr>
-                            @endforeach
-                        @endforeach
-                    </tbody>
-                </table>
+            <div class="row clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Tambah Kategori</h2>
+                        </div>
+                        <div class="body">
+                            @include('template.partials.formalert')
+                            <form class="form-horizontal" action="" id="form_validation" method="post">
+                                <input type="hidden" name="_token" value="{{ Session::token() }}">
+                                <div class="row clearfix">
+                                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-5 form-control-label">
+                                        <label for="nmkategori">Kategori</label>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-9 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="nmkategori" class="form-control" placeholder="Nama Kategori" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-3 col-xs-offset-5">
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Simpan</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-</body>
+@endsection
 
-</html>
+@push('styles')
+    
+    
+
+@endpush
+
+@push('scripts')
+
+    
+
+@endpush
