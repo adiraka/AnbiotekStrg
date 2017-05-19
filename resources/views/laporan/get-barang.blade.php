@@ -5,7 +5,8 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>Kategori Produk</h2>
+                <h2>Laporan Stok Produk</h2>
+                <br>
             </div>
             <div class="row clearfix">
                 <div class="col-md-12">
@@ -13,33 +14,17 @@
                 </div>
             </div>
             <div class="row clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                     <div class="card">
-                        <div class="header">
-                            <h2>Tambah Kategori</h2>
-                        </div>
                         <div class="body">
-                            @include('template.partials.formalert')
-                            <form class="form-horizontal" action="" id="form_validation" method="post">
-                                <input type="hidden" name="_token" value="{{ Session::token() }}">
-                                <div class="row clearfix">
-                                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-5 form-control-label">
-                                        <label for="nmkategori">Kategori</label>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8 col-sm-9 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="text" name="nmkategori" class="form-control" placeholder="Nama Kategori" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-3 col-xs-offset-5">
-                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Simpan</button>
-                                    </div>
-                                </div>
-                            </form>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga voluptatibus dolorum possimus nisi quos error eaque aliquam, modi temporibus amet facere sapiente perferendis ratione alias cum rerum ad id expedita.
+                            </p>
+                            <p>
+                                <button>
+                                
+                                </button>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -50,13 +35,9 @@
 @endsection
 
 @push('styles')
-    
-    
 
 @endpush
 
 @push('scripts')
-
-    
 
 @endpush

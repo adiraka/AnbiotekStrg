@@ -15,6 +15,9 @@ class LaporanController extends Controller
 {
     public function getLaporanBarang()
     {
-    	return view('laporan.get-barang');
+        $listKategori = Kategori::all();
+    	return view('laporan.get-barang')->with([
+            'listKategori' => $listKategori,
+        ]);
     }
 }
