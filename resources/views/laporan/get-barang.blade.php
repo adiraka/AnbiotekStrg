@@ -14,20 +14,18 @@
                 </div>
             </div>
             <div class="row clearfix">
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                    <div class="card">
-                        <div class="body">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga voluptatibus dolorum possimus nisi quos error eaque aliquam, modi temporibus amet facere sapiente perferendis ratione alias cum rerum ad id expedita.
-                            </p>
-                            <p>
-                                <button>
-                                
-                                </button>
-                            </p>
+                @foreach ($listKategori as $kategori)
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                        <div class="card">
+                            <div class="header">
+                                <h2>KATEGORI : {{ $kategori->nmkategori }}</h2>
+                            </div>
+                            <div class="body">
+                                <a href="{{ route('laporanExcel', [$kategori->id]) }}" class="btn btn-block btn-success">Export Laporan ke Format Excel</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

@@ -103,6 +103,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
 
     // Admin Laporan
     Route::get('/laporan/barang', ['as' => 'laporanBarang', 'uses' => 'LaporanController@getLaporanBarang']);
+    Route::get('/laporan/barang/kategori/{id}', ['as' => 'laporanExcel', 'uses' => 'LaporanController@exportBarangToPDF']);
 
     // Admin Front Kontak
     Route::get('/kontak/lihat', ['as' => 'lihatKontak', 'uses' => 'KontakController@viewKontak']);
