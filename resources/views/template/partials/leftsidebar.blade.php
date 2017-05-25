@@ -139,8 +139,13 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('laporanStokMasuk') }}">
+                                <span>Laporan Stok Masuk</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="#">
-                                <span>Lihat Data Barang Keluar</span>
+                                <span>Laporan Stok Keluar</span>
                             </a>
                         </li>
                     </ul>

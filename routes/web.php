@@ -103,7 +103,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
 
     // Admin Laporan
     Route::get('/laporan/barang', ['as' => 'laporanBarang', 'uses' => 'LaporanController@getLaporanBarang']);
-    Route::get('/laporan/barang/kategori/{id}', ['as' => 'laporanExcel', 'uses' => 'LaporanController@exportBarangToPDF']);
+    Route::get('/laporan/barang/{tipe}', ['as' => 'laporanExcel', 'uses' => 'LaporanController@exportBarangToPDF']);
+    Route::get('/laporan/masuk', ['as' => 'laporanStokMasuk', 'uses' => 'LaporanController@getLaporanStokMasuk']);
+    Route::get('/laporan/masuk/{tipe}', ['as' => 'laporanStokMasukExcel', 'uses' => 'LaporanController@exportStokMasukToPDF']);
 
     // Admin Front Kontak
     Route::get('/kontak/lihat', ['as' => 'lihatKontak', 'uses' => 'KontakController@viewKontak']);
