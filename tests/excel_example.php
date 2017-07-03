@@ -174,8 +174,8 @@ class KarirController extends Controller
 
                         $countPelatihan = count($pelatihan);
                         $countPengalaman = count($pengalaman);
-                        $xRow = $dataRow;
                         $yRow = $dataRow;
+                        $xRow = $dataRow;
 
                         foreach ($pelatihan as $key => $value) {
                             $sheet->cell('S'.$xRow, function($cell) use($value) { $cell->setValue($value['nm_pelatihan']); });
