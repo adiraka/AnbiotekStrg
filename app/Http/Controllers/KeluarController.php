@@ -71,7 +71,7 @@ class KeluarController extends Controller
                 return '
                 <a href="'.route('pelunasanKeluar', ['id' => $keluar->id]).'" class="btn btn-success btn-xs">PLS</a>&nbsp;|
                 <a href="'.route('lihatKeluarDetail', ['id' => $keluar->id]).'" class="btn btn-primary btn-xs">DTL</a>&nbsp;|
-                <a href="#" class="btn btn-danger btn-xs">HPS</a>
+                <a href="'.route('hapusKeluar', ['id' => $keluar->id]).'" class="btn btn-danger btn-xs">HPS</a>
                 ';
             })
             ->editColumn('totbay', function($keluar){
@@ -94,6 +94,38 @@ class KeluarController extends Controller
             'keluar' => $keluar,
             'detailKeluar' => $detailKeluar,
         ]);
+    }
+
+    public function reportKeluar($id)
+    {
+        $keluar = Keluar::find($id);
+        return view('keluar.del')->with('keluar', $keluar);
+    }
+
+    public function deleteKeluar(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+        ]);
+
+        $keluar = Keluar::find($request->id);
+
+        // dd($keluar);
+
+        DB::transaction(function() use($keluar) {
+            foreach ($keluar->detail()->get() as $detail) {
+                $barang = DB::table('barang')->where('kode', $detail['barang_kode']);
+                $stok = $barang->first()->stock;
+                $barang->update([
+                    'stock' => $stok + $detail['stokeluar'],
+                ]);
+                $detail->delete();
+            }
+            $keluar->delete();
+        });
+
+        Session::flash('success', 'Barang Keluar telah berhasil di hapus.');
+        return redirect()->route('lihatKeluar');
     }
 
     public function pelunasanKeluar($id)

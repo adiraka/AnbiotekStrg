@@ -16,21 +16,21 @@
             <div class="row clearfix">
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                     <div class="card">
-                        <div class="header">
-                            <h2>LAPORAN PER DISTRIBUTOR</h2>
+                        <div class="header text-center">
+                            <h2>Laporan Stok Masuk Per Distributor</h2>
                         </div>
                         <div class="body">
-                            <a href="{{ route('laporanStokMasukExcel', ['distributor']) }}" class="btn btn-block btn-success">Export Laporan ke Format Excel</a>
+                            <a href="{{ route('laporanStokMasukExcel', ['distributor']) }}" class="btn btn-block btn-success">Download Laporan (.xls)</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                     <div class="card">
-                        <div class="header">
-                            <h2>LAPORAN PER BULAN</h2>
+                        <div class="header text-center">
+                            <h2>Laporan Stok Masuk Per Bulan</h2>
                         </div>
                         <div class="body">
-                            <a href="{{ route('laporanStokMasukExcel', ['bulanan']) }}" class="btn btn-block btn-success">Export Laporan ke Format Excel</a>
+                            <a href="{{ route('laporanStokMasukExcel', ['bulanan']) }}" class="btn btn-block btn-success">Download Laporan (.xls)</a>
                         </div>
                     </div>
                 </div>

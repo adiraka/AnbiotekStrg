@@ -37,7 +37,7 @@ class BarangController extends Controller
             'merk_id' => 'required',
             'stock' =>'required|integer',
             'satuan_id' => 'required',
-            'expire' => 'required   |date',
+            // 'expire' => 'required   |date',
         ]);
 
         $barang = new Barang;
@@ -100,7 +100,7 @@ class BarangController extends Controller
             'kategori_id' => 'required',
             'merk_id' => 'required',
             'stock' =>'required|integer',
-            'expire' => 'required|date',
+            // 'expire' => 'required|date',
             'satuan_id' => 'required',
         ]);
 

@@ -15,6 +15,9 @@ use Anbiotek\Merk;
 use Anbiotek\Distributor;
 use Anbiotek\Masuk;
 use Anbiotek\DetMasuk;
+use Anbiotek\Pelanggan;
+use Anbiotek\Keluar;
+use Anbiotek\DetKeluar;
 
 class LaporanController extends Controller
 {
@@ -39,35 +42,63 @@ class LaporanController extends Controller
 
                     $excel->sheet(str_limit($kategori->nmkategori, 20), function ($sheet) use($kategori) {
 
-            			$dataRow = 5;
+            			$dataRow = 7;
 
                         $listProduk = Barang::where('kategori_id', $kategori->id)->get();
 
-            			$sheet->setFreeze('A5');
+                        $sheet->setPaperSize(5);
+                        $sheet->setOrientation('portrait');
+                        $sheet->setScale(90);
+                        $sheet->setPageMargin(0.25);
+
+            			$sheet->setFreeze('A7');
 
             			$sheet->mergeCells('A1:G1');
             			$sheet->mergeCells('A2:G2');
+                        $sheet->mergeCells('A4:C4');
+                        $sheet->mergeCells('F4:G4');
 
-            			$sheet->cell('A1', function($cell) use($kategori) {
-            				$cell->setValue('Laporan Stok Produk '.$kategori->nmkategori);
-            				$cell->setFontWeight('bold');
-                            $cell->setFontColor('#3F51B5');
-            				$cell->setFontSize(14);
-            				$cell->setAlignment('center');
+            			$sheet->cell('A1', function($cell) {
+            				$cell->setValue('PT. ANDALAS BIOTEKNOLOGI SAIYO PADANG');
+                            $cell->setFontWeight('bold');                           
+                            $cell->setFontSize(11);
+                            $cell->setAlignment('center');
             			});
 
             			$sheet->cell('A2', function($cell) use($listProduk) {
-            				$cell->setValue('Tanggal '.date("d-m-Y").' | Total '.count($listProduk).' Produk');
-            				$cell->setFontSize(12);
-            				$cell->setAlignment('center');
+            				$cell->setValue('LAPORAN STOK PRODUK PER KATEGORI');
+                            $cell->setFontWeight('bold');                           
+                            $cell->setFontSize(11);
+                            $cell->setAlignment('center');
             			});
 
-            			$sheet->appendRow(4, array(
-                        	'#', 'KATALOG', 'NAMA PRODUK', 'MERK', 'STOK', 'SATUAN', 'KETERANGAN'
+                        $sheet->cell('F4', function($cell) {
+                            $cell->setValue('Tanggal : '.date("d-m-Y"));                    
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('A4', function($cell) use($kategori) {
+                            $cell->setValue('Kategori : '.$kategori->nmkategori);                    
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('left');
+                        });
+
+                        // $sheet->cell('A1', function($cell) use($kategori) {
+                        //     $cell->setValue('Laporan Stok Produk '.$kategori->nmkategori);
+                        //     $cell->setFontWeight('bold');
+                        //     $cell->setFontColor('#3F51B5');
+                        //     $cell->setFontSize(14);
+                        //     $cell->setAlignment('center');
+                        // });
+
+            			$sheet->appendRow(6, array(
+                        	'NO', 'KATALOG', 'NAMA PRODUK', 'MERK', 'STOK', 'SATUAN', 'KETERANGAN'
                         ));
 
-                        foreach ($listProduk as $produk) {
+                        foreach ($listProduk as $key => $produk) {
 
+                            $sheet->cell('A'.$dataRow, function($cell) use($key) { $cell->setValue($key+1); });
                         	$sheet->cell('B'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->kode); });
                         	$sheet->cell('C'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->nmbarang); });
                         	$sheet->cell('D'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->merk->nmmerk); });
@@ -75,39 +106,31 @@ class LaporanController extends Controller
                         	$sheet->cell('F'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->satuan->nmsatuan); });
                         	$sheet->cell('G'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->ket); });
 
-                        	if ($produk->stock == 0) {
-                        		$sheet->cell('A'.$dataRow, function($cell) { $cell->setBackground('#FB483A'); });
-                        	} elseif ($produk->stock > 0 && $produk->stock <= 5) {
-                        		$sheet->cell('A'.$dataRow, function($cell) { $cell->setBackground('#FF9600'); });
-                        	} else {
-                        		$sheet->cell('A'.$dataRow, function($cell) { $cell->setBackground('#2B982B'); });
-                        	}
-
                         	$dataRow = $dataRow + 1;
 
                         }
 
-                        $sheet->cells('A4:G4', function($cells) {
+                        $sheet->cells('A6:G6', function($cells) {
                         	$cells->setAlignment('center');
-                        	$cells->setValignment('center');
-                            $cells->setBackground('#3F51B5');
-                            $cells->setFontColor('#FFFFFF');
-                        	$cells->setFontWeight('bold');
-                        	$cells->setFontSize(12);
+                            $cells->setValignment('center');
+                            $cells->setFontWeight('bold');
+                            $cells->setFontSize(9);
                         });
 
-                        $sheet->cells('A5:G'.($dataRow-1), function($cells) {
-                        	$cells->setValignment('center');
-                        	$cells->setFontWeight('bold');
-                        	$cells->setFontSize(9);
+                        $sheet->cells('A7:G'.($dataRow-1), function($cells) {
+                        	$cells->setFontSize(8);
                         });
 
-                        $sheet->cells('B5:B'.($dataRow-1), function($cells) {
+                        $sheet->cells('A7:A'.($dataRow-1), function($cells) {
+                            $cells->setAlignment('center');
+                        });
+
+                        $sheet->cells('B7:B'.($dataRow-1), function($cells) {
                         	$cells->setAlignment('left');
                         	$cells->setValignment('center');
                         });
 
-                        $sheet->cells('E1:F'.($dataRow-1), function($cells) {
+                        $sheet->cells('D7:F'.($dataRow-1), function($cells) {
                         	$cells->setAlignment('center');
                         	$cells->setValignment('center');
                         });
@@ -116,110 +139,23 @@ class LaporanController extends Controller
                         	'A' => '@'
                         ));
 
-                        $sheet->setAutoSize(true);
-                        $sheet->setBorder('A5:G'.($dataRow-1), 'thin');
+                        $sheet->setBorder('A6:G'.($dataRow-1), 'thin');
+
+                        $sheet->setWidth(array(
+                            'A' => 7,
+                            'B' => 15,
+                            'C' => 45,
+                            'D' => 15,
+                            'E' => 7,
+                            'F' => 10,
+                            'G' => 13,
+                        ));
 
             		});
 
                 }
 
         	})->download('xls');
-
-        } elseif ($tipe == 'merk') {
-
-            $listMerk = Merk::all();
-
-            return Excel::create('LAPORAN STOK PER MERK '.date("d-m-Y"), function($excel) use($listMerk) {
-
-                foreach ($listMerk as $merk) {
-
-                    $excel->sheet($merk->nmmerk, function($sheet) use($merk) {
-
-                        $dataRow = 5;
-
-                        $listProduk = Barang::where('merk_id', $merk->id)->get();
-
-            			$sheet->setFreeze('A5');
-
-            			$sheet->mergeCells('A1:G1');
-            			$sheet->mergeCells('A2:G2');
-
-            			$sheet->cell('A1', function($cell) use($merk) {
-            				$cell->setValue('Laporan Stok Produk '.$merk->nmmerk);
-            				$cell->setFontWeight('bold');
-                            $cell->setFontColor('#3F51B5');
-            				$cell->setFontSize(14);
-            				$cell->setAlignment('center');
-            			});
-
-            			$sheet->cell('A2', function($cell) use($listProduk) {
-            				$cell->setValue('Tanggal '.date("d-m-Y").' | Total '.count($listProduk).' Produk');
-            				$cell->setFontSize(12);
-            				$cell->setAlignment('center');
-            			});
-
-            			$sheet->appendRow(4, array(
-                        	'#', 'KATALOG', 'NAMA PRODUK', 'KATEGORI', 'STOK', 'SATUAN', 'KETERANGAN'
-                        ));
-
-                        foreach ($listProduk as $produk) {
-
-                        	$sheet->cell('B'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->kode); });
-                        	$sheet->cell('C'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->nmbarang); });
-                        	$sheet->cell('D'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->kategori->nmkategori); });
-                            $sheet->cell('E'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->stock); });
-                        	$sheet->cell('F'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->satuan->nmsatuan); });
-                        	$sheet->cell('G'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->ket); });
-
-                        	if ($produk->stock == 0) {
-                        		$sheet->cell('A'.$dataRow, function($cell) { $cell->setBackground('#FB483A'); });
-                        	} elseif ($produk->stock > 0 && $produk->stock <= 5) {
-                        		$sheet->cell('A'.$dataRow, function($cell) { $cell->setBackground('#FF9600'); });
-                        	} else {
-                        		$sheet->cell('A'.$dataRow, function($cell) { $cell->setBackground('#2B982B'); });
-                        	}
-
-                        	$dataRow = $dataRow + 1;
-
-                        }
-
-                        $sheet->cells('A4:G4', function($cells) {
-                        	$cells->setAlignment('center');
-                        	$cells->setValignment('center');
-                            $cells->setBackground('#3F51B5');
-                            $cells->setFontColor('#FFFFFF');
-                        	$cells->setFontWeight('bold');
-                        	$cells->setFontSize(12);
-                        });
-
-                        $sheet->cells('A5:G'.($dataRow-1), function($cells) {
-                        	$cells->setValignment('center');
-                        	$cells->setFontWeight('bold');
-                        	$cells->setFontSize(9);
-                        });
-
-                        $sheet->cells('B5:B'.($dataRow-1), function($cells) {
-                        	$cells->setAlignment('left');
-                        	$cells->setValignment('center');
-                        });
-
-                        $sheet->cells('E1:F'.($dataRow-1), function($cells) {
-                        	$cells->setAlignment('center');
-                        	$cells->setValignment('center');
-                        });
-
-                        $sheet->setColumnFormat(array(
-                        	'A' => '@'
-                        ));
-
-                        $sheet->setAutoSize(true);
-                        $sheet->setBorder('A5:G'.($dataRow-1), 'thin');
-
-                    });
-
-                }
-
-            })->download('xls');
 
         } elseif ($tipe == 'keseluruhan') {
 
@@ -229,33 +165,40 @@ class LaporanController extends Controller
 
                 $excel->sheet('LAPORAN STOK', function($sheet) use($listProduk) {
 
-                    $dataRow = 5;
+                    $dataRow = 7;
 
                     $sheet->setPaperSize(5);
                     $sheet->setOrientation('portrait');
                     $sheet->setScale(80);
                     $sheet->setPageMargin(0.25);
 
-                    $sheet->setFreeze('A5');
+                    $sheet->setFreeze('A7');
 
                     $sheet->mergeCells('A1:H1');
                     $sheet->mergeCells('A2:H2');
+                    $sheet->mergeCells('G4:H4');
 
                     $sheet->cell('A1', function($cell) {
-                        $cell->setValue('LAPORAN STOK PRODUK KESELURUHAN PT. ANDALAS BIOTEKNOLOGI SAIYO');
+                        $cell->setValue('PT. Andalas Bioteknologi Saiyo Padang');
                         $cell->setFontWeight('bold');                    		
                         $cell->setFontSize(11);
                         $cell->setAlignment('center');
                     });
 
                     $sheet->cell('A2', function($cell) {
-                        $cell->setValue(date("d M Y"));
-                        $cell->setFontWeight('bold');                    		
-                        $cell->setFontSize(10);
+                        $cell->setValue('Laporan Stok Produk Keseluruhan');
+                        $cell->setFontWeight('bold');                           
+                        $cell->setFontSize(11);
                         $cell->setAlignment('center');
                     });
 
-                    $sheet->appendRow(4, array(
+                    $sheet->cell('G4', function($cell) {
+                        $cell->setValue('Tanggal : '.date("d-m-Y"));             		
+                        $cell->setFontSize(10);
+                        $cell->setAlignment('right');
+                    });
+
+                    $sheet->appendRow(6, array(
                         'NO', 'KATALOG', 'NAMA PRODUK', 'KATEGORI', 'MERK', 'STOK', 'SATUAN', 'KETERANGAN'
                     ));
 
@@ -274,32 +217,32 @@ class LaporanController extends Controller
 
                     }
 
-                    $sheet->cells('A4:H4', function($cells) {
+                    $sheet->cells('A6:H6', function($cells) {
                     	$cells->setAlignment('center');
                     	$cells->setValignment('center');
                     	$cells->setFontWeight('bold');
                     	$cells->setFontSize(9);
                     });
 
-                    $sheet->cells('A5:A'.($dataRow-1), function($cells) {
+                    $sheet->cells('A7:A'.($dataRow-1), function($cells) {
                     	$cells->setAlignment('center');
                     	$cells->setValignment('center');
                     	$cells->setFontSize(8);
                     });
 
-                    $sheet->cells('B5:E'.($dataRow-1), function($cells) {
+                    $sheet->cells('B7:E'.($dataRow-1), function($cells) {
                     	$cells->setAlignment('left');
                     	$cells->setValignment('center');
                     	$cells->setFontSize(8);
                     });
 
-                    $sheet->cells('F5:G'.($dataRow-1), function($cells) {
+                    $sheet->cells('F7:G'.($dataRow-1), function($cells) {
                     	$cells->setAlignment('center');
                     	$cells->setValignment('center');
                     	$cells->setFontSize(8);
                     });
 
-                    $sheet->cells('H5:H'.($dataRow-1), function($cells) {
+                    $sheet->cells('H7:H'.($dataRow-1), function($cells) {
                     	$cells->setAlignment('left');
                     	$cells->setValignment('center');
                     	$cells->setFontSize(8);
@@ -309,8 +252,7 @@ class LaporanController extends Controller
                         'A' => '@'
                     ));
 
-                    $sheet->setAutoSize(true);
-                    $sheet->setBorder('A4:H'.($dataRow-1), 'thin');
+                    $sheet->setBorder('A6:H'.($dataRow-1), 'thin');
 
                     $sheet->setWidth(array(
                     	'A' => 7,
@@ -789,6 +731,471 @@ class LaporanController extends Controller
             		});
 
             	}
+
+            })->download('xls');
+
+        }
+
+    }
+
+    public function getLaporanStokKeluar()
+    {
+
+        return view('laporan.get-stok-keluar');
+
+    }
+
+    public function exportStokKeluarToPDF($tipe)
+    {
+
+        if ($tipe == 'pelanggan') {
+            
+            return Excel::create('LAPORAN STOK KELUAR PER PELANGGAN '.date("d-m-Y"), function($excel) {
+
+                $listPelanggan = Pelanggan::all();
+
+                foreach ($listPelanggan as $pelanggan) {
+                    
+                    $excel->sheet(str_limit(str_replace('/', '-', $pelanggan->nmpelanggan), 20), function($sheet) use($pelanggan) {
+
+                        $sheet->setFreeze('A6');
+
+                        $sheet->mergeCells('A1:K1');
+                        $sheet->mergeCells('A2:K2');
+                        $sheet->mergeCells('D4:I4');
+
+                        $sheet->setMergeColumn(array(
+                            'columns' => array('A','B','C', 'J', 'K'),
+                            'rows' => array(
+                                array(4,5),
+                            ), true
+                        ));
+
+                        $sheet->cell('A1', function($cell) {
+                            $cell->setValue('LAPORAN PENJUALAN PRODUK PT. ANBIOTEK SAIYO PADANG');
+                            $cell->setFontWeight('bold');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('center');
+                        });
+
+                        $sheet->cell('A2', function($cell) use($pelanggan) {
+                            $cell->setValue('PELANGGAN : '.strtoupper($pelanggan->nmpelanggan));
+                            $cell->setFontWeight('bold');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('center');
+                        });
+
+                        $sheet->appendRow(4, array(
+                            'NO', 'NO FAKTUR', 'TANGGAL', 'DETAIL PRODUK', '', '', '', '', '', 'TOTAL BAYAR', 'STATUS',
+                        ));
+
+                        $sheet->cell('D5', function($cell) { $cell->setValue('KATALOG'); });
+                        $sheet->cell('E5', function($cell) { $cell->setValue('NAMA PRODUK'); });
+                        $sheet->cell('F5', function($cell) { $cell->setValue('QTY'); });
+                        $sheet->cell('G5', function($cell) { $cell->setValue('SATUAN'); });
+                        $sheet->cell('H5', function($cell) { $cell->setValue('HARGA'); });
+                        $sheet->cell('I5', function($cell) { $cell->setValue('SUBTOTAL'); });
+
+                        $sheet->cells('A4:K4', function($cells) {
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                            $cells->setFontWeight('bold');
+                            $cells->setFontSize(9);
+                        });
+
+                        $sheet->cells('D5:I5', function($cells) {
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                            $cells->setFontWeight('bold');
+                            $cells->setFontSize(9);
+                        });
+
+                        $sheet->setBorder('A4:K5', 'thin');
+
+                        $dataRow = 6;
+
+                        $stokKeluar = Keluar::where('pelanggan_id', $pelanggan->id)->get();
+
+                        $totalBayar = 0;
+
+                        foreach ($stokKeluar as $key => $keluar) {
+
+                            $xRow = $dataRow;
+
+                            $sheet->cell('A'.$dataRow, function($cell) use($key) { $cell->setValue($key+1); });
+                            $sheet->cell('B'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->nobon); });
+                            $sheet->cell('C'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->tglkeluar); });
+                            $sheet->cell('J'.$dataRow, function($cell) use($keluar) { $cell->setValue(number_format($keluar->totbay, 2)); });
+                            $sheet->cell('K'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->status); });
+
+                            $detailKeluar = DetKeluar::where('keluar_id', $keluar->id)->get();
+
+                            foreach ($detailKeluar as $key => $detail) {
+                                $nmbarang = $detail->barang->nmbarang;
+                                $sheet->cell('D'.$xRow, function($cell) use($detail) { $cell->setValue($detail->barang_kode); });
+                                $sheet->cell('E'.$xRow, function($cell) use($nmbarang) { $cell->setValue($nmbarang); });
+                                $sheet->cell('F'.$xRow, function($cell) use($detail) { $cell->setValue($detail->stokeluar); });
+                                $sheet->cell('G'.$xRow, function($cell) use($detail) { $cell->setValue($detail->barang->satuan->nmsatuan); });
+                                $sheet->cell('H'.$xRow, function($cell) use($detail) { $cell->setValue(number_format($detail->harga,0)); });
+                                $sheet->cell('I'.$xRow, function($cell) use($detail) { $cell->setValue(number_format($detail->subtot,0)); });
+                                $xRow = $xRow + 1;
+                            }
+
+                            $totalBayar = $totalBayar + $keluar->totbay;
+
+                            $addRow = count($detailKeluar);
+
+                            if ($addRow <= 1) {
+                                $dataRow = $dataRow + 1;
+                            } else {
+                                $x = $dataRow;
+                                $dataRow = $dataRow + $addRow;
+                                $y = $dataRow - 1;
+                                $sheet->mergeCells('A'.$x.':A'.$y);
+                                $sheet->mergeCells('B'.$x.':B'.$y);
+                                $sheet->mergeCells('C'.$x.':C'.$y);
+                                $sheet->mergeCells('J'.$x.':J'.$y);
+                                $sheet->mergeCells('K'.$x.':K'.$y);
+                            }
+
+                        }
+
+                        $sheet->cells('A6:A'.$dataRow, function($cells) {
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->cells('B6:B'.$dataRow, function($cells) {
+                            $cells->setAlignment('left');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->cells('C6:C'.$dataRow, function($cells) {
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->cells('D6:E'.$dataRow, function($cells) {
+                            $cells->setAlignment('left');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->cells('F6:G'.$dataRow, function($cells) {
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->cells('H6:J'.$dataRow, function($cells) {
+                            $cells->setAlignment('right');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                            $cells->setFontWeight('bold');
+                        });
+
+                        $sheet->cells('K6:K'.$dataRow, function($cells) {
+                            $cells->setAlignment('left');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->setBorder('A6:K'.$dataRow, 'thin');
+
+                        $sheet->mergeCells('B'.$dataRow.':I'.$dataRow);
+
+                        $sheet->cell('B'.$dataRow, function($cell) {
+                            $cell->setValue('Total Transaksi Keseluruhan');
+                            $cell->setFontWeight('bold');
+                            $cell->setValignment('center');
+                            $cell->setFontSize(9);
+                        });
+
+                        $sheet->cell('J'.$dataRow, function($cell) use($totalBayar) { $cell->setValue(number_format($totalBayar, 2)); $cell->setFontSize(9); $cell->setValignment('center'); });
+
+                        $sheet->setWidth(array(
+                            'A' => 4,
+                            'B' => 15,
+                            'C' => 10,
+                            'D' => 10,
+                            'E' => 20,
+                            'F' => 7,
+                            'G' => 9,
+                            'H' => 10,
+                            'I' => 10,
+                            'J' => 12,
+                            'K' => 10
+                        ));
+
+                    });
+
+                }
+
+            })->download('xls');
+
+        } elseif ($tipe == 'bulanan') {
+
+            $listKeluar = Keluar::all();
+
+            $data = [
+
+                [ 'bulan' => 'Januari', 'transaksi' => NULL], 
+                [ 'bulan' => 'Februari', 'transaksi' => NULL], 
+                [ 'bulan' => 'Maret', 'transaksi' => NULL], 
+                [ 'bulan' => 'April', 'transaksi' => NULL], 
+                [ 'bulan' => 'Mei', 'transaksi' => NULL], 
+                [ 'bulan' => 'Juni', 'transaksi' => NULL], 
+                [ 'bulan' => 'Juli', 'transaksi' => NULL], 
+                [ 'bulan' => 'Agustus', 'transaksi' => NULL], 
+                [ 'bulan' => 'September', 'transaksi' => NULL], 
+                [ 'bulan' => 'Oktober', 'transaksi' => NULL], 
+                [ 'bulan' => 'November', 'transaksi' => NULL], 
+                [ 'bulan' => 'Desember', 'transaksi' => NULL], 
+
+            ];
+
+            foreach ($listKeluar as $key => $keluar) {
+                
+                $tglkeluar = date_format(date_create($keluar->tglkeluar), "m");
+
+                if ($tglkeluar == '01') {
+                     
+                    $data[0]['transaksi'][] = $keluar;
+
+                } elseif ($tglkeluar == '02') {
+                    
+                    $data[1]['transaksi'][] = $keluar;
+
+                } elseif ($tglkeluar == '03') {
+                    
+                    $data[2]['transaksi'][] = $keluar;
+
+                } elseif ($tglkeluar == '04') {
+                    
+                    $data[3]['transaksi'][] = $keluar;
+
+                } elseif ($tglkeluar == '05') {
+                    
+                    $data[4]['transaksi'][] = $keluar;
+
+                } elseif ($tglkeluar == '06') {
+                    
+                    $data[5]['transaksi'][] = $keluar;
+
+                } elseif ($tglkeluar == '07') {
+                    
+                    $data[6]['transaksi'][] = $keluar;
+
+                } elseif ($tglkeluar == '08') {
+                    
+                    $data[7]['transaksi'][] = $keluar;
+
+                } elseif ($tglkeluar == '09') {
+                    
+                    $data[8]['transaksi'][] = $keluar;
+
+                } elseif ($tglkeluar == '10') {
+                    
+                    $data[9]['transaksi'][] = $keluar;
+
+                } elseif ($tglkeluar == '11') {
+                    
+                    $data[10]['transaksi'][] = $keluar;
+
+                } elseif ($tglkeluar == '12') {
+                    
+                    $data[11]['transaksi'][] = $keluar;
+
+                } 
+
+            }
+
+            return Excel::create('LAPORAN STOK KELUAR PER BULAN '.date("d-m-Y"), function($excel) use($data) {
+
+                foreach ($data as $value) {
+                    
+                    $excel->sheet($value['bulan'], function($sheet) use($value) {
+
+                        $sheet->setFreeze('A6');
+
+                        $sheet->mergeCells('A1:L1');
+                        $sheet->mergeCells('A2:L2');
+                        $sheet->mergeCells('E4:J4');
+
+                        $sheet->setMergeColumn(array(
+                            'columns' => array('A','B','C', 'D', 'K', 'L'),
+                            'rows' => array(
+                                array(4,5),
+                            ), true
+                        ));
+
+                        $sheet->cell('A1', function($cell) {
+                            $cell->setValue('LAPORAN PENJUALAN PRODUK PT. ANBIOTEK SAIYO PADANG');
+                            $cell->setFontWeight('bold');                           
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('center');
+                        });
+
+                        $sheet->cell('A2', function($cell) use($value) {
+                            $cell->setValue('BULAN : '.$value['bulan'].' 2017');
+                            $cell->setFontWeight('bold');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('center');
+                        });
+
+                        $sheet->appendRow(4, array(
+                            'NO', 'NO FAKTUR', 'PELANGGAN', 'TANGGAL', 'DETAIL PRODUK', '', '', '', '', '', 'TOTAL BAYAR', 'STATUS',
+                        ));
+
+                        $sheet->cell('E5', function($cell) { $cell->setValue('KATALOG'); });
+                        $sheet->cell('F5', function($cell) { $cell->setValue('NAMA PRODUK'); });
+                        $sheet->cell('G5', function($cell) { $cell->setValue('QTY'); });
+                        $sheet->cell('H5', function($cell) { $cell->setValue('SATUAN'); });
+                        $sheet->cell('I5', function($cell) { $cell->setValue('HARGA'); });
+                        $sheet->cell('J5', function($cell) { $cell->setValue('SUBTOTAL'); });
+
+                        $sheet->cells('A4:L4', function($cells) {
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                            $cells->setFontWeight('bold');
+                            $cells->setFontSize(9);
+                        });
+
+                        $sheet->cells('E5:J5', function($cells) {
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                            $cells->setFontWeight('bold');
+                            $cells->setFontSize(9);
+                        });
+
+                        $sheet->setBorder('A4:L5', 'thin');
+
+                        $dataRow = 6;
+                        $totalBayar = 0;
+
+                        $stokKeluar = collect($value['transaksi']);
+
+                        foreach ($stokKeluar as $key => $keluar) {
+                            
+                            $xRow = $dataRow;
+
+                            $sheet->cell('A'.$dataRow, function($cell) use($key) { $cell->setValue($key+1); });
+                            $sheet->cell('B'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->nobon); });
+                            $sheet->cell('C'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->pelanggan->nmpelanggan); });
+                            $sheet->cell('D'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->tglmasuk); });
+                            $sheet->cell('K'.$dataRow, function($cell) use($keluar) { $cell->setValue(number_format($keluar->totbay, 2)); });
+                            $sheet->cell('L'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->status); });
+
+                            $detailKeluar = DetKeluar::where('keluar_id', $keluar->id)->get();
+
+                            foreach ($detailKeluar as $key => $detail) {
+                                $nmbarang = $detail->barang->nmbarang;
+                                $sheet->cell('E'.$xRow, function($cell) use($detail) { $cell->setValue($detail->barang_kode); });
+                                $sheet->cell('F'.$xRow, function($cell) use($nmbarang) { $cell->setValue($nmbarang); });
+                                $sheet->cell('G'.$xRow, function($cell) use($detail) { $cell->setValue($detail->stokeluar); });
+                                $sheet->cell('H'.$xRow, function($cell) use($detail) { $cell->setValue($detail->barang->satuan->nmsatuan); });
+                                $sheet->cell('I'.$xRow, function($cell) use($detail) { $cell->setValue(number_format($detail->harga,0)); });
+                                $sheet->cell('J'.$xRow, function($cell) use($detail) { $cell->setValue(number_format($detail->subtot,0)); });
+                                $xRow = $xRow + 1;
+                            }
+
+                            $totalBayar = $totalBayar + $keluar->totbay;
+
+                            $addRow = count($detailKeluar);
+
+                            if ($addRow <= 1) {
+                                $dataRow = $dataRow + 1;
+                            } else {
+                                $x = $dataRow;
+                                $dataRow = $dataRow + $addRow;
+                                $y = $dataRow - 1;
+                                $sheet->mergeCells('A'.$x.':A'.$y);
+                                $sheet->mergeCells('B'.$x.':B'.$y);
+                                $sheet->mergeCells('C'.$x.':C'.$y);
+                                $sheet->mergeCells('D'.$x.':D'.$y);
+                                $sheet->mergeCells('K'.$x.':K'.$y);
+                                $sheet->mergeCells('L'.$x.':L'.$y);
+                            }
+
+                        }
+
+                        $sheet->cells('A6:A'.$dataRow, function($cells) {
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->cells('B6:C'.$dataRow, function($cells) {
+                            $cells->setAlignment('left');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->cells('D6:D'.$dataRow, function($cells) {
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->cells('E6:F'.$dataRow, function($cells) {
+                            $cells->setAlignment('left');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->cells('G6:H'.$dataRow, function($cells) {
+                            $cells->setAlignment('center');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->cells('I6:K'.$dataRow, function($cells) {
+                            $cells->setAlignment('right');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                            $cells->setFontWeight('bold');
+                        });
+
+                        $sheet->cells('L6:L'.$dataRow, function($cells) {
+                            $cells->setAlignment('left');
+                            $cells->setValignment('center');
+                            $cells->setFontSize(8);
+                        });
+
+                        $sheet->setBorder('A6:L'.$dataRow, 'thin');
+
+                        $sheet->mergeCells('B'.$dataRow.':J'.$dataRow);
+
+                        $sheet->cell('B'.$dataRow, function($cell) {
+                            $cell->setValue('Total Transaksi Keseluruhan');
+                            $cell->setFontWeight('bold');
+                            $cell->setValignment('center');
+                            $cell->setFontSize(9);
+                        });
+
+                        $sheet->cell('K'.$dataRow, function($cell) use($totalBayar) { $cell->setValue(number_format($totalBayar, 2)); $cell->setFontSize(9); $cell->setValignment('center'); });
+
+                        $sheet->setWidth(array(
+                            'A' => 4,
+                            'B' => 15,
+                            'C' => 20,
+                            'D' => 10,
+                            'E' => 10,
+                            'F' => 20,
+                            'G' => 7,
+                            'H' => 9,
+                            'I' => 10,
+                            'J' => 10,
+                            'K' => 12,
+                            'L' => 10
+                        ));
+
+                    });
+
+                }
 
             })->download('xls');
 

@@ -113,7 +113,7 @@
                                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" name="expire" class="form-control datepicker" value="{{ $barang->expire }}" required>
+                                                <input type="text" name="expire" class="form-control datepicker" value="{{ $barang->expire }}">
                                             </div>
                                         </div>
                                     </div>

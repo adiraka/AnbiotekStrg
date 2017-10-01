@@ -144,7 +144,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ route('laporanStokKeluar') }}">
                                 <span>Laporan Stok Keluar</span>
                             </a>
                         </li>
