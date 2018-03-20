@@ -5,7 +5,9 @@ Route::post('/kontak', ['as' => 'postKontak', 'uses' => 'KontakController@postKo
 Route::get('/produk', ['as' => 'frontProduk', 'uses' => 'FrontController@getProduk']);
 Route::get('/tentang', ['as' => 'frontTentang', 'uses' => 'FrontController@getTentang']);
 
-Route::group(['prefix' => 'blog'], function() {
+Route::get('/test-pdf', ['as' => 'testPDF', 'uses' => 'AdminController@getTestPDF']);
+
+Route::group(['prefix' => 'blog'], function() { 
 
     Route::get('/', ['as' => 'getBlog', 'uses' => 'BlogController@getBlogHome']);
     Route::get('/berita/{id}', ['as' => 'getBlogDetail', 'uses' => 'BlogController@getBlogDetail']);

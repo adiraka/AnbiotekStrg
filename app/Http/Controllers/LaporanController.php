@@ -93,7 +93,7 @@ class LaporanController extends Controller
                         // });
 
             			$sheet->appendRow(6, array(
-                        	'NO', 'KATALOG', 'NAMA PRODUK', 'MERK', 'STOK', 'SATUAN', 'KETERANGAN'
+                        	'NO', 'KATALOG', 'NAMA PRODUK', 'MERK', 'STOK', 'SATUAN', 'MODAL'
                         ));
 
                         foreach ($listProduk as $key => $produk) {
@@ -104,7 +104,7 @@ class LaporanController extends Controller
                         	$sheet->cell('D'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->merk->nmmerk); });
                             $sheet->cell('E'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->stock); });
                         	$sheet->cell('F'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->satuan->nmsatuan); });
-                        	$sheet->cell('G'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->ket); });
+                        	$sheet->cell('G'.$dataRow, function($cell) use($produk) { $cell->setValue("IDR ".number_format($produk->harga_beli)); });
 
                         	$dataRow = $dataRow + 1;
 
@@ -132,6 +132,11 @@ class LaporanController extends Controller
 
                         $sheet->cells('D7:F'.($dataRow-1), function($cells) {
                         	$cells->setAlignment('center');
+                        	$cells->setValignment('center');
+                        });
+
+                        $sheet->cells('G7:G'.($dataRow-1), function($cells) {
+                        	$cells->setAlignment('right');
                         	$cells->setValignment('center');
                         });
 
@@ -199,7 +204,7 @@ class LaporanController extends Controller
                     });
 
                     $sheet->appendRow(6, array(
-                        'NO', 'KATALOG', 'NAMA PRODUK', 'KATEGORI', 'MERK', 'STOK', 'SATUAN', 'KETERANGAN'
+                        'NO', 'KATALOG', 'NAMA PRODUK', 'KATEGORI', 'MERK', 'STOK', 'SATUAN', 'MODAL'
                     ));
 
                     foreach ($listProduk as $key => $produk) {
@@ -211,7 +216,7 @@ class LaporanController extends Controller
                         $sheet->cell('E'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->merk->nmmerk); });
                         $sheet->cell('F'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->stock); });
                         $sheet->cell('G'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->satuan->nmsatuan); });
-                        $sheet->cell('H'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->ket); });
+                        $sheet->cell('H'.$dataRow, function($cell) use($produk) { $cell->setValue("IDR ".number_format($produk->harga_beli)); });
 
                         $dataRow = $dataRow + 1;
 
@@ -243,7 +248,7 @@ class LaporanController extends Controller
                     });
 
                     $sheet->cells('H7:H'.($dataRow-1), function($cells) {
-                    	$cells->setAlignment('left');
+                    	$cells->setAlignment('right');
                     	$cells->setValignment('center');
                     	$cells->setFontSize(8);
                     });
@@ -266,6 +271,128 @@ class LaporanController extends Controller
                    	));
 
                 });
+
+            })->download('xls');
+
+        } elseif ($tipe == 'merk') {
+
+            $listMerk = Merk::all();
+
+            return Excel::create('LAPORAN STOK PER MERK '.date("d-m-Y"), function($excel) use($listMerk) {
+
+                foreach ($listMerk as $merk) {
+
+                    $excel->sheet(str_limit($merk->nmmerk, 20), function ($sheet) use($merk) {
+
+                        $dataRow = 7;
+                        
+                        $listProduk = Barang::where('merk_id', $merk->id)->get();
+
+                        $sheet->setPaperSize(5);
+                        $sheet->setOrientation('portrait');
+                        $sheet->setScale(90);
+                        $sheet->setPageMargin(0.25);
+
+                        $sheet->setFreeze('A7');
+
+                        $sheet->mergeCells('A1:G1');
+                        $sheet->mergeCells('A2:G2');
+                        $sheet->mergeCells('A4:C4');
+                        $sheet->mergeCells('F4:G4');
+
+                        $sheet->cell('A1', function($cell) {
+                            $cell->setValue('PT. ANDALAS BIOTEKNOLOGI SAIYO PADANG');
+                            $cell->setFontWeight('bold');                           
+                            $cell->setFontSize(11);
+                            $cell->setAlignment('center');
+                        });
+
+                        $sheet->cell('A2', function($cell) {
+                            $cell->setValue('LAPORAN STOK PRODUK PER MERK');
+                            $cell->setFontWeight('bold');                           
+                            $cell->setFontSize(11);
+                            $cell->setAlignment('center');
+                        });
+
+                        $sheet->cell('F4', function($cell) {
+                            $cell->setValue('Tanggal : '.date("d-m-Y"));                    
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('A4', function($cell) use($merk) {
+                            $cell->setValue('Merk : '.$merk->nmmerk);                    
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('left');
+                        });
+
+                        $sheet->appendRow(6, array(
+                            'NO', 'KATALOG', 'NAMA PRODUK', 'KATEGORI', 'STOK', 'SATUAN', 'MODAL'
+                        ));
+
+                        foreach ($listProduk as $key => $produk) {
+                            
+                            $sheet->cell('A'.$dataRow, function($cell) use($key) { $cell->setValue($key+1); });
+                            $sheet->cell('B'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->kode); });
+                            $sheet->cell('C'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->nmbarang); });
+                            $sheet->cell('D'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->kategori->nmkategori); });
+                            $sheet->cell('E'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->stock); });
+                            $sheet->cell('F'.$dataRow, function($cell) use($produk) { $cell->setValue($produk->satuan->nmsatuan); });
+                            $sheet->cell('G'.$dataRow, function($cell) use($produk) { $cell->setValue("IDR ".number_format($produk->harga_beli)); });
+
+                            $dataRow = $dataRow + 1;
+
+                        }
+
+                        $sheet->cells('A6:G6', function($cells) {
+                        	$cells->setAlignment('center');
+                            $cells->setValignment('center');
+                            $cells->setFontWeight('bold');
+                            $cells->setFontSize(9);
+                        });
+
+                        $sheet->cells('A7:G'.($dataRow-1), function($cells) {
+                        	$cells->setFontSize(8);
+                        });
+
+                        $sheet->cells('A7:A'.($dataRow-1), function($cells) {
+                            $cells->setAlignment('center');
+                        });
+
+                        $sheet->cells('B7:B'.($dataRow-1), function($cells) {
+                        	$cells->setAlignment('left');
+                        	$cells->setValignment('center');
+                        });
+
+                        $sheet->cells('D7:F'.($dataRow-1), function($cells) {
+                        	$cells->setAlignment('center');
+                        	$cells->setValignment('center');
+                        });
+
+                        $sheet->cells('G7:G'.($dataRow-1), function($cells) {
+                        	$cells->setAlignment('right');
+                        	$cells->setValignment('center');
+                        });
+
+                        $sheet->setColumnFormat(array(
+                        	'A' => '@'
+                        ));
+
+                        $sheet->setBorder('A6:G'.($dataRow-1), 'thin');
+
+                        $sheet->setWidth(array(
+                            'A' => 7,
+                            'B' => 15,
+                            'C' => 45,
+                            'D' => 15,
+                            'E' => 7,
+                            'F' => 10,
+                            'G' => 13,
+                        ));
+
+                    });
+
+                }
 
             })->download('xls');
 
@@ -1085,7 +1212,7 @@ class LaporanController extends Controller
                             $sheet->cell('A'.$dataRow, function($cell) use($key) { $cell->setValue($key+1); });
                             $sheet->cell('B'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->nobon); });
                             $sheet->cell('C'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->pelanggan->nmpelanggan); });
-                            $sheet->cell('D'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->tglmasuk); });
+                            $sheet->cell('D'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->tglkeluar); });
                             $sheet->cell('K'.$dataRow, function($cell) use($keluar) { $cell->setValue(number_format($keluar->totbay, 2)); });
                             $sheet->cell('L'.$dataRow, function($cell) use($keluar) { $cell->setValue($keluar->status); });
 

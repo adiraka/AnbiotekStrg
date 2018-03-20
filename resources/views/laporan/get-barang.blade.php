@@ -27,6 +27,16 @@
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                     <div class="card">
                         <div class="header">
+                            <h2>Laporan Stok Produk Per Merk</h2>
+                        </div>
+                        <div class="body">
+                            <a href="{{ route('laporanExcel', ['merk']) }}" class="btn btn-block btn-success">Download Laporan (.xls)</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="card">
+                        <div class="header">
                             <h2>Laporan Stok Produk Keseluruhan</h2>
                         </div>
                         <div class="body">

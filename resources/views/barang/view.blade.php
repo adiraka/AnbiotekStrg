@@ -20,12 +20,11 @@
                                     <tr>
                                         <th>Katalog</th>
                                         <th>Kategori</th>
-                                        <th>Nama</th>
+                                        <th>Nama Produk</th>
                                         <th>Merek</th>
                                         <th>Stok</th>
                                         <th>Satuan</th>
-                                        <th>Expire</th>
-                                        <th>Keterangan</th>
+                                        <th>Modal</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>

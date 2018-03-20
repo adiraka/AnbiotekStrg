@@ -108,6 +108,18 @@
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="harga_beli">Harga Beli</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="harga_beli" class="form-control" value="{{ $barang->harga_beli }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                                         <label for="expire">Tgl Kadaluarsa</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">

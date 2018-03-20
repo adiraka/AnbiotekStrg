@@ -4,6 +4,7 @@ namespace Anbiotek\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use PDF;
 use Anbiotek\Barang;
 use Anbiotek\Kategori;
 use Anbiotek\Http\Requests;
@@ -24,5 +25,17 @@ class AdminController extends Controller
         return view('home.index')->with([
         	'totalProduk' => $totalProduk,
         ]);
+    }
+
+    public function getTestPDF()
+    {
+        $data = 'Budi';
+
+        $pdf = PDF::loadView('pdf.faktur', [
+            'data' => $data
+        ]);
+
+        return $pdf->stream('faktur.pdf')->header('Content-Type','application/pdf');
+        dd('asdas');
     }
 }

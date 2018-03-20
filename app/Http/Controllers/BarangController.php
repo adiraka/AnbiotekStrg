@@ -73,6 +73,9 @@ class BarangController extends Controller
             ->editColumn('merk_id', function($barang){
                 return $barang->merk->nmmerk;
             })
+            ->editColumn('harga_beli', function($barang){
+                return "IDR ".number_format($barang->harga_beli);
+            })
             ->make(true);
         }
         return view('barang.view');
@@ -100,7 +103,6 @@ class BarangController extends Controller
             'kategori_id' => 'required',
             'merk_id' => 'required',
             'stock' =>'required|integer',
-            // 'expire' => 'required|date',
             'satuan_id' => 'required',
         ]);
 
@@ -113,6 +115,7 @@ class BarangController extends Controller
             'satuan_id' => $request->satuan_id,
             'expire' => $request->expire,
             'ket' => $request->ket,
+            'harga_beli' => $request->harga_beli,
         ]);
 
         Session::flash('success','Barang berhasil dirubah.');

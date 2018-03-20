@@ -70,8 +70,7 @@ $(function () {
             { data: 'merk_id', name: 'merk_id' },
             { data: 'stock', name: 'stock' },
             { data: 'satuan_id', name: 'satuan_id' },
-            { data: 'expire', name: 'expire' },
-            { data: 'ket', name: 'ket' },
+            { data: 'harga_beli', name: 'harga_beli' },
             { data: 'action', name: 'action', searchable: false },
         ]
     });
