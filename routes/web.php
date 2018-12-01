@@ -109,9 +109,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     Route::get('/laporan/barang', ['as' => 'laporanBarang', 'uses' => 'LaporanController@getLaporanBarang']);
     Route::get('/laporan/barang/{tipe}', ['as' => 'laporanExcel', 'uses' => 'LaporanController@exportBarangToPDF']);
     Route::get('/laporan/masuk', ['as' => 'laporanStokMasuk', 'uses' => 'LaporanController@getLaporanStokMasuk']);
-    Route::get('/laporan/masuk/{tipe}', ['as' => 'laporanStokMasukExcel', 'uses' => 'LaporanController@exportStokMasukToPDF']);
+    Route::get('/laporan/masuk/{tipe}/{tahun}', ['as' => 'laporanStokMasukExcel', 'uses' => 'LaporanController@exportStokMasukToPDF']);
     Route::get('/laporan/keluar', ['as' => 'laporanStokKeluar', 'uses' => 'LaporanController@getLaporanStokKeluar']);
-    Route::get('/laporan/keluar/{tipe}', ['as' => 'laporanStokKeluarExcel', 'uses' => 'LaporanController@exportStokKeluarToPDF']);
+    Route::get('/laporan/keluar/{tipe}/{tahun}', ['as' => 'laporanStokKeluarExcel', 'uses' => 'LaporanController@exportStokKeluarToPDF']);
 
     // Admin Front Kontak
     Route::get('/kontak/lihat', ['as' => 'lihatKontak', 'uses' => 'KontakController@viewKontak']);

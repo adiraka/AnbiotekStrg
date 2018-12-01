@@ -4,6 +4,7 @@ namespace Anbiotek\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
 use PDF;
 use Excel;
 use Datatables;
@@ -407,18 +408,18 @@ class LaporanController extends Controller
 
     }
 
-    public function exportStokMasukToPDF($tipe)
+    public function exportStokMasukToPDF($tipe, $tahun)
     {
 
         if ($tipe == 'distributor') {
 
-            return Excel::create('LAPORAN STOK MASUK PER DISTRIBUTOR '.date("d-m-Y"), function($excel) {
+            return Excel::create('LAPORAN STOK MASUK PER DISTRIBUTOR '.date("d-m-Y"), function($excel) use($tahun) {
 
                 $listDistributor = Distributor::all();
 
                 foreach ($listDistributor as $distributor) {
 
-                    $excel->sheet(str_limit($distributor->nmdistributor, 20), function($sheet) use($distributor) {
+                    $excel->sheet(str_limit($distributor->nmdistributor, 20), function($sheet) use($distributor, $tahun) {
 
                     	$sheet->setFreeze('A6');
 
@@ -477,7 +478,7 @@ class LaporanController extends Controller
 
                     	$dataRow = 6;
 
-                    	$stokMasuk = Masuk::where('distributor_id', $distributor->id)->get();
+                    	$stokMasuk = Masuk::where('distributor_id', $distributor->id)->whereYear('tglmasuk', '=', $tahun)->get();
 
                     	$totalBayar = 0;
                     	
@@ -600,7 +601,7 @@ class LaporanController extends Controller
 
         } elseif ($tipe == 'bulanan') {
         	
-        	$listMasuk = Masuk::all();
+        	$listMasuk = Masuk::whereYear('tglmasuk', '=', $tahun)->get();
 
         	$data = [
 
@@ -675,11 +676,12 @@ class LaporanController extends Controller
 
         	}
 
-            return Excel::create('LAPORAN STOK MASUK PER BULAN '.date("d-m-Y"), function($excel) use($data) {
+            return Excel::create('LAPORAN STOK MASUK PER BULAN '.date("d-m-Y"), function($excel) use($data, $tahun) {
+
 
             	foreach ($data as $value) {
             		
-            		$excel->sheet($value['bulan'], function($sheet) use($value) {
+            		$excel->sheet($value['bulan'], function($sheet) use($value, $tahun) {
 
             			$sheet->setFreeze('A6');
 
@@ -701,8 +703,8 @@ class LaporanController extends Controller
                     		$cell->setAlignment('center');
                     	});
 
-                    	$sheet->cell('A2', function($cell) use($value) {
-                    		$cell->setValue('BULAN : '.$value['bulan'].' 2017');
+                    	$sheet->cell('A2', function($cell) use($value, $tahun) {
+                    		$cell->setValue('BULAN : '.$value['bulan'].' '.$tahun);
                     		$cell->setFontWeight('bold');
                     		$cell->setFontSize(10);
                     		$cell->setAlignment('center');
@@ -872,18 +874,18 @@ class LaporanController extends Controller
 
     }
 
-    public function exportStokKeluarToPDF($tipe)
+    public function exportStokKeluarToPDF($tipe, $tahun)
     {
 
         if ($tipe == 'pelanggan') {
             
-            return Excel::create('LAPORAN STOK KELUAR PER PELANGGAN '.date("d-m-Y"), function($excel) {
+            return Excel::create('LAPORAN STOK KELUAR PER PELANGGAN '.date("d-m-Y"), function($excel) use($tahun) {
 
                 $listPelanggan = Pelanggan::all();
 
                 foreach ($listPelanggan as $pelanggan) {
                     
-                    $excel->sheet(str_limit(str_replace('/', '-', $pelanggan->nmpelanggan), 20), function($sheet) use($pelanggan) {
+                    $excel->sheet(str_limit(str_replace('/', '-', $pelanggan->nmpelanggan), 20), function($sheet) use($pelanggan, $tahun) {
 
                         $sheet->setFreeze('A6');
 
@@ -905,8 +907,8 @@ class LaporanController extends Controller
                             $cell->setAlignment('center');
                         });
 
-                        $sheet->cell('A2', function($cell) use($pelanggan) {
-                            $cell->setValue('PELANGGAN : '.strtoupper($pelanggan->nmpelanggan));
+                        $sheet->cell('A2', function($cell) use($pelanggan, $tahun) {
+                            $cell->setValue('PELANGGAN : '.strtoupper($pelanggan->nmpelanggan).' | Tahun : '.$tahun);
                             $cell->setFontWeight('bold');
                             $cell->setFontSize(10);
                             $cell->setAlignment('center');
@@ -941,7 +943,7 @@ class LaporanController extends Controller
 
                         $dataRow = 6;
 
-                        $stokKeluar = Keluar::where('pelanggan_id', $pelanggan->id)->get();
+                        $stokKeluar = Keluar::where('pelanggan_id', $pelanggan->id)->whereYear('tglkeluar', '=', $tahun)->get();
 
                         $totalBayar = 0;
 
@@ -1065,7 +1067,7 @@ class LaporanController extends Controller
 
         } elseif ($tipe == 'bulanan') {
 
-            $listKeluar = Keluar::all();
+            $listKeluar = Keluar::whereYear('tglkeluar', $tahun)->get();
 
             $data = [
 
@@ -1140,11 +1142,11 @@ class LaporanController extends Controller
 
             }
 
-            return Excel::create('LAPORAN STOK KELUAR PER BULAN '.date("d-m-Y"), function($excel) use($data) {
+            return Excel::create('LAPORAN STOK KELUAR PER BULAN '.date("d-m-Y"), function($excel) use($data, $tahun) {
 
                 foreach ($data as $value) {
                     
-                    $excel->sheet($value['bulan'], function($sheet) use($value) {
+                    $excel->sheet($value['bulan'], function($sheet) use($value, $tahun) {
 
                         $sheet->setFreeze('A6');
 
@@ -1166,8 +1168,8 @@ class LaporanController extends Controller
                             $cell->setAlignment('center');
                         });
 
-                        $sheet->cell('A2', function($cell) use($value) {
-                            $cell->setValue('BULAN : '.$value['bulan'].' 2017');
+                        $sheet->cell('A2', function($cell) use($value, $tahun) {
+                            $cell->setValue('BULAN : '.$value['bulan'].' '.$tahun);
                             $cell->setFontWeight('bold');
                             $cell->setFontSize(10);
                             $cell->setAlignment('center');
