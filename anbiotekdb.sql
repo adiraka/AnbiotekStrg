@@ -1,6 +1,6 @@
 /*
 SQLyog Professional v12.5.1 (64 bit)
-MySQL - 10.1.36-MariaDB : Database - anbiotekdb
+MySQL - 10.2.17-MariaDB : Database - u818239275_strg
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 10.1.36-MariaDB : Database - anbiotekdb
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`anbiotekdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`u818239275_strg` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 
-USE `anbiotekdb`;
+USE `u818239275_strg`;
 
 /*Table structure for table `activations` */
 
@@ -24,7 +24,7 @@ CREATE TABLE `activations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
   `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `completed` tinyint(1) NOT NULL DEFAULT '0',
+  `completed` tinyint(1) NOT NULL DEFAULT 0,
   `completed_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `barang` (
   `merk_id` int(10) unsigned NOT NULL,
   `satuan_id` int(10) unsigned NOT NULL,
   `stock` int(11) NOT NULL,
-  `harga_beli` int(11) NOT NULL DEFAULT '0',
+  `harga_beli` int(11) NOT NULL DEFAULT 0,
   `expire` date DEFAULT NULL,
   `ket` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE `barang` (
 /*Data for the table `barang` */
 
 insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`stock`,`harga_beli`,`expire`,`ket`,`created_at`,`updated_at`) values 
-('   ALKOHOL','ALKOHOL ANTISEPTIK 70%, 20 L',1,42,6,8,0,'2018-02-02','','2017-03-08 02:18:10','2017-03-08 02:18:10'),
+('   ALKOHOL','ALKOHOL ANTISEPTIK 70%, 20 L',1,42,6,7,0,'2018-02-02','','2017-03-08 02:18:10','2017-03-08 02:18:10'),
 (' 300.HAN.00028','MASKER EARLOOP JILBAB 2 PLAY',6,64,1,40,0,'2019-02-02','','2018-03-21 10:37:08','2018-03-21 10:37:08'),
 ('02.1669.00','FORCEP FOR MICROSCOPY,SS,L:120mm',1,17,3,1,0,'2019-02-02','','2018-07-16 11:20:11','2018-07-16 11:20:11'),
 ('04.1418.00','SPATULA W/SPOON,SS,L :120 mm',1,17,3,1,0,'2019-02-02','','2018-07-16 11:22:12','2018-07-16 11:22:12'),
@@ -91,6 +91,7 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('1070462','Laboratory Bottles 500 ml, Blue Scew cap',6,32,3,113,0,'2018-02-02','','2017-02-01 06:29:16','2017-02-01 06:29:16'),
 ('1092040100','GEIMSA',1,7,2,1,0,'2018-01-02','','2017-01-24 03:26:59','2017-01-24 03:26:59'),
 ('1092040500','Giemsa Azur Eosin Methylene Blue Sol. For Miscropy 500ml',3,7,2,1,0,'2018-01-02','','2017-01-26 04:27:17','2017-01-26 04:27:17'),
+('109261','LARUTAN LUGO',1,7,2,0,0,'2020-02-02','','2018-11-26 11:40:55','2018-11-26 11:40:55'),
 ('109535','PH Universal',6,7,1,0,0,'2018-02-02','','2017-02-02 03:17:27','2017-02-02 03:17:27'),
 ('10977023','Destilled Water (Ultra Pure) 10x500ml',1,1,2,7,0,'2018-01-02','','2017-01-24 03:23:20','2017-01-24 03:23:20'),
 ('110-03','JP Bottle, Wide mouth ,PP, 250ml',6,28,3,12,0,'2018-01-02','','2017-01-30 03:49:37','2017-01-30 03:49:37'),
@@ -122,7 +123,7 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('3100-025 ','Tissue Culture Flaks , Treated 70 ml (10 pcs/pack)',6,31,1,26,0,'2018-02-02','','2017-02-01 02:51:23','2017-02-01 02:51:23'),
 ('31800  014','RPMI (10x1) L',1,5,3,5,0,'2018-01-02','','2017-01-24 03:00:01','2017-01-24 03:00:01'),
 ('352070','Centrifuge Tube , 50ml, 30x115mm PP.',6,35,1,21,0,'2018-01-02','','2017-02-06 07:09:01','2018-01-10 02:05:33'),
-('352096','Centrifuge Tube , 15ml, PP (50)',6,35,1,10,0,'2018-02-02','','2017-02-02 03:51:47','2017-02-02 03:51:47'),
+('352096','Centrifuge Tube , 15ml, PP (50)',6,35,1,9,0,'2018-02-02','','2017-02-02 03:51:47','2017-02-02 03:51:47'),
 ('353047','Plate 24 Well , TC F-Btm W/Lid PS',6,35,3,59,0,'2018-02-02','','2017-02-02 03:20:47','2018-01-10 02:07:30'),
 ('353072','Plate 96 Well , TC F-Btm W/Lid PS',6,35,3,6,0,'2018-02-02','','2017-02-02 03:24:00','2018-01-10 02:07:50'),
 ('365548-5G','Direct Red 80',1,10,3,0,0,'2018-02-02','','2017-11-27 04:45:24','2017-11-27 04:45:24'),
@@ -144,6 +145,7 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('45638-250MG','Propamocard Pestanal',1,10,10,1,0,'2018-02-02','','2017-09-06 02:09:42','2017-09-06 02:09:42'),
 ('45653','Quintozene',1,10,3,1,0,'2018-02-02','','2017-11-27 04:47:04','2017-11-27 04:47:04'),
 ('4980-250N','Erlemeyer Flaks,250ml',6,31,3,8,0,'2018-02-02','','2017-02-01 03:32:03','2017-02-01 03:32:03'),
+('4980FK100','ERLEMEYER FLASK,100',6,31,2,0,0,'2019-02-02','','2018-10-22 09:35:15','2018-10-22 09:35:15'),
 ('4980FK500','Erlemeyer Flaks,500ml',6,31,3,8,0,'2018-02-02','','2017-02-01 03:34:27','2018-01-10 02:10:44'),
 ('4985FK500-33','Erlemeyer Flaks,500ml wiyh Scvrew cap',6,31,3,5,0,'2018-02-02','','2017-02-01 03:28:45','2018-01-10 02:12:15'),
 ('5-002-52','Bottle, Wide mouth ,PP, 100ml',6,28,3,15,0,'2018-01-02','','2017-01-30 03:52:20','2017-01-30 03:52:20'),
@@ -178,9 +180,9 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('8170341000','Sodium Dodecyl Sulfate',3,7,2,1,0,'2018-01-02','','2017-01-26 04:31:19','2017-01-26 04:31:19'),
 ('82702 100','Trypsin EDTA 0,25% Solution,100 ml',1,12,2,1,0,'2018-01-02','','2017-01-24 06:32:34','2017-01-24 06:32:34'),
 ('88-3200','Criyogenic Vial 2,0 ml, White,O-ring external srewcaps 25, Vial/Pack',6,34,1,3,0,'2018-02-02','','2017-03-27 03:48:29','2018-01-10 02:16:24'),
-('88-3201','Criyogenic Vial 2,0 ml, Red,O-ring external srewcaps 25, Vial/Pack',6,34,1,3,0,'2018-02-02','','2017-03-27 03:49:55','2017-03-27 03:49:55'),
+('88-3201','Criyogenic Vial 2,0 ml, Red,O-ring external srewcaps 25, Vial/Pack',6,34,1,2,0,'2018-02-02','','2017-03-27 03:49:55','2017-03-27 03:49:55'),
 ('88-3202','Criyogenic Vial 2,0 ml, Green,O-ring external srewcaps 25, Vial/Pack',6,34,1,8,0,'2018-02-02','','2017-03-27 03:51:29','2017-03-27 03:51:29'),
-('88-3203','Criyogenic Vial 2,0 ml,Blue,O-ring external srewcaps 25, Vial/Pack',6,34,1,6,0,'2018-02-02','','2017-03-27 03:53:28','2017-03-27 03:53:28'),
+('88-3203','Criyogenic Vial 2,0 ml,Blue,O-ring external srewcaps 25, Vial/Pack',6,34,1,3,0,'2018-02-02','','2017-03-27 03:53:28','2017-03-27 03:53:28'),
 ('88-3204','Criyogenic Vial 2,0 ml, Yellow,O-ring external srewcaps 25, Vial/Pack',6,34,1,1,0,'2018-02-02','','2017-03-27 03:55:45','2017-03-27 03:55:45'),
 ('90-9081','81-Well Polypropylene ,Crygenic Frezeer 5 pcs/box',6,34,1,9,0,'2018-02-02','','2017-02-02 02:34:36','2017-02-24 03:03:47'),
 ('9020-250','Cell Scaper, Steriled,Foi FK25 & 75 Cm2 (25 pcs/pack)',6,31,3,20,0,'2018-02-02','','2017-02-01 03:49:19','2017-02-01 03:49:19'),
@@ -203,12 +205,12 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('A7398.0500','Water Molekuler Biologuy Grade 500ml',3,2,2,1,0,'2018-01-02','','2017-01-24 02:26:41','2018-01-10 01:54:33'),
 ('AB-0624','24 well PCR Plate',6,11,1,3,0,'2018-02-02','','2017-02-01 02:46:59','2018-01-10 02:18:44'),
 ('ALKALINITY','ALKALINITY TES KIT',4,61,7,2,0,'2018-02-02','','2018-01-10 02:36:21','2018-01-10 02:36:21'),
-('ALKOHOL 96','ALKOHOL96%',1,42,6,1,0,'2018-02-18','','2017-04-18 01:45:48','2017-12-18 02:54:05'),
+('ALKOHOL 96','ALKOHOL96%',1,42,6,0,0,'2018-02-18','','2017-04-18 01:45:48','2018-11-26 11:55:57'),
 ('ALKOHOL LAMP','ALKOHOL LAMP',2,42,10,0,0,'2018-02-02','','2017-08-18 02:49:29','2017-08-18 02:49:29'),
 ('AMMONIA','AMMONIA TES KIT',4,61,7,5,0,'2018-02-02','','2018-01-10 02:33:49','2018-01-10 02:33:49'),
 ('AN0025A','Anaerogen 2,5 L',1,8,3,0,0,'2018-02-02','','2017-03-17 02:30:48','2017-03-17 02:30:48'),
 ('Aqd','Aquades',6,42,6,13,0,'2018-02-02','','2017-02-02 04:48:16','2018-01-10 02:19:26'),
-('Aqua','AquaPro Injection, 500ml',6,42,2,0,0,'2019-07-02','','2018-07-26 08:29:04','2018-07-26 08:29:04'),
+('Aqua','AquaPro Injection, 500ml',6,42,2,0,0,'2019-07-02','','2018-07-26 08:29:04','2018-10-29 10:25:02'),
 ('B49','TAE Electrophoreasis Buffer 1L',1,11,2,1,0,'2018-02-02','','2017-03-08 04:22:46','2017-03-08 04:22:46'),
 ('B52','10X TBE  Electrophoresis Buffer (Tris-Borate-EDTA) 1L',3,11,3,0,0,'2018-02-02','','2017-02-06 03:44:42','2017-02-06 03:44:42'),
 ('BBS-V500','Vertikal Laminar Flow Cabinet',5,57,3,1,0,'2018-02-02','','2017-08-08 02:20:55','2017-08-08 02:20:55'),
@@ -230,15 +232,15 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('CARBON LOKAL','CARBON AKTIF GRANUL ',1,42,5,0,0,'2018-02-02','','2017-03-29 03:20:34','2018-01-10 01:55:06'),
 ('CM0003B','Nutrien Agar 500g',1,8,5,0,0,'2018-01-03','','2017-01-24 03:33:51','2017-05-26 01:37:17'),
 ('CM0007B','MACCONKEY AGAR',1,8,2,1,0,'2018-02-02','','2017-12-13 06:44:32','2018-01-10 01:40:47'),
-('CM0041B','sabouraud dextrose agar',1,8,5,1,0,'2017-08-04','','2017-08-04 02:30:20','2017-08-04 02:30:20'),
+('CM0041B','sabouraud dextrose agar',1,8,2,1,0,'2019-02-02','','2017-08-04 02:30:20','2018-10-29 10:06:29'),
 ('CM0055B','BLOOD AGAR BASE ,500G',1,8,2,2,0,'2017-02-02','','2017-05-17 01:41:13','2017-05-17 01:41:13'),
 ('CM0155B','SIMMONS CITRATE AGAR 50G',1,8,2,1,0,'2018-02-02','','2017-12-13 06:49:52','2018-01-10 01:41:09'),
 ('CM0277B','TRIPLE SUGAR IRON AGAR 500G',1,8,2,1,0,'2018-02-02','','2017-12-13 06:51:45','2018-01-10 01:41:47'),
 ('CM0337B','MUELLER IINTON AGAR 500G',1,8,2,1,0,'2018-01-02','','2017-02-22 03:24:18','2017-02-22 03:24:51'),
 ('CM0359B','M.R.S. BROTII',1,8,2,0,0,'2017-02-02','','2017-04-04 04:22:18','2017-04-04 04:22:18'),
-('CM0361B','M.R.S.AGAR ,500G',1,8,2,1,0,'2018-02-02','','2017-03-09 01:58:19','2017-03-09 01:58:19'),
+('CM0361B','M.R.S.AGAR ,500G',1,8,2,0,0,'2018-02-02','','2017-03-09 01:58:19','2017-03-09 01:58:19'),
 ('CM0479B','ENDO AGAR BASE 500G',1,8,2,1,0,'2018-02-02','','2017-12-13 06:54:52','2018-01-10 01:42:39'),
-('CM0509B','Buffered peptone Water',1,8,2,0,0,'2019-07-02','','2018-07-16 10:47:33','2018-07-16 10:47:33'),
+('CM0509B','Buffered peptone Water',1,8,2,0,0,'2019-07-02','','2018-07-16 10:47:33','2018-10-29 10:20:48'),
 ('CO2','CO2',4,61,7,4,0,'2018-02-02','','2018-01-10 02:37:14','2018-01-10 02:37:14'),
 ('CS','Cover Slip',6,39,1,1,0,'2018-02-02','','2017-02-02 04:39:02','2017-02-02 04:39:02'),
 ('CT0003B','Ampicilin AMP10',1,8,1,0,0,'2018-02-02','','2017-06-19 02:38:47','2017-06-19 02:38:47'),
@@ -253,12 +255,13 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('CT0054B','Tetracycline TE30',1,8,1,0,0,'2018-02-02','','2017-06-19 02:41:01','2017-06-19 02:41:01'),
 ('CT0056B','TOBRAMYCIN TOB10 5X50 DISCS',1,8,1,0,0,'2018-02-02','','2017-12-13 07:12:32','2018-01-10 01:47:24'),
 ('CT0061B','Amoxycillin AML25',1,8,1,0,0,'2017-02-02','','2017-06-19 02:43:42','2017-06-19 02:43:42'),
-('CT0073B','Nystatin NS100 (5x50 discs)',1,8,3,2,0,'2018-01-02','','2017-01-24 03:47:00','2017-01-24 03:47:00'),
+('CT0073B','Nystatin NS100 (5x50 discs)',1,8,3,0,0,'2018-01-02','','2017-01-24 03:47:00','2017-01-24 03:47:00'),
 ('CT01107B','AMIKACIN AK30 5X50 DISCS',1,8,1,0,0,'2018-02-02','','2017-12-13 07:15:32','2018-01-10 01:47:54'),
 ('CT0166B','Cefotamixine CTX30 ',1,8,3,0,0,'2018-02-05','','2017-04-05 02:42:58','2017-04-05 02:42:58'),
 ('CT0183B','Fosfomicin FOS50',1,8,1,1,0,'2018-02-02','','2017-06-19 02:45:52','2017-06-19 02:45:52'),
 ('CT0223B','Amoxycillin/Clavulan AMC30',1,8,3,0,0,'2018-02-02','','2017-04-05 02:44:44','2017-04-05 02:44:44'),
 ('CT0417B','CETRIAXONE CRO30',1,8,2,0,0,'2018-02-02','','2017-05-23 03:36:09','2017-05-23 03:36:09'),
+('CT0425B','CPROFOXACIN CIP5',1,8,3,4,0,'2019-02-02','','2018-10-22 09:51:05','2018-10-22 09:51:05'),
 ('CT0906B','Azitiromicin AZM15',1,8,1,0,0,'2018-02-02','','2017-06-19 02:47:09','2017-06-19 02:47:09'),
 ('D133000-25G','3,4-Dimethoxybenzyl alcohol, 96%',1,10,2,0,0,'2018-02-02','','2017-11-27 04:22:55','2017-11-27 04:22:55'),
 ('DS2-500','Parafilm',6,36,1,1,0,'2018-02-02','','2017-02-02 03:53:16','2018-01-10 01:37:47'),
@@ -299,11 +302,12 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('GRM684 500gr','Magnesium Sulfate, Heptahydrate, A.R',3,6,2,1,0,'2018-01-02','','2017-01-25 06:38:15','2017-01-25 06:38:15'),
 ('GRM853 500g','Sodium Cloriode, A.R',3,6,2,0,0,'2018-01-02','','2017-01-26 02:08:09','2017-01-26 02:08:09'),
 ('HD','Holder',6,37,8,1,0,'2018-02-02','','2017-02-02 04:28:42','2017-02-02 04:28:42'),
-('Hnds','Handschoen',2,51,1,19,0,'2018-01-02','','2017-02-10 03:06:07','2017-12-18 02:42:24'),
+('Hnds','Handschoen',2,51,1,18,0,'2018-01-02','','2017-02-10 03:06:07','2017-12-18 02:42:24'),
 ('Hnds Sensi Gloves','Handschoen',6,53,1,0,0,'2018-01-02','','2017-02-24 03:23:10','2017-02-24 03:23:10'),
 ('IKL-3340000','Genius 3 Vortex Mixer',5,26,9,1,0,'2018-01-02','','2017-01-26 06:11:23','2017-01-26 06:11:23'),
+('K0721','GENEJET GENOMIC DNAPURIF KIT EA 50 PREPRaTION',1,11,7,0,0,'2019-02-02','','2018-10-29 09:56:24','2018-10-29 09:56:24'),
 ('K1071','DreamTaq PCR Master Mix (2x) ,200x50ul',1,11,3,0,0,'2018-01-02','','2017-02-23 03:17:01','2017-02-23 03:17:01'),
-('K1820 01','Purelink Genomik DNA Mini Kit, 50rx/kit',1,1,7,4,0,'2018-01-02','','2017-01-24 03:13:45','2017-12-18 01:56:46'),
+('K1820 01','Purelink Genomik DNA Mini Kit, 50rx/kit',1,1,7,2,0,'2018-01-02','','2017-01-24 03:13:45','2017-12-18 01:56:46'),
 ('K3914','Bulb For Pasteur Pipete',6,33,3,1,0,'2018-02-02','','2017-02-02 02:18:03','2018-01-10 02:20:49'),
 ('Kcmt L','Kaca Mata Lab',2,18,10,9,0,'2018-01-02','','2017-01-25 02:57:02','2017-01-25 02:57:02'),
 ('KSA2080','Kassa 20x80',2,17,11,3,0,'2018-01-02','','2017-01-25 02:53:34','2017-01-25 02:53:34'),
@@ -317,7 +321,7 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('MAIPS4510','Multi Screen,96 Well',6,40,3,9,0,'2018-02-02','','2017-02-02 04:43:42','2017-02-02 04:43:42'),
 ('MB0266A','MICROBACT OXIDASE STRIPS 50Test',3,8,1,1,0,'2018-02-02','','2017-12-18 08:50:24','2017-12-18 08:50:24'),
 ('MB14401','AGAROSE (Routine Grade)',1,65,2,0,0,'2019-02-02','','2018-03-21 11:28:54','2018-03-21 11:28:54'),
-('MCT-150-C','Micro Tubes, Flat Cap 1.5ml (500pcs/pack)',6,27,1,1,0,'2018-01-02','','2017-01-30 01:17:55','2018-01-10 02:21:12'),
+('MCT-150-C','Micro Tubes, Flat Cap 1.5ml (500pcs/pack)',6,27,1,0,0,'2018-01-02','','2017-01-30 01:17:55','2018-01-10 02:21:12'),
 ('MKS','Masker Karet Sensi',2,18,1,40,0,'2018-01-02','','2017-01-25 03:12:55','2017-12-18 02:42:40'),
 ('MS','Mikro Slide',2,18,12,3,0,'2018-01-02','','2017-01-25 03:06:44','2018-01-10 01:39:15'),
 ('NITRAT','NITRAT TES KIT',4,61,7,4,0,'2018-02-02','','2018-01-10 02:34:44','2018-01-10 02:34:44'),
@@ -335,11 +339,14 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('P4543-10G','Valporic Acid Sodium',1,10,3,1,0,'2018-02-02','','2017-03-23 02:15:04','2017-03-23 02:15:04'),
 ('PB1030-1L','TBE Buffer PH 8,3',1,50,2,0,0,'2018-01-02','','2017-02-10 02:42:16','2017-02-10 02:42:16'),
 ('PC0706-0500','EDTA DISODIUM SALT ,500G',1,50,3,0,0,'2018-01-02','','2017-02-22 03:06:48','2017-02-22 03:06:48'),
+('PC0712-0100','PROTEINASE K 100MG+',1,50,2,0,0,'2019-02-02','','2018-10-29 10:02:33','2018-10-29 10:02:33'),
 ('PDH100','Presto Mini Plasmid Kit, 100 prep/lit',3,14,7,0,0,'2018-02-02','','2017-02-06 03:26:32','2017-02-06 03:26:32'),
 ('PM996','M. Parafilm, 4IN.X 125 FT',6,41,12,0,0,'2018-02-02','','2017-02-02 04:46:45','2018-01-10 01:36:51'),
+('PORTABLE','PORTABLE REFARACTOMETER',5,67,9,0,0,'2019-02-02','','2018-10-29 10:39:35','2018-10-29 10:39:35'),
 ('POT Dhk','Pot Dahak/ Sputum',6,44,3,499,0,'2018-02-02','','2017-02-02 04:57:21','2017-02-02 04:57:21'),
-('POT FC','Pot Faces',6,44,3,501,0,'2018-02-02','','2017-02-02 05:03:33','2018-01-10 02:21:58'),
-('POT Steril',' Sterile Container 60ml',6,44,3,200,0,'2018-02-02','','2017-02-02 05:05:49','2017-02-02 05:05:49'),
+('POT FC','Pot Faces',6,44,3,381,0,'2018-02-02','','2017-02-02 05:03:33','2018-01-10 02:21:58'),
+('POT Steril',' Sterile Container 60ml',6,44,3,130,0,'2018-02-02','','2017-02-02 05:05:49','2017-02-02 05:05:49'),
+('pot urine 30 cc','POT urine 30cc.',6,26,2,0,0,'2019-02-02','','2018-11-26 11:15:57','2018-11-26 11:15:57'),
 ('PP1072-100','Cryo 100well  card board Freezer  boxes (5pcs/pack)',6,29,3,20,0,'2018-02-02','','2017-02-01 02:28:33','2018-05-07 09:43:11'),
 ('PR0614-0500','Tris  Hydrochloride - Tris HCL, 500g',3,50,3,0,0,'2018-01-02','','2017-02-07 03:14:15','2017-02-07 03:14:15'),
 ('R0491','Top Vision LE GQ Agarose 100g',1,11,5,0,0,'2018-01-02','','2017-01-24 06:27:17','2017-03-13 04:34:24'),
@@ -355,6 +362,7 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('ROD-SPD7-120','Glass Rod Spreader, OD7 x L 120 (mm)',6,31,3,10,0,'2018-02-02','','2017-02-01 03:57:09','2017-02-01 03:57:09'),
 ('S020-0100','MALACHITE GREEN ,1% W/V 100ML*',1,6,3,0,0,'2019-02-02','','2018-07-16 11:36:12','2018-07-16 11:36:12'),
 ('S0894-25g','Sodium 2-Propylvalerate 25g',1,48,2,0,0,'2018-02-02','','2017-02-06 02:20:47','2017-12-18 01:40:01'),
+('S73411 ','solvent A @ 30 liter',1,42,6,64,0,'2019-10-02','','2018-10-22 09:12:44','2018-10-22 09:12:44'),
 ('SAEP053','GOAT ANTI-RABBIT IgG-AP, 200ul',4,21,7,1,0,'2018-02-02','','2017-08-08 02:39:53','2017-08-08 02:39:53'),
 ('SAU','Strip Asam Urat',2,16,12,5,0,'2018-01-02','','2017-01-25 02:46:22','2017-01-25 02:46:22'),
 ('SC','Strip Cholestero',2,16,12,5,0,'2018-01-02','','2017-01-25 02:48:29','2017-01-25 02:48:29'),
@@ -367,15 +375,15 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('SM0313','Gene Ruler 1kb DNA ladder,50ug 7pcs/pack',1,11,1,1,0,'2018-01-02','','2017-01-24 04:43:55','2017-01-24 04:43:55'),
 ('SM0371','Gene Ruler 50 bp DNA ladder 50ug',1,11,1,2,0,'2018-01-02','','2017-01-24 04:38:23','2017-01-24 04:38:23'),
 ('Sp3','Spuit 3ml ',2,19,8,33,0,'2017-01-02','','2017-01-25 03:00:44','2017-01-25 03:04:08'),
-('Sp5','Spuit 5ml',2,19,8,13,0,'2017-01-02','','2017-01-25 03:05:49','2017-01-25 03:05:49'),
+('Sp5','Spuit 5ml',2,19,8,11,0,'2017-01-02','','2017-01-25 03:05:49','2017-01-25 03:05:49'),
 ('Spritus','SPRITUS',2,42,10,1,0,'2018-02-02','','2017-08-18 02:45:50','2018-07-17 11:07:32'),
-('Sqncg Genetika','Single Pass Sequencing ',1,60,3,1,0,'2018-02-02','','2017-09-14 03:59:56','2017-12-18 01:30:38'),
+('Sqncg Genetika','Single Pass Sequencing ',1,60,3,3,0,'2018-02-02','','2017-09-14 03:59:56','2017-12-18 01:30:38'),
 ('T-300','Rack,pipet tips 0,5ul-10ul, Monocrystal',6,27,3,6,0,'2018-01-02','','2017-01-30 01:05:36','2017-01-30 01:13:33'),
 ('T4155','Octagon Mag Stirr, Bar 8x60mm',6,46,3,1,0,'2018-02-02','','2017-02-02 05:10:40','2017-02-02 05:10:40'),
 ('TAK-201','Target Clone Tm_plus',1,52,1,1,0,'2018-01-02','','2017-02-22 02:20:03','2017-02-22 02:20:03'),
 ('TCL016','Water Nucleas  And Protease Free',1,6,2,1,0,'2018-01-02','','2017-01-24 03:08:07','2017-01-24 03:08:07'),
-('TIP-10-C','Pipet Tips 10ul,White,1000pcs/pack',6,29,1,14,0,'2018-01-02','','2017-01-30 04:10:43','2017-01-30 04:10:43'),
-('TIP-1100-B','1000ul Pipet Tips.Blue 1.000pcs/pack',6,29,1,4,0,'2018-01-02','','2017-01-30 04:59:23','2018-01-10 02:22:30'),
+('TIP-10-C','Pipet Tips 10ul,White,1000pcs/pack',6,29,1,12,0,'2018-01-02','','2017-01-30 04:10:43','2017-01-30 04:10:43'),
+('TIP-1100-B','1000ul Pipet Tips.Blue 1.000pcs/pack',6,29,1,8,0,'2018-01-02','','2017-01-30 04:59:23','2018-10-29 09:43:40'),
 ('TIP-1500-C','Pipet Tips 1-1000ul,Clear,1000pcs/pack',6,29,1,0,0,'2018-01-02','','2017-01-30 04:07:53','2017-01-30 04:07:53'),
 ('TIP-210-Y','Pipet Tips 200ul,White,1000pcs/pack',6,29,1,22,0,'2018-01-02','','2017-01-30 04:15:35','2018-01-10 02:23:17'),
 ('TIP-250-C','Pipet Tips, Clear,1000pcs/pack',6,29,1,21,0,'2018-01-02','','2017-01-30 04:21:35','2017-01-30 04:21:35'),
@@ -388,6 +396,7 @@ insert  into `barang`(`kode`,`nmbarang`,`kategori_id`,`merk_id`,`satuan_id`,`sto
 ('TS-210-Y-RS','Racked Pipet Tips 200ul, Yellow',6,29,3,6,0,'2018-01-02','','2017-01-30 05:02:44','2018-01-10 02:25:21'),
 ('TS-250-C-FS','Filter Pipet Tips With Racked 200ul,Yellow',6,29,3,52,0,'2018-01-02','','2017-01-30 05:14:09','2018-01-10 02:25:53'),
 ('TST-SCR16-150','Test Tube ,Without Screw Cap',6,31,3,0,0,'2018-02-02','','2017-02-01 06:01:45','2017-02-01 06:01:45'),
+('TUBE-170-C','1,5ml micro tubes paking 500',6,29,1,5,0,'2019-02-02','','2018-10-29 09:50:24','2018-10-29 09:50:24'),
 ('TUBE-200-C','Microtube 2.0 ml (500pcs/Pack)',6,29,1,4,0,'2018-02-02','','2017-02-01 02:25:16','2017-02-01 02:25:16'),
 ('V8500','Magnehis Protein Purification System',1,13,7,1,0,'2018-01-02','','2017-01-24 06:39:12','2017-01-24 06:39:12'),
 ('VFG0255005','Glass Vacum Filter ',5,23,10,1,0,'2018-01-02','','2017-01-26 05:49:03','2017-01-26 05:49:03'),
@@ -432,7 +441,7 @@ CREATE TABLE `det_keluar` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=459 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=493 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `det_keluar` */
 
@@ -885,7 +894,41 @@ insert  into `det_keluar`(`id`,`keluar_id`,`barang_kode`,`stokawal`,`stokeluar`,
 (455,326,'GRM853 500g',1,1,0,0,0,'2018-07-26 08:38:48','2018-07-26 08:38:48'),
 (456,327,'S020-0100',1,1,0,330000,330000,'2018-08-07 10:08:52','2018-08-07 10:08:52'),
 (457,328,'1.009.832.500',1,1,0,1100000,1100000,'2018-08-07 10:12:27','2018-08-07 10:12:27'),
-(458,329,'9820TST15NP',100,12,88,12000,144000,'2018-08-07 10:20:11','2018-08-07 10:20:11');
+(458,329,'9820TST15NP',100,12,88,12000,144000,'2018-08-07 10:20:11','2018-08-07 10:20:11'),
+(459,333,'Aqua',1,1,0,45000,45000,'2018-10-29 10:24:25','2018-10-29 10:24:25'),
+(460,334,'Aqua',2,2,0,45000,90000,'2018-10-29 10:26:19','2018-10-29 10:26:19'),
+(461,335,'PORTABLE',1,1,0,41187000,41187000,'2018-10-29 10:54:56','2018-10-29 10:54:56'),
+(462,336,'pot urine 30 cc',440,440,0,1500,660000,'2018-11-26 11:17:31','2018-11-26 11:17:31'),
+(463,337,'CT0425B',5,1,4,150,150,'2018-11-26 11:23:01','2018-11-26 11:23:01'),
+(464,338,'M7122',3,3,0,0,0,'2018-11-26 11:25:59','2018-11-26 11:25:59'),
+(465,339,'TIP-10-C',14,1,13,0,0,'2018-11-26 11:27:57','2018-11-26 11:27:57'),
+(466,339,'TIP-1100-B',10,1,9,0,0,'2018-11-26 11:27:57','2018-11-26 11:27:57'),
+(467,340,'TIP-10-C',13,1,12,0,0,'2018-11-26 11:29:17','2018-11-26 11:29:17'),
+(468,341,'88-3203',6,1,5,168000,168000,'2018-11-26 11:31:21','2018-11-26 11:31:21'),
+(469,342,'POT FC',501,50,451,4500,225000,'2018-11-26 11:33:41','2018-11-26 11:33:41'),
+(470,343,'109261',1,1,0,1232004,1232004,'2018-11-26 11:42:43','2018-11-26 11:42:43'),
+(471,344,'Sp5',13,2,11,50000,100000,'2018-11-26 11:44:57','2018-11-26 11:44:57'),
+(472,345,'TIP-1100-B',9,1,8,0,0,'2018-11-26 11:46:33','2018-11-26 11:46:33'),
+(473,347,'ALKOHOL 96',1,1,0,0,0,'2018-11-26 11:52:36','2018-11-26 11:52:36'),
+(474,347,'88-3201',3,1,2,0,0,'2018-11-26 11:52:36','2018-11-26 11:52:36'),
+(475,347,'Hnds',19,1,18,0,0,'2018-11-26 11:52:36','2018-11-26 11:52:36'),
+(476,347,'   ALKOHOL',8,1,7,0,0,'2018-11-26 11:52:36','2018-11-26 11:52:36'),
+(477,348,'POT Steril',200,30,170,8100,243000,'2018-11-26 11:54:26','2018-11-26 11:54:26'),
+(478,349,'R0491',1,1,0,3300000,3300000,'2018-11-26 11:59:57','2018-11-26 11:59:57'),
+(479,349,'ALKOHOL 96',60,60,0,35000,2100000,'2018-11-26 11:59:57','2018-11-26 11:59:57'),
+(480,350,'K0721',1,1,0,4425000,4425000,'2018-11-27 08:29:11','2018-11-27 08:29:11'),
+(481,351,'CM0041B',2,1,1,1292500,1292500,'2018-11-27 08:32:34','2018-11-27 08:32:34'),
+(482,353,'POT FC',451,20,431,4500,90000,'2018-11-27 08:40:00','2018-11-27 08:40:00'),
+(483,353,'POT Steril',170,40,130,6500,260000,'2018-11-27 08:40:00','2018-11-27 08:40:00'),
+(484,354,'CT0013B',2,1,1,678500,678500,'2018-11-27 08:43:28','2018-11-27 08:43:28'),
+(485,354,'CT0073B',2,2,0,187500,375000,'2018-11-27 08:43:28','2018-11-27 08:43:28'),
+(486,355,'88-3203',5,2,3,0,0,'2018-11-27 08:44:55','2018-11-27 08:44:55'),
+(487,356,'352096',10,1,9,0,0,'2018-11-27 08:46:31','2018-11-27 08:46:31'),
+(488,357,'CM0361B',1,1,0,0,0,'2018-11-27 08:49:07','2018-11-27 08:49:07'),
+(489,358,'K1820 01',4,1,3,6233750,6233750,'2018-11-27 08:51:37','2018-11-27 08:51:37'),
+(490,359,'K1820 01',3,1,2,0,0,'2018-11-27 08:59:04','2018-11-27 08:59:04'),
+(491,360,'MCT-150-C',1,1,0,500000,500000,'2018-11-27 09:02:51','2018-11-27 09:02:51'),
+(492,360,'POT FC',431,50,381,4500,225000,'2018-11-27 09:02:51','2018-11-27 09:02:51');
 
 /*Table structure for table `det_masuk` */
 
@@ -903,7 +946,7 @@ CREATE TABLE `det_masuk` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=206 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `det_masuk` */
 
@@ -1092,7 +1135,20 @@ insert  into `det_masuk`(`id`,`masuk_id`,`barang_kode`,`stokawal`,`stokmasuk`,`s
 (189,131,'04.1418.00',0,1,1,395455,395455,'2018-07-16 11:28:17','2018-07-16 11:28:17'),
 (190,131,'K3914',0,1,1,9545,9545,'2018-07-16 11:28:17','2018-07-16 11:28:17'),
 (191,132,'S020-0100',0,1,1,270000,270000,'2018-07-16 11:38:24','2018-07-16 11:38:24'),
-(192,133,'Spritus',0,1,1,28000,28000,'2018-07-17 10:30:36','2018-07-17 10:30:36');
+(192,133,'Spritus',0,1,1,28000,28000,'2018-07-17 10:30:36','2018-07-17 10:30:36'),
+(193,134,'S73411 ',0,60,60,23000,1380000,'2018-10-22 09:16:46','2018-10-22 09:16:46'),
+(194,135,'S73411 ',60,2,62,27000,54000,'2018-10-22 09:21:23','2018-10-22 09:21:23'),
+(195,136,'Sqncg Genetika',1,1,2,1524350,1524350,'2018-10-22 09:24:39','2018-10-22 09:24:39'),
+(196,137,'Sqncg Genetika',2,1,3,1593900,1593900,'2018-10-22 09:26:27','2018-10-22 09:26:27'),
+(197,140,'CT0425B',0,5,5,79000,395000,'2018-10-22 09:52:43','2018-10-22 09:52:43'),
+(198,141,'M7122',0,3,3,550000,1650000,'2018-10-22 10:22:56','2018-10-22 10:22:56'),
+(199,142,'S73411 ',62,2,64,690000,1380000,'2018-10-22 10:28:48','2018-10-22 10:28:48'),
+(200,143,'TIP-1100-B',0,10,10,325000,3250000,'2018-10-29 09:52:15','2018-10-29 09:52:15'),
+(201,143,'TUBE-170-C',0,5,5,225000,1125000,'2018-10-29 09:52:15','2018-10-29 09:52:15'),
+(202,144,'K0721',0,1,1,2700000,2700000,'2018-10-29 09:57:59','2018-10-29 09:57:59'),
+(203,145,'R0491',0,1,1,2200000,2200000,'2018-10-29 09:59:32','2018-10-29 09:59:32'),
+(204,146,'CM0041B',1,1,2,940000,940000,'2018-10-29 10:10:18','2018-10-29 10:10:18'),
+(205,146,'CT0013B',1,1,2,437000,437000,'2018-10-29 10:10:18','2018-10-29 10:10:18');
 
 /*Table structure for table `distributor` */
 
@@ -1106,7 +1162,7 @@ CREATE TABLE `distributor` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `distributor` */
 
@@ -1133,7 +1189,8 @@ insert  into `distributor`(`id`,`nmdistributor`,`telepon`,`alamat`,`created_at`,
 (20,'ET GROUP','','','2018-01-10 02:37:32','2018-01-10 02:37:32'),
 (21,'PT. MLTP','','','2018-01-10 02:52:28','2018-01-10 02:52:28'),
 (22,'PT. EKOMED','','JAKARTA','2018-03-21 09:37:23','2018-03-21 09:37:23'),
-(23,'SARI KIMIA','','PADANG','2018-05-07 09:50:22','2018-05-07 09:50:22');
+(23,'SARI KIMIA','','PADANG','2018-05-07 09:50:22','2018-05-07 09:50:22'),
+(24,'PT.JAVA MANDIRI','','JAKARTA','2018-10-29 10:37:24','2018-10-29 10:37:24');
 
 /*Table structure for table `kategori` */
 
@@ -1175,7 +1232,7 @@ CREATE TABLE `keluar` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `keluar_nobon_unique` (`nobon`)
-) ENGINE=InnoDB AUTO_INCREMENT=330 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=361 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `keluar` */
 
@@ -1478,7 +1535,33 @@ insert  into `keluar`(`id`,`user_id`,`pelanggan_id`,`nobon`,`tglkeluar`,`totbay`
 (326,2,1,'079/Q-Anbiotek/VII/2018','2018-07-16',0,'Belum Lunas',NULL,'','2018-07-26 08:38:48','2018-07-26 08:38:48'),
 (327,2,9,'083/Q-Anbiotek/VII/2018','2018-07-18',330000,'Belum Lunas',NULL,'','2018-08-07 10:08:52','2018-08-07 10:08:52'),
 (328,2,6,'084/Q-Anbiotek/VII/2018','2018-07-20',1100000,'Belum Lunas',NULL,'','2018-08-07 10:12:27','2018-08-07 10:12:27'),
-(329,2,9,'086/Q-Anbiotek/VII/2018','2018-07-26',144000,'Lunas',NULL,'','2018-08-07 10:20:11','2018-08-07 10:20:11');
+(329,2,9,'086/Q-Anbiotek/VII/2018','2018-07-26',144000,'Lunas',NULL,'','2018-08-07 10:20:11','2018-08-07 10:20:11'),
+(333,2,9,'085/Q-Anbiotek/VII/2018','2018-07-23',45000,'Lunas',NULL,'','2018-10-29 10:24:25','2018-10-29 10:24:25'),
+(334,2,9,'087/Q-Anbiotek/VII/2018','2018-07-26',90000,'Lunas',NULL,'','2018-10-29 10:26:19','2018-10-29 10:26:19'),
+(335,2,37,'088/Q-Anbiotek/VII/2018','2018-07-30',41187000,'Lunas',NULL,'','2018-10-29 10:54:56','2018-10-29 10:54:56'),
+(336,2,9,'093/Q-Anbiotek/VIII/2018','2018-08-24',660000,'Lunas',NULL,'DIKON 20 %','2018-11-26 11:17:31','2018-11-26 11:17:31'),
+(337,2,9,'097/Q-Anbiotek/IX/2018','2018-09-03',150,'Lunas',NULL,'','2018-11-26 11:23:01','2018-11-26 11:23:01'),
+(338,2,1,'098/Q-Anbiotek/VIII/2018','2018-09-03',0,'Belum Lunas',NULL,'','2018-11-26 11:25:59','2018-11-26 11:25:59'),
+(339,2,1,'100/Q-Anbiotek/IX/2018','2018-09-12',0,'Lunas',NULL,'','2018-11-26 11:27:57','2018-11-26 11:27:57'),
+(340,2,11,'101/Q-Anbiotek/IX/2018','2018-09-12',0,'Lunas',NULL,'','2018-11-26 11:29:17','2018-11-26 11:29:17'),
+(341,2,8,'102/Q-Anbiotek/IX/2018','2018-09-14',168000,'Belum Lunas',NULL,'','2018-11-26 11:31:21','2018-11-26 11:31:21'),
+(342,2,52,'103/Q-Anbiotek/IX/2018','2018-09-19',225000,'Lunas',NULL,'','2018-11-26 11:33:41','2018-11-26 11:33:41'),
+(343,2,50,'105/Q-Anbiotek/IX/2018','2018-09-24',1232004,'Lunas',NULL,'','2018-11-26 11:42:43','2018-11-26 11:42:43'),
+(344,2,3,'108/Q-Anbiotek/IX/2018','2018-09-28',100000,'Lunas',NULL,'','2018-11-26 11:44:57','2018-11-26 11:44:57'),
+(345,2,11,'109/Q-Anbiotek/X/2018','2018-10-01',0,'Belum Lunas',NULL,'','2018-11-26 11:46:33','2018-11-26 11:46:33'),
+(347,2,1,'109./Q-Anbiotek/X/2018','2018-10-11',0,'Belum Lunas',NULL,'','2018-11-26 11:52:36','2018-11-26 11:52:36'),
+(348,2,9,'110/Q-Anbiotek/X/2018','2018-10-11',243000,'Lunas',NULL,'','2018-11-26 11:54:26','2018-11-26 11:54:26'),
+(349,2,6,'111/Q-Anbiotek/X/2018','2018-10-12',5400000,'Lunas',NULL,'','2018-11-26 11:59:57','2018-11-26 11:59:57'),
+(350,2,53,'112/Q-Anbiotek/X/2018','2018-10-15',4425000,'Lunas',NULL,'','2018-11-27 08:29:11','2018-11-27 08:29:11'),
+(351,2,9,'113/Q-Anbiotek/X/2018','2018-10-10',1292500,'Lunas',NULL,'','2018-11-27 08:32:34','2018-11-27 08:32:34'),
+(353,2,9,'114/Q-Anbiotek/X/2018','2018-11-15',350000,'Lunas',NULL,'','2018-11-27 08:40:00','2018-11-27 08:40:00'),
+(354,2,45,'116/Q-Anbiotek/X/2018','2018-10-16',1053500,'Lunas',NULL,'','2018-11-27 08:43:28','2018-11-27 08:43:28'),
+(355,2,1,'119/Q-Anbiotek/X/2018','2018-10-22',0,'Belum Lunas',NULL,'','2018-11-27 08:44:55','2018-11-27 08:44:55'),
+(356,2,1,'120/Q-Anbiotek/X/2018','2018-10-30',0,'Belum Lunas',NULL,'','2018-11-27 08:46:31','2018-11-27 08:46:31'),
+(357,2,1,'122/Q-Anbiotek/XI/2018','2018-11-02',0,'Belum Lunas',NULL,'','2018-11-27 08:49:07','2018-11-27 08:49:07'),
+(358,2,10,'123/Q-Anbiotek/XI/2018','2018-11-02',6233750,'Lunas',NULL,'','2018-11-27 08:51:37','2018-11-27 08:51:37'),
+(359,2,11,'124/Q-Anbiotek/XI/2018','2018-11-13',0,'Belum Lunas',NULL,'','2018-11-27 08:59:04','2018-11-27 08:59:04'),
+(360,2,52,'129/Q-Anbiotek/XI/2018','2018-11-21',725000,'Belum Lunas',NULL,'','2018-11-27 09:02:51','2018-11-27 09:02:51');
 
 /*Table structure for table `kontak` */
 
@@ -1493,7 +1576,7 @@ CREATE TABLE `kontak` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `kontak` */
 
@@ -1501,7 +1584,14 @@ insert  into `kontak`(`id`,`nama`,`email`,`judul`,`pesan`,`created_at`,`updated_
 (1,'Adi Raka Siwi','adiraka8@gmail.com','Test Message','Testing Testing Testing Testing Testing Testing\r\nTesting Testing Testing Testing Testing Testing\r\nTesting Testing Testing Testing Testing Testing\r\nTesting Testing Testing Testing Testing Testing','2017-01-23 02:52:38','2017-01-23 02:52:38'),
 (2,'RichardInsiz','vankrupin@yandex.ru','Top list','Top casino \r\nhttp://game.topratinglist.com/','2018-04-30 05:13:28','2018-04-30 05:13:28'),
 (3,'Manueltuh','gcrcompane@yandex.ru','list to by','Good afternoon, I would like to make an order. Here is a list of what I would like to buy. \r\n \r\nhttp://bit.ly/2xnC1lJ','2018-09-20 10:29:07','2018-09-20 10:29:07'),
-(4,'Leslie Freda','travelbenefitsclub@gmail.com','Employee Benefits','https://bit.ly/2M1ib4f#V3pYNC8wNzN2Y25MOE9qdk9uSDMrZz09  My name is Leslie Freda and I’m the director of corporate benefits for a large wholesale travel provider.  After reveiwing your website I thought you would benefit from our free employee travel benefits program.  It’s free for everyone in your organization and can save you up to 70% off hotel bookings.  Click on the link above, and do a few searches too see what you guys can save!   I think you’ll love it!   Sincerely, Leslie Freda','2018-10-11 04:17:47','2018-10-11 04:17:47');
+(4,'Leslie Freda','travelbenefitsclub@gmail.com','Employee Benefits','https://bit.ly/2M1ib4f#V3pYNC8wNzN2Y25MOE9qdk9uSDMrZz09  My name is Leslie Freda and I’m the director of corporate benefits for a large wholesale travel provider.  After reveiwing your website I thought you would benefit from our free employee travel benefits program.  It’s free for everyone in your organization and can save you up to 70% off hotel bookings.  Click on the link above, and do a few searches too see what you guys can save!   I think you’ll love it!   Sincerely, Leslie Freda','2018-10-11 04:17:47','2018-10-11 04:17:47'),
+(5,'GregoryItalk','katyusha.akimovichmedvedeva.83@mail.ru','Ciao!','Good man! \r\nLook at \r\na fine \r\noffer for you. \r\n \r\nhttp://bit.ly/2RWeXDx','2018-10-18 21:39:28','2018-10-18 21:39:28'),
+(6,'Davidbum','pampushka1995@mail.ru','Hi!','Hi! Please note an important offers for you. \r\n \r\nhttp://bit.ly/2ELC2pL','2018-10-28 04:06:55','2018-10-28 04:06:55'),
+(7,'eliseo','playtoy4pussycats@yahoo.com','That is offers','Ciao! Please note a best - A pleasant surprise of $/€ 1600 welcome bonus.  Try and be our next winner. http://bit.ly/2JcjLkg','2018-10-29 13:34:20','2018-10-29 13:34:20'),
+(8,'Jeff Adams','tripnado1@gmail.com','Reward your employees and customers','https://bit.ly/2OCwaDQ#QVM3SG1sbFRvQm1wOU1zMUV0T0oyZz09 Jeff Adams here.  I’m the corproate liason for Tripnado.com, a new way to share hotel savings and generate revenue.  It’s free to invite everyone in your organization (including your clients) and can save them up to 50% off hotel bookings.  Plus YOU earn 50% cash back on whatever they save!  Click on the link above, and do a few searches too see what you can save but more importantly what you can earn!   I think you’ll love it!   Sincerely, Jeff Adams ','2018-11-02 20:58:17','2018-11-02 20:58:17'),
+(9,'Russification','gamblewa01@hotmail.com','There is a goodprize for win.','Hello! Here is  an important offers offers for you.   http://bit.ly/2J7uAnp','2018-11-06 00:13:27','2018-11-06 00:13:27'),
+(10,'Charleslic','info@bergkvistab.se','Here is  an amazingoffer for you.',' Hi What we have here is , a goodoffers \r\n Are you in?  \r\n \r\nhttps://drive.google.com/file/d/1i20H8tJObIACsVm372FCeBzym_e9BPXE/preview','2018-11-16 18:05:32','2018-11-16 18:05:32'),
+(11,'Sabbatean','winni_03_97@hotmail.com','There is a finepromotion for win.','Good man! Here is  a good bonus offer for you.   http://bit.ly/2J6UgR7','2018-11-18 11:11:05','2018-11-18 11:11:05');
 
 /*Table structure for table `masuk` */
 
@@ -1521,7 +1611,7 @@ CREATE TABLE `masuk` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `masuk_nobon_unique` (`nobon`)
-) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `masuk` */
 
@@ -1643,7 +1733,19 @@ insert  into `masuk`(`id`,`user_id`,`nobon`,`distributor_id`,`tglmasuk`,`totbay`
 (130,2,'PL0185807/VI/18','6','2018-07-11',412500,'Lunas',NULL,'','2018-07-16 11:10:26','2018-07-16 11:10:26'),
 (131,2,'28133851/CMSI/07/2018','10','2018-07-13',718635,'Lunas',NULL,'','2018-07-16 11:28:17','2018-07-16 11:28:17'),
 (132,2,'PL 01853196/VII/18','6','2018-07-14',270000,'Belum Lunas',NULL,'','2018-07-16 11:38:24','2018-07-16 11:38:24'),
-(133,2,'165364','11','2018-05-02',28000,'Lunas',NULL,'','2018-07-17 10:30:36','2018-07-17 10:30:36');
+(133,2,'165364','11','2018-05-02',28000,'Lunas',NULL,'','2018-07-17 10:30:36','2018-07-17 10:30:36'),
+(134,2,'IVPDG182945','11','2018-09-28',1380000,'Lunas',NULL,'','2018-10-22 09:16:45','2018-10-22 09:16:45'),
+(135,2,'SVPDG1803100','11','2018-10-11',54000,'Lunas',NULL,'','2018-10-22 09:21:23','2018-10-22 09:21:23'),
+(136,2,'SQ-1807355','1','2018-08-01',1524350,'Lunas',NULL,'','2018-10-22 09:24:39','2018-10-22 09:24:39'),
+(137,2,'BS-173131','1','2018-08-20',1593900,'Lunas',NULL,'','2018-10-22 09:26:27','2018-10-22 09:26:27'),
+(139,2,'268337946/DO/CMSI/08/2018','10','2018-10-30',0,'Lunas',NULL,'','2018-10-22 09:36:08','2018-10-22 09:36:08'),
+(140,2,'0718.FP10121','9','2018-08-15',395000,'Lunas',NULL,'','2018-10-22 09:52:43','2018-10-22 09:52:43'),
+(141,2,'18/I-IU/IX/2209','12','2018-09-13',1650000,'Lunas',NULL,'','2018-10-22 10:22:56','2018-10-22 10:22:56'),
+(142,2,'SVPDG1802945','11','2018-09-26',1380000,'Lunas',NULL,'','2018-10-22 10:28:48','2018-10-22 10:28:48'),
+(143,2,'0340/AD/MAB-FAKTUR/IX/2018','13','2018-09-13',4375000,'Lunas',NULL,'','2018-10-29 09:52:15','2018-10-29 09:52:15'),
+(144,2,'SI18/01959','7','2018-10-10',2700000,'Lunas',NULL,'','2018-10-29 09:57:59','2018-10-29 09:57:59'),
+(145,2,'SI18/01960','7','2018-10-10',2200000,'Lunas',NULL,'','2018-10-29 09:59:32','2018-10-29 09:59:32'),
+(146,2,'0718.FP-101280','9','2018-10-11',1377000,'Lunas',NULL,'','2018-10-29 10:10:18','2018-10-29 10:10:18');
 
 /*Table structure for table `merk` */
 
@@ -1655,7 +1757,7 @@ CREATE TABLE `merk` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `merk` */
 
@@ -1725,7 +1827,8 @@ insert  into `merk`(`id`,`nmmerk`,`created_at`,`updated_at`) values
 (63,'EKOMED','2018-03-21 09:40:21','2018-03-21 09:40:21'),
 (64,'ONEMED','2018-03-21 09:48:48','2018-03-21 09:48:48'),
 (65,'MB','2018-03-21 11:27:16','2018-03-21 11:27:16'),
-(66,'AXAVA','2018-05-30 09:25:27','2018-05-30 09:25:27');
+(66,'AXAVA','2018-05-30 09:25:27','2018-05-30 09:25:27'),
+(67,'HTC','2018-10-29 10:37:45','2018-10-29 10:37:45');
 
 /*Table structure for table `migrations` */
 
@@ -1756,7 +1859,7 @@ CREATE TABLE `pelanggan` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `pelanggan` */
 
@@ -1811,7 +1914,9 @@ insert  into `pelanggan`(`id`,`nmpelanggan`,`telepon`,`alamat`,`created_at`,`upd
 (48,'prof,Dayar','','','2018-03-26 10:40:45','2018-03-26 10:40:45'),
 (49,'dr. Silvia','','M DJAMIL','2018-05-07 10:03:53','2018-05-07 10:03:53'),
 (50,'dr. Aisyah','','','2018-07-17 10:42:43','2018-07-17 10:42:43'),
-(51,'PT.DEMPO ANDALAS.S','','BUNGUS PADANG','2018-07-17 11:03:49','2018-07-17 11:03:49');
+(51,'PT.DEMPO ANDALAS.S','','BUNGUS PADANG','2018-07-17 11:03:49','2018-07-17 11:03:49'),
+(52,'dr.NORA','','FK UAND','2018-11-26 11:32:11','2018-11-26 11:32:11'),
+(53,'dr. Ratna wulan','','FMIPA UNP','2018-11-27 08:28:08','2018-11-27 08:28:08');
 
 /*Table structure for table `persistences` */
 
@@ -1825,7 +1930,7 @@ CREATE TABLE `persistences` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `persistences_code_unique` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `persistences` */
 
@@ -2009,14 +2114,22 @@ insert  into `persistences`(`id`,`user_id`,`code`,`created_at`,`updated_at`) val
 (201,2,'7BYG5PyOlyIry5iCrriUd9xEvhN6fvGM','2018-08-20 11:49:40','2018-08-20 11:49:40'),
 (202,2,'E6eCNsxgbtLOZAQE4XUr9yklVCtOvI45','2018-08-20 13:51:47','2018-08-20 13:51:47'),
 (203,2,'l3dfN8pXfd5E0CnLWfjt6FluphWiYkge','2018-08-29 10:37:34','2018-08-29 10:37:34'),
-(205,1,'PGgBMjzhRq9HTwAPkm495nHyej8ZeFXl','2018-10-11 11:14:09','2018-10-11 11:14:09'),
-(206,1,'59ocHINihuI1U74Wi1LoCRylJh06mxHf','2018-10-26 10:14:58','2018-10-26 10:14:58'),
-(207,1,'wja44d9UeXe3B86yvny2nqY6pnmhOPjF','2018-11-20 04:26:23','2018-11-20 04:26:23'),
-(208,1,'YWWEV6BhVhekSqGETCaxpRtyHMaOl3D7','2018-11-20 14:42:13','2018-11-20 14:42:13'),
-(209,1,'mYuOYCyJEJOrHdyHFgJ0RzVGX60Df29x','2018-11-27 14:28:28','2018-11-27 14:28:28'),
-(210,1,'UXIFwgePfuQAuLjQhj6rW1d4heChvu1j','2018-11-28 12:47:43','2018-11-28 12:47:43'),
-(211,1,'pqk7b82VM0IYV6PYTdl6F8z8N5F8cMx1','2018-11-30 13:04:47','2018-11-30 13:04:47'),
-(212,1,'D9G2uMjl1kqKyCc9bNejcqTu6Wukbny9','2018-12-02 04:03:58','2018-12-02 04:03:58');
+(205,2,'vyMb5ppfwM2xIFBra6yqx0zGWH4cjoRW','2018-10-15 07:24:34','2018-10-15 07:24:34'),
+(206,2,'eMJnjY3enyoWYdb68mDG2DN7BJSgltae','2018-10-22 09:00:04','2018-10-22 09:00:04'),
+(207,2,'xKWB9BVJlTJGniOkhMdFMIx0epNxwGXr','2018-10-24 11:27:46','2018-10-24 11:27:46'),
+(208,2,'6HQuqpBhOng5l9e3rHI0clfNb6iRTUuV','2018-10-29 09:27:12','2018-10-29 09:27:12'),
+(209,1,'MUH3tvFAggiBMnAWEkWizIOWbU2BKhFR','2018-10-30 11:32:27','2018-10-30 11:32:27'),
+(210,2,'1uYTXRkeNhF7pXRPqc70PRDkDP56w6cl','2018-11-08 09:20:20','2018-11-08 09:20:20'),
+(211,1,'C8fMpBADQdn2hYR4QiQaEZn9fZ34BHi2','2018-11-10 15:51:24','2018-11-10 15:51:24'),
+(212,2,'rf2UOrt78WJtoWtFmfZm85zve3seN3Su','2018-11-12 11:36:33','2018-11-12 11:36:33'),
+(213,2,'OcA4q417Owha8Q3UkdshzF5Yq9igLfJj','2018-11-13 13:53:51','2018-11-13 13:53:51'),
+(214,2,'6XxWr3Y8qPkDOLhOPX5zb5sfqhaCHyqY','2018-11-15 10:15:21','2018-11-15 10:15:21'),
+(215,2,'Iz9Ez4wQyYZe79DT2euc5u8hpQ9mc7p9','2018-11-22 10:19:56','2018-11-22 10:19:56'),
+(216,2,'bRnPEtmQSAVmwKTDJyZZ9lOcKZufM1up','2018-11-23 10:16:13','2018-11-23 10:16:13'),
+(217,2,'2i9lC24IrRiW7Qbt4xwCpHpa2Xwd4An4','2018-11-26 08:20:05','2018-11-26 08:20:05'),
+(218,2,'DzfBh66lpJOVp8ISTcgz8my689zAvMAK','2018-11-26 11:04:04','2018-11-26 11:04:04'),
+(219,2,'4XBFfEwyvlR9All1SyOaFwVGTdXw3e0E','2018-11-27 08:23:02','2018-11-27 08:23:02'),
+(220,2,'Ir6lbwbKOyev53azZJHFEZh7wgqs1BEf','2018-11-27 11:18:49','2018-11-27 11:18:49');
 
 /*Table structure for table `reminders` */
 
@@ -2026,7 +2139,7 @@ CREATE TABLE `reminders` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
   `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `completed` tinyint(1) NOT NULL DEFAULT '0',
+  `completed` tinyint(1) NOT NULL DEFAULT 0,
   `completed_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -2061,7 +2174,7 @@ CREATE TABLE `roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `permissions` text COLLATE utf8_unicode_ci,
+  `permissions` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -2114,7 +2227,7 @@ CREATE TABLE `throttle` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `throttle_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `throttle` */
 
@@ -2235,7 +2348,15 @@ insert  into `throttle`(`id`,`user_id`,`type`,`ip`,`created_at`,`updated_at`) va
 (114,NULL,'ip','36.69.7.179','2018-03-26 07:21:59','2018-03-26 07:21:59'),
 (115,2,'user',NULL,'2018-03-26 07:21:59','2018-03-26 07:21:59'),
 (116,NULL,'global',NULL,'2018-04-02 03:02:47','2018-04-02 03:02:47'),
-(117,NULL,'ip','36.84.229.34','2018-04-02 03:02:47','2018-04-02 03:02:47');
+(117,NULL,'ip','36.84.229.34','2018-04-02 03:02:47','2018-04-02 03:02:47'),
+(118,NULL,'global',NULL,'2018-10-22 08:59:36','2018-10-22 08:59:36'),
+(119,NULL,'ip','180.241.237.101','2018-10-22 08:59:36','2018-10-22 08:59:36'),
+(120,NULL,'global',NULL,'2018-11-10 15:49:36','2018-11-10 15:49:36'),
+(121,NULL,'ip','180.241.240.4','2018-11-10 15:49:36','2018-11-10 15:49:36'),
+(122,2,'user',NULL,'2018-11-10 15:49:36','2018-11-10 15:49:36'),
+(123,NULL,'global',NULL,'2018-11-10 15:50:50','2018-11-10 15:50:50'),
+(124,NULL,'ip','180.241.240.4','2018-11-10 15:50:50','2018-11-10 15:50:50'),
+(125,1,'user',NULL,'2018-11-10 15:50:50','2018-11-10 15:50:50');
 
 /*Table structure for table `users` */
 
@@ -2245,7 +2366,7 @@ CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `permissions` text COLLATE utf8_unicode_ci,
+  `permissions` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_login` timestamp NULL DEFAULT NULL,
   `first_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -2258,8 +2379,8 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`email`,`password`,`permissions`,`last_login`,`first_name`,`last_name`,`created_at`,`updated_at`) values 
-(1,'admin@anbiotek.co.id','$2y$10$bE/1m.1sazNgxaN8kaalg.LsDG3BkX9h.IiVNVtpmx/3IB9QKZrNe',NULL,'2018-12-02 04:03:58','Anbiotek','Administrator','2017-01-23 02:21:08','2018-12-02 04:03:58'),
-(2,'deritandespi@gmail.com','$2y$10$NVslQNvmQN3Uoy2Z6WTRXeqCxDpefKsR4kii0aQHKKrvpBKn12cP6',NULL,'2018-08-29 10:37:34','Duratun','Nasihin','2017-01-23 02:21:09','2018-08-29 10:37:34');
+(1,'admin@anbiotek.co.id','$2y$10$bE/1m.1sazNgxaN8kaalg.LsDG3BkX9h.IiVNVtpmx/3IB9QKZrNe',NULL,'2018-11-10 15:51:24','Anbiotek','Administrator','2017-01-23 02:21:08','2018-11-10 15:51:24'),
+(2,'deritandespi@gmail.com','$2y$10$NVslQNvmQN3Uoy2Z6WTRXeqCxDpefKsR4kii0aQHKKrvpBKn12cP6',NULL,'2018-11-27 11:18:49','Duratun','Nasihin','2017-01-23 02:21:09','2018-11-27 11:18:49');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
