@@ -26,6 +26,7 @@
                                         <option value="" disabled selected>-- Pilih Tahun --</option>
                                         <option value="2017">2017</option>
                                         <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
                                     </select>
                                 </div>
                             </div>
@@ -45,6 +46,7 @@
                                         <option value="" disabled selected>-- Pilih Tahun --</option>
                                         <option value="2017">2017</option>
                                         <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
                                     </select>
                                 </div>
                             </div>
