@@ -11,11 +11,11 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Support
- * @version    1.2.0
+ * @version    2.0.3
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2015, Cartalyst LLC
- * @link       http://cartalyst.com
+ * @copyright  (c) 2011-2019, Cartalyst LLC
+ * @link       https://cartalyst.com
  */
 
 namespace Cartalyst\Support\Tests;
@@ -238,43 +238,52 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     public function it_can_sort_the_collection_items()
     {
         $collection = new Collection('main');
-        $collection->put('foo', ['name' => 'Foo']);
-        $collection->put('bar', ['name' => 'Bar']);
-        $collection->put('baz', ['name' => 'Baz']);
+        $collection->put('foo', ['id' => 1, 'name' => 'Foo']);
+        $collection->put('bar', ['id' => 2, 'name' => 'Bar']);
+        $collection->put('baz', ['id' => 3, 'name' => 'Baz']);
 
         $this->assertEquals([
             'foo' => [
+                'id'   => 1,
                 'name' => 'Foo',
             ],
             'bar' => [
+                'id'   => 2,
                 'name' => 'Bar',
             ],
             'baz' => [
+                'id'   => 3,
                 'name' => 'Baz',
             ],
         ], $collection->all());
 
         $this->assertEquals([
             'bar' => [
+                'id'   => 2,
                 'name' => 'Bar',
             ],
             'baz' => [
+                'id'   => 3,
                 'name' => 'Baz',
             ],
             'foo' => [
+                'id'   => 1,
                 'name' => 'Foo',
             ],
         ], $collection->sortBy('name')->all());
 
         $expected = [
-            'foo' => [
-                'name' => 'Foo',
-            ],
             'baz' => [
+                'id'   => 3,
                 'name' => 'Baz',
             ],
             'bar' => [
+                'id'   => 2,
                 'name' => 'Bar',
+            ],
+            'foo' => [
+                'id'   => 1,
+                'name' => 'Foo',
             ],
         ];
 

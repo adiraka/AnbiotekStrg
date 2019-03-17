@@ -118,14 +118,18 @@ class CollectionEngine extends BaseEngine
         }
 
         foreach ($this->request->orderableColumns() as $orderable) {
-            $column           = $this->getColumnName($orderable['column']);
-            $this->collection = $this->collection->sortBy(
-                function ($row) use ($column) {
-                    $data = $this->serialize($row);
+            $column = $this->getColumnName($orderable['column']);
 
-                    return Arr::get($data, $column);
-                }
-            );
+            $options = SORT_NATURAL;
+            if ($this->isCaseInsensitive()) {
+                $options = SORT_NATURAL | SORT_FLAG_CASE;
+            }
+
+            $this->collection = $this->collection->sortBy(function ($row) use ($column) {
+                $data = $this->serialize($row);
+
+                return Arr::get($data, $column);
+            }, $options);
 
             if ($orderable['direction'] == 'desc') {
                 $this->collection = $this->collection->reverse();
@@ -155,7 +159,15 @@ class CollectionEngine extends BaseEngine
                     }
 
                     if ($this->isCaseInsensitive()) {
-                        $found[] = Str::contains(Str::lower($value), Str::lower($keyword));
+
+                        if(is_array($value)){
+                            foreach ($value as $v) {
+                                $found[] = Str::contains(Str::lower($v), Str::lower($keyword));
+                            };
+                        } else{
+                            $found[] = Str::contains(Str::lower($value), Str::lower($keyword));
+                        }
+
                     } else {
                         $found[] = Str::contains($value, $keyword);
                     }

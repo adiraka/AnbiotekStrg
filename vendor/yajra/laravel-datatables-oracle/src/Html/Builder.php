@@ -160,16 +160,36 @@ class Builder
     {
         $parameters = (new Parameters($attributes))->toArray();
 
+        $values = [];
+        $replacements = [];
+        foreach($parameters as $key => &$value){
+            if (!is_array($value)) {
+                if (strpos($value, '$.') === 0)
+                {
+                    // Store function string.
+                    $values[] = $value;
+                    // Replace function string in $foo with a 'unique' special key.
+                    $value = '%' . $key . '%';
+                    // Later on, we'll look for the value, and replace it.
+                    $replacements[] = '"' . $value . '"';
+                }
+            }
+        }
+
         list($ajaxDataFunction, $parameters) = $this->encodeAjaxDataFunction($parameters);
         list($columnFunctions, $parameters) = $this->encodeColumnFunctions($parameters);
         list($callbackFunctions, $parameters) = $this->encodeCallbackFunctions($parameters);
+        list($editorButtons, $parameters) = $this->encodeEditorButtons($parameters);
 
         $json = json_encode($parameters);
+
+        $json = str_replace($replacements, $values, $json);
 
         $json = $this->decodeAjaxDataFunction($ajaxDataFunction, $json);
         $json = $this->decodeColumnFunctions($columnFunctions, $json);
         $json = $this->decodeCallbackFunctions($callbackFunctions, $json);
-
+        $json = $this->decodeEditorButtons($editorButtons, $json);
+        
         return $json;
     }
 
@@ -231,6 +251,28 @@ class Builder
 
         return [$callbackFunctions, $parameters];
     }
+    
+    /**
+	 * Encode DataTables editor buttons.
+	 *
+	 * @param array $parameters
+	 * @return array
+	 */
+	protected function encodeEditorButtons(array $parameters)
+	{
+		$editorButtons = [];
+		if (isset($parameters['buttons'])) {
+			foreach ($parameters['buttons'] as $i => $button) {
+				if (isset($button['editor'])) {
+					$editorButtons[$i] = $this->compileCallback($button['editor']);
+					$parameters['buttons'][$i]['editor']        = "#editor_button.{$i}#";
+				}
+			}
+		}
+
+
+		return [$editorButtons, $parameters];
+	}
 
     /**
      * Compile DataTable callback value.
@@ -288,6 +330,22 @@ class Builder
     {
         foreach ($callbackFunctions as $i => $function) {
             $json = str_replace("\"#callback_function.{$i}#\"", $function, $json);
+        }
+
+        return $json;
+    }
+    
+    /**
+     * Decode DataTables Editor buttons.
+     *
+     * @param array $editorButtons
+     * @param string $json
+     * @return string
+     */
+    protected function decodeEditorButtons(array $editorButtons, $json)
+    {
+        foreach ($editorButtons as $i => $function) {
+            $json = str_replace("\"#editor_button.{$i}#\"", $function, $json);
         }
 
         return $json;
@@ -507,6 +565,20 @@ class Builder
             'footer'         => '',
         ], $attributes);
         $this->collection->push(new Column($attributes));
+
+        return $this;
+    }
+
+    /**
+     * Setup ajax parameter for datatables pipeline plugin.
+     *
+     * @param  string $url
+     * @param  string $pages
+     * @return $this
+     */
+    public function pipeline($url, $pages)
+    {
+        $this->ajax = "$.fn.dataTable.pipeline({ url: '{$url}', pages: {$pages} })";
 
         return $this;
     }

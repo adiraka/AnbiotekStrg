@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.13
+ * @version    2.0.17
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2016, Cartalyst LLC
+ * @copyright  (c) 2011-2017, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -48,7 +48,7 @@ class SentinelBootstrapper
     /**
      * The event dispatcher.
      *
-     * @var \Illuminate\Events\Dispatcher
+     * @var \Illuminate\Contracts\Events\Dispatcher
      */
     protected $dispatcher;
 
@@ -122,7 +122,9 @@ class SentinelBootstrapper
 
         $model = $this->config['persistences']['model'];
 
-        return new IlluminatePersistenceRepository($session, $cookie, $model);
+        $single = $this->config['persistences']['single'];
+
+        return new IlluminatePersistenceRepository($session, $cookie, $model, $single);
     }
 
     /**
@@ -307,7 +309,7 @@ class SentinelBootstrapper
     /**
      * Returns the event dispatcher.
      *
-     * @return \Illuminate\Events\Dispatcher
+     * @return \Illuminate\Contracts\Events\Dispatcher
      */
     protected function getEventDispatcher()
     {

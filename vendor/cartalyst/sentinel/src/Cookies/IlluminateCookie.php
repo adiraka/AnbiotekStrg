@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.13
+ * @version    2.0.17
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2016, Cartalyst LLC
+ * @copyright  (c) 2011-2017, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -87,7 +87,7 @@ class IlluminateCookie implements CookieInterface
         $queued = $this->jar->getQueuedCookies();
 
         if (isset($queued[$key])) {
-            return $queued[$key];
+            return $queued[$key]->getValue();
         }
 
         return $this->request->cookie($key);

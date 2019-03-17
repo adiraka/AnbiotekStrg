@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.13
+ * @version    2.0.17
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2016, Cartalyst LLC
+ * @copyright  (c) 2011-2017, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -38,7 +38,7 @@ class IlluminateThrottleRepository implements ThrottleRepositoryInterface
     /**
      * The global thresholds configuration array.
      *
-     * If an array is set, the key is the number of failed login attemps
+     * If an array is set, the key is the number of failed login attempts
      * and the value is the delay in seconds before another login can
      * occur.
      *

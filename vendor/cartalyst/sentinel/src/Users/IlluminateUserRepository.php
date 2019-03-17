@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.13
+ * @version    2.0.17
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2016, Cartalyst LLC
+ * @copyright  (c) 2011-2017, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -25,7 +25,7 @@ use Cartalyst\Sentinel\Hashing\HasherInterface;
 use Cartalyst\Support\Traits\EventTrait;
 use Cartalyst\Support\Traits\RepositoryTrait;
 use Closure;
-use Illuminate\Events\Dispatcher;
+use Illuminate\Contracts\Events\Dispatcher;
 use InvalidArgumentException;
 
 class IlluminateUserRepository implements UserRepositoryInterface
@@ -50,7 +50,7 @@ class IlluminateUserRepository implements UserRepositoryInterface
      * Create a new Illuminate user repository.
      *
      * @param  \Cartalyst\Sentinel\Hashing\HasherInterface  $hasher
-     * @param  \Illuminate\Events\Dispatcher  $dispatcher
+     * @param  \Illuminate\Contracts\Events\Dispatcher  $dispatcher
      * @param  string  $model
      * @return void
      */

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Str;
 use Yajra\Datatables\Helper;
 use Yajra\Datatables\Request;
@@ -101,11 +102,6 @@ class QueryBuilderEngine extends BaseEngine
             $myQuery->select($this->connection->raw("'1' as {$row_count}"));
         }
 
-        // check for select soft deleted records
-        if (! $this->withTrashed && $this->modelUseSoftDeletes()) {
-            $myQuery->whereNull($myQuery->getModel()->getQualifiedDeletedAtColumn());
-        }
-
         return $this->connection->table($this->connection->raw('(' . $myQuery->toSql() . ') count_row_table'))
                                 ->setBindings($myQuery->getBindings())->count();
     }
@@ -119,20 +115,6 @@ class QueryBuilderEngine extends BaseEngine
     protected function wrap($column)
     {
         return $this->connection->getQueryGrammar()->wrap($column);
-    }
-
-    /**
-     * Check if model use SoftDeletes trait
-     *
-     * @return boolean
-     */
-    private function modelUseSoftDeletes()
-    {
-        if ($this->query_type == 'eloquent') {
-            return in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($this->query->getModel()));
-        }
-
-        return false;
     }
 
     /**
@@ -342,10 +324,10 @@ class QueryBuilderEngine extends BaseEngine
          */
         foreach ($relationChunk as $relation => $chunk) {
             // Prepare variables
-            $builder      = $chunk['builder'];
-            $relationType = $chunk['relationType'];
-            $query        = $chunk['query'];
-            $builder      = "({$builder->toSql()}) >= 1";
+            $builder  = $chunk['builder'];
+            $query    = $chunk['query'];
+            $bindings = $builder->getBindings();
+            $sql      = "({$builder->toSql()}) >= 1";
 
             // Check if it last relation we will use orWhereRaw
             if ($lastRelation == $relation) {
@@ -356,11 +338,7 @@ class QueryBuilderEngine extends BaseEngine
                 $relationMethod = "whereRaw";
             }
 
-            if ($relationType instanceof MorphToMany) {
-                $query->{$relationMethod}($builder, [$relationType->getMorphClass(), $this->prepareKeyword($keyword)]);
-            } else {
-                $query->{$relationMethod}($builder, [$this->prepareKeyword($keyword)]);
-            }
+            $query->{$relationMethod}($sql, $bindings);
         }
     }
 
@@ -404,8 +382,10 @@ class QueryBuilderEngine extends BaseEngine
                 $q = $query;
             }
 
-            // Get table from query and add it.
-            $column = $q->from . '.' . $column;
+            if (! $q->from instanceof Expression) {
+                // Get table from query and add it.
+                $column = $q->from . '.' . $column;
+            }
         }
 
         return $this->wrap($column);
@@ -536,37 +516,43 @@ class QueryBuilderEngine extends BaseEngine
             $joins[] = $join->table;
         }
 
-        $model = $this->query->getRelation($relation);
-        if ($model instanceof BelongsToMany) {
-            $pivot   = $model->getTable();
-            $pivotPK = $model->getForeignKey();
-            $pivotFK = $model->getQualifiedParentKeyName();
+        /**
+         * Add support nested relations.
+         */
+        $lastQuery = $this->query;
 
-            if (! in_array($pivot, $joins)) {
-                $this->getQueryBuilder()->leftJoin($pivot, $pivotPK, '=', $pivotFK);
-            }
+        foreach (explode('.', $relation) as $eachRelation) {
+            $model = $lastQuery->getRelation($eachRelation);
 
-            $related = $model->getRelated();
-            $table   = $related->getTable();
-            $tablePK = $related->getForeignKey();
-            $tableFK = $related->getQualifiedKeyName();
-
-            if (! in_array($table, $joins)) {
-                $this->getQueryBuilder()->leftJoin($table, $pivot . '.' . $tablePK, '=', $tableFK);
-            }
-        } else {
-            $table = $model->getRelated()->getTable();
-            if ($model instanceof HasOneOrMany) {
-                $foreign = $model->getForeignKey();
-                $other   = $model->getQualifiedParentKeyName();
+            if ($model instanceof BelongsToMany) {
+                $pivot   = $model->getTable();
+                $pivotPK = $model->getForeignKey();
+                $pivotFK = $model->getQualifiedParentKeyName();
+                if (! in_array($pivot, $joins)) {
+                    $this->getQueryBuilder()->leftJoin($pivot, $pivotPK, '=', $pivotFK);
+                }
+                $related = $model->getRelated();
+                $table   = $related->getTable();
+                $tablePK = $related->getForeignKey();
+                $tableFK = $related->getQualifiedKeyName();
+                if (! in_array($table, $joins)) {
+                    $this->getQueryBuilder()->leftJoin($table, $pivot . '.' . $tablePK, '=', $tableFK);
+                }
             } else {
-                $foreign = $model->getQualifiedForeignKey();
-                $other   = $model->getQualifiedOtherKeyName();
+                $table = $model->getRelated()->getTable();
+                if ($model instanceof HasOneOrMany) {
+                    $foreign = $model->getForeignKey();
+                    $other   = $model->getQualifiedParentKeyName();
+                } else {
+                    $foreign = $model->getQualifiedForeignKey();
+                    $other   = $model->getQualifiedOtherKeyName();
+                }
+                if (! in_array($table, $joins)) {
+                    $this->getQueryBuilder()->leftJoin($table, $foreign, '=', $other);
+                }
             }
 
-            if (! in_array($table, $joins)) {
-                $this->getQueryBuilder()->leftJoin($table, $foreign, '=', $other);
-            }
+            $lastQuery = $model->getQuery();
         }
 
         $column = $table . '.' . $relationColumn;
@@ -601,6 +587,9 @@ class QueryBuilderEngine extends BaseEngine
     {
         if ($this->isOracleSql()) {
             $sql = ! $this->isCaseInsensitive() ? 'REGEXP_LIKE( ' . $column . ' , ? )' : 'REGEXP_LIKE( LOWER(' . $column . ') , ?, \'i\' )';
+            $this->query->whereRaw($sql, [$keyword]);
+        } elseif ($this->database == 'pgsql') {
+            $sql = ! $this->isCaseInsensitive() ? $column . ' ~ ?' : $column . ' ~* ? ';
             $this->query->whereRaw($sql, [$keyword]);
         } else {
             $sql = ! $this->isCaseInsensitive() ? $column . ' REGEXP ?' : 'LOWER(' . $column . ') REGEXP ?';
@@ -647,8 +636,20 @@ class QueryBuilderEngine extends BaseEngine
                     $relation       = implode('.', $parts);
 
                     if (in_array($relation, $eagerLoads)) {
-                        $relationship = $this->query->getRelation($relation);
-                        if (! ($relationship instanceof MorphToMany)) {
+                        // Loop for nested relations
+                        // This code is check morph many or not.
+                        // If one of nested relation is MorphToMany
+                        // we will call joinEagerLoadedColumn.
+                        $lastQuery = $this->query;
+                        $isMorphToMany = false;
+                        foreach (explode('.', $relation) as $eachRelation) {
+                            $relationship = $lastQuery->getRelation($eachRelation);
+                            if (! ($relationship instanceof MorphToMany)) {
+                                $isMorphToMany = true;
+                            }
+                            $lastQuery = $relationship;
+                        }
+                        if ($isMorphToMany) {
                             $column = $this->joinEagerLoadedColumn($relation, $relationColumn);
                         } else {
                             $valid = 0;

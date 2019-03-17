@@ -104,14 +104,6 @@ abstract class BaseEngine implements DataTableEngineContract
      * @var bool
      */
     protected $autoFilter = true;
-    
-    /**
-     * Select trashed records in count function for models with soft deletes trait.
-     * By default we do not select soft deleted records
-     *
-     * @var bool
-     */
-    protected $withTrashed = false;
 
     /**
      * Callback to override global search.
@@ -247,12 +239,14 @@ abstract class BaseEngine implements DataTableEngineContract
     public function wildcardLikeString($str, $lowercase = true)
     {
         $wild   = '%';
-        $length = Str::length($str);
-        if ($length) {
-            for ($i = 0; $i < $length; $i++) {
-                $wild .= $str[$i] . '%';
+        $chars = preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY);
+        
+        if (count($chars) > 0) {
+            foreach ($chars as $char) {
+                $wild .= $char . '%';
             }
         }
+
         if ($lowercase) {
             $wild = Str::lower($wild);
         }
@@ -399,19 +393,6 @@ abstract class BaseEngine implements DataTableEngineContract
     {
         $this->columnDef['escape'] = $columns;
 
-        return $this;
-    }
-    
-    /**
-     * Change withTrashed flag value.
-     *
-     * @param bool $withTrashed
-     * @return $this
-     */
-    public function withTrashed($withTrashed = true)
-    {
-        $this->withTrashed = $withTrashed;
-        
         return $this;
     }
 
@@ -709,7 +690,7 @@ abstract class BaseEngine implements DataTableEngineContract
             $output = $this->showDebugger($output);
         }
 
-        return new JsonResponse($output);
+        return new JsonResponse($output, 200, Config::get('datatables.json.header', []), Config::get('datatables.json.options', 0));
     }
 
     /**
