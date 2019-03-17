@@ -85,14 +85,6 @@ class LaporanController extends Controller
                             $cell->setAlignment('left');
                         });
 
-                        // $sheet->cell('A1', function($cell) use($kategori) {
-                        //     $cell->setValue('Laporan Stok Produk '.$kategori->nmkategori);
-                        //     $cell->setFontWeight('bold');
-                        //     $cell->setFontColor('#3F51B5');
-                        //     $cell->setFontSize(14);
-                        //     $cell->setAlignment('center');
-                        // });
-
             			$sheet->appendRow(6, array(
                         	'NO', 'KATALOG', 'NAMA PRODUK', 'MERK', 'STOK', 'SATUAN', 'MODAL'
                         ));
@@ -110,6 +102,24 @@ class LaporanController extends Controller
                         	$dataRow = $dataRow + 1;
 
                         }
+
+                        $sheet->cell('G'.($dataRow+3), function($cell){
+                            $cell->setValue('DIREKTUR');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('G'.($dataRow+4), function($cell){
+                            $cell->setValue('PT. ANDALAS BIOTEKNOLOGI SAIYO');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('G'.($dataRow+8), function($cell){
+                            $cell->setValue('YULIA MARTA DEWI');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
 
                         $sheet->cells('A6:G6', function($cells) {
                         	$cells->setAlignment('center');
@@ -222,6 +232,24 @@ class LaporanController extends Controller
                         $dataRow = $dataRow + 1;
 
                     }
+
+                    $sheet->cell('H'.($dataRow+3), function($cell){
+                            $cell->setValue('DIREKTUR');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                    });
+
+                    $sheet->cell('H'.($dataRow+4), function($cell){
+                        $cell->setValue('PT. ANDALAS BIOTEKNOLOGI SAIYO');
+                        $cell->setFontSize(10);
+                        $cell->setAlignment('right');
+                    });
+
+                    $sheet->cell('H'.($dataRow+8), function($cell){
+                        $cell->setValue('YULIA MARTA DEWI');
+                        $cell->setFontSize(10);
+                        $cell->setAlignment('right');
+                    });
 
                     $sheet->cells('A6:H6', function($cells) {
                     	$cells->setAlignment('center');
@@ -344,6 +372,24 @@ class LaporanController extends Controller
                             $dataRow = $dataRow + 1;
 
                         }
+
+                        $sheet->cell('G'.($dataRow+3), function($cell){
+                            $cell->setValue('DIREKTUR');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('G'.($dataRow+4), function($cell){
+                            $cell->setValue('PT. ANDALAS BIOTEKNOLOGI SAIYO');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('G'.($dataRow+8), function($cell){
+                            $cell->setValue('YULIA MARTA DEWI');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
 
                         $sheet->cells('A6:G6', function($cells) {
                         	$cells->setAlignment('center');
@@ -522,6 +568,24 @@ class LaporanController extends Controller
                     		}
 
                     	}
+
+                        $sheet->cell('K'.($dataRow+3), function($cell){
+                            $cell->setValue('DIREKTUR');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('K'.($dataRow+4), function($cell){
+                            $cell->setValue('PT. ANDALAS BIOTEKNOLOGI SAIYO');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('K'.($dataRow+8), function($cell){
+                            $cell->setValue('YULIA MARTA DEWI');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
 
                     	$sheet->cells('A6:A'.$dataRow, function($cells) {
                     		$cells->setAlignment('center');
@@ -786,6 +850,24 @@ class LaporanController extends Controller
 
                     	}
 
+                        $sheet->cell('L'.($dataRow+3), function($cell){
+                            $cell->setValue('DIREKTUR');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('L'.($dataRow+4), function($cell){
+                            $cell->setValue('PT. ANDALAS BIOTEKNOLOGI SAIYO');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('L'.($dataRow+8), function($cell){
+                            $cell->setValue('YULIA MARTA DEWI');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
                     	$sheet->cells('A6:A'.$dataRow, function($cells) {
                     		$cells->setAlignment('center');
                     		$cells->setValignment('center');
@@ -988,6 +1070,24 @@ class LaporanController extends Controller
                             }
 
                         }
+
+                        $sheet->cell('K'.($dataRow+3), function($cell){
+                            $cell->setValue('DIREKTUR');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('K'.($dataRow+4), function($cell){
+                            $cell->setValue('PT. ANDALAS BIOTEKNOLOGI SAIYO');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('K'.($dataRow+8), function($cell){
+                            $cell->setValue('YULIA MARTA DEWI');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
 
                         $sheet->cells('A6:A'.$dataRow, function($cells) {
                             $cells->setAlignment('center');
@@ -1250,6 +1350,24 @@ class LaporanController extends Controller
                             }
 
                         }
+
+                        $sheet->cell('L'.($dataRow+3), function($cell){
+                            $cell->setValue('DIREKTUR');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('L'.($dataRow+4), function($cell){
+                            $cell->setValue('PT. ANDALAS BIOTEKNOLOGI SAIYO');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
+
+                        $sheet->cell('L'.($dataRow+8), function($cell){
+                            $cell->setValue('YULIA MARTA DEWI');
+                            $cell->setFontSize(10);
+                            $cell->setAlignment('right');
+                        });
 
                         $sheet->cells('A6:A'.$dataRow, function($cells) {
                             $cells->setAlignment('center');
